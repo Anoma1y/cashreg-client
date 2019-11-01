@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700');
+
+*, :before, :after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Montserrat, 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#app, .app {
+  height: 100%;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+}
