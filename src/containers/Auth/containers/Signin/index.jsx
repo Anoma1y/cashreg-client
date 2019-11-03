@@ -1,6 +1,7 @@
 import React, {
 	memo,
 	useState,
+	useEffect,
 } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -18,6 +19,12 @@ import Api from 'api';
 
 const Signin = ({ form }) => {
 	const [loading, setLoading] = useState(false);
+
+	useEffect(() => {
+		return () => {
+			setLoading(false);
+		}
+	});
 
 	const handleSignin = e => {
 		e.preventDefault();
@@ -38,6 +45,7 @@ const Signin = ({ form }) => {
 				console.log('aa', data.data.data)
 			})
 			.catch(err => {
+				console.log(err.response)
 				if (err.response.status === Api.codes.UNAUTHORIZED) {
 					AppToater.show({ message: "Invalid email or password", intent: Intent.DANGER });
 				} else if (err.response.status === Api.codes.FORBIDDEN) {

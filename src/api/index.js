@@ -2,53 +2,26 @@ import axios from 'axios';
 import config from './config';
 import codes from './codes';
 import Modules from './Modules/_index';
-import { Intent } from '@blueprintjs/core';
-import { AppToater } from 'components/Toaster';
-
-const ALLOWED_RETRY_METHODS = ['get', 'put', 'post', 'delete', 'head', 'options'];
-
-const shouldRetry = (error) => {
-	const { method: httpMethod, errorCodes } = error.config;
-	const { maxAttempts, __retryCount: retryCount = 0 } = error.config;
-	const { response: { status: statusCode } = {} } = error;
-
-	let shouldRetryForMethod = false;
-	let shouldRetryForStatus = false;
-
-	if (ALLOWED_RETRY_METHODS.includes(httpMethod)) shouldRetryForMethod = true;
-
-	if (
-		(errorCodes.length === 0 && statusCode >= 500 && statusCode < 600) ||
-		errorCodes.includes(statusCode)
-	) {
-		shouldRetryForStatus = true;
-	}
-
-	if (shouldRetryForMethod && shouldRetryForStatus && retryCount < maxAttempts) {
-		return true;
-	}
-
-	return false;
-};
+import Cookie from 'utils/cookie';
+import store from 'store/configureStore';
+import { changeError } from 'containers/store/actions';
 
 class ApiService {
 	constructor() {
 		this.codes = codes;
 		this.http = null;
 		this.modules = {};
-		this.blocked = false;
-		this.retryConfig = {
-			maxAttempts: 3,
-			waitTime: 1000,
-			errorCodes: [429, 403, 500, 501, 401]
-		};
+		this.error_codes =[
+			[429, 429],
+			[500, 599],
+		];
 	}
 	
 	setModules(modules) {
 		this.modules = { ...this.modules, ...modules };
 	}
 	
-	init() {
+	init = () => {
 		this.http = axios.create({
 			baseURL: config.BASE_URL,
 			timeout: config.TIMEOUT,
@@ -71,7 +44,7 @@ class ApiService {
 		this.registerAfterInterceptor();
 
 		this.setModules(generatedModules);
-	}
+	};
 
 	addHeader(key, value) {
 		this.http.defaults.headers = {
@@ -90,50 +63,50 @@ class ApiService {
 		return false;
 	}
 
+	isServerError = err => {
+		if (err.response && err.response.status) {
+			let isInRange = false;
+
+			for (const [min, max] of this.error_codes) {
+				const status = err.response.status;
+
+				if (status >= min && status <= max) {
+					isInRange = true;
+					break;
+				}
+			}
+
+			return isInRange;
+		}
+
+		return false;
+	};
+
+	onResponseFulfilled = res => res;
+
+	onResponseError = err => {
+		if (this.isServerError(err)) {
+			store.dispatch(changeError(this.codes.TOO_MANY_REQUESTS));
+
+			Cookie.setExpiresMinutes('error_codes', err.response.status.toString(), 10);
+		}
+
+		return Promise.reject(err);
+	};
+
 	registerBeforeInterceptor() {
 		this.http.interceptors.request.use(
-			(config) => Object.assign(config, this.retryConfig),
-
-			(error) => Promise.reject(error)
+			config => config,
+			error => Promise.reject(error)
 		);
 	}
 
 	registerAfterInterceptor() {
 		this.http.interceptors.response.use(
-			(response) => response,
-			(error) => {
-				if (error.config && shouldRetry(error)) {
-					const { __retryCount: retryCount = 0 } = error.config;
-
-					error.config.__retryCount = retryCount + 1;
-					error.config.__isRetryRequest = true;
-
-					const waitTime = Number.isInteger(error.config.waitTime) ? error.config.waitTime : 0;
-
-					if (waitTime > 0) {
-						return new Promise((resolve, reject) => {
-							setTimeout(() => resolve(error.config), waitTime);
-						});
-					}
-
-					return axios(error.config);
-				}
-				return Promise.reject(error);
-
-				// if (error.response.status === this.codes.TOO_MANY_REQUESTS) {
-				// 	AppToater.show({ message: "Too Many Requests", intent: Intent.DANGER });
-				//
-				// 	this.blocked = true;
-				//
-				// 	setTimeout(() => {
-				// 		this.blocked = false;
-				// 	}, 10000)
-				// }
-				// return Promise.reject(error);
-			}
+			this.onResponseFulfilled,
+			this.onResponseError
 		);
 	}
-
 }
 
 const Api = new ApiService();
