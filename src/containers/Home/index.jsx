@@ -14,12 +14,8 @@ const Home = () => (
     <ul style={{ marginBottom: 40, }}>
       <li><Link to={'/transactions'}>Transactions</Link></li>
     </ul>
-    <Switch>
-      <Route path={'/transactions'} component={Transactions} />
-      <Route path={'/events'} component={Events} />
-      <Route path={'/my-events'} component={MyEvents} />
-      <Route path={'/event-create'} component={EventsCreate} />
-    </Switch>
+    {/*<Switch>*/}
+    {/*</Switch>*/}
   </Fragment>
 );
 

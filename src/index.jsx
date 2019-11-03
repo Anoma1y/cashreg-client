@@ -5,6 +5,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import history from './store/history';
 import store from './store/configureStore';
 import App from './App';
+import "@blueprintjs/core/lib/css/blueprint.css";
 
 const MOUNT_NODE = document.querySelector('#app');
 

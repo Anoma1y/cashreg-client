@@ -1,0 +1,161 @@
+@import "../../vars";
+
+.auth {
+  cursor: default;
+
+  & > h1 {
+    font-weight: 300;
+    font-size: 35px;
+    line-height: 38px;
+    letter-spacing: 0;
+    color: #444;
+    margin-bottom: 5px;
+    text-align: center;
+  }
+
+  & > p {
+    font-size: 17px;
+    line-height: 1.5;
+    text-align: center;
+    margin: 10px 0 0;
+    color: #666;
+  }
+
+  & > span {
+    position: absolute;
+    top: calc(100% + 1rem);
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: Lato, sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.2px;
+
+    & > a {
+      color: #15CD72;
+    }
+  }
+
+  &-wrapper {
+    background-color: $bg-color;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &-inner {
+    background-color: #ffffff;
+    max-width: 526px;
+    width: 100%;
+    margin-left: .5rem;
+    margin-right: .5rem;
+    padding: 2rem 2rem 3rem;
+    box-shadow: -2px -2px 9px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+
+
+
+  &-form {
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    padding: 1.5rem 0;
+
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      left: -5px;
+      display: block;
+      width: calc(100% + 10px);
+      height: 1px;
+      background-color: #F7F8FC;
+    }
+
+    &:before {
+      top: 0;
+    }
+
+    &:after {
+      bottom: 0;
+    }
+
+    &_error {
+      position: absolute;
+      top: calc(100% + 3px);
+      color: #da5858;
+      left: 0;
+    }
+
+    &-group {
+      margin-bottom: 2rem;
+      position: relative;
+
+      label {
+        text-transform: uppercase;
+      }
+
+      label {
+        color: #C5C6CA;
+      }
+
+      input {
+        height: 52px;
+        background-color: $bg-color;
+        border: none;
+        box-shadow: none;
+
+        &:focus {
+          outline: none;
+          box-shadow: none;
+        }
+      }
+    }
+
+    &_btn {
+      margin: 15px 0;
+      width: 100%;
+      height: 53px;
+      border-radius: 5px;
+      background-color: #15CD72 !important;
+      background-image: none !important;
+      font-family: Lato, sans-serif;
+      font-weight: bold;
+      font-size: 17px;
+      line-height: 20px;
+      letter-spacing: 0.2px;
+      text-transform: uppercase;
+      color: #FFFFFF !important;
+      cursor: pointer;
+      box-shadow: -2px -2px 9px rgba(0, 0, 0, 0.1) !important;
+      transition: background-color .3s ease-in-out;
+
+      &:hover {
+        background-color: darken(#15CD72, 5%);
+      }
+    }
+
+    &_row {
+      display: flex;
+    }
+
+    &_col {
+      flex: 1 1 50%;
+      display: flex;
+      align-items: center;
+    }
+
+    &_faggot {
+      position: absolute;
+      top: calc(100% + 5px);
+      font-family: Lato, sans-serif;
+      font-size: 12px;
+      line-height: 14px;
+      letter-spacing: 0.2px;
+      color: #C5C6CA;
+    }
+  }
+}
