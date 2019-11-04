@@ -15,6 +15,8 @@ import AuthCheckbox from '../../components/AuthCheckbox';
 import { AppToater } from 'components/Toaster';
 import { validateSignin } from '../../validate';
 import { format, addSeconds } from 'date-fns';
+import Cookie from 'utils/cookie';
+import history from 'store/history';
 import Api from 'api';
 
 const Signin = ({ form }) => {
@@ -31,7 +33,9 @@ const Signin = ({ form }) => {
 
 		const {
 			values: {
-				email, password
+				email,
+				password,
+				rememberMe
 			},
 			syncErrors
 		} = form.signin;
@@ -39,10 +43,21 @@ const Signin = ({ form }) => {
 		if (syncErrors) return;
 
 		setLoading(true);
-
 		Api.modules.auth.signin({ email, password, })
 			.then(data => {
-				console.log('aa', data.data.data)
+				const { access_token, refresh_token, created_at, expires_at } = data.data.data;
+
+				if (rememberMe) {
+					const minutes = (expires_at - created_at) / 1000 / 60;
+
+					Cookie.setExpiresMinutes('access_token', access_token, minutes);
+					Cookie.set('refresh_token', refresh_token, {expires: 60});
+				} else {
+					Cookie.set('access_token', access_token);
+					Cookie.set('refresh_token', refresh_token);
+				}
+
+				history.replace('/');
 			})
 			.catch(err => {
 				console.log(err.response)

@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import { replace } from 'react-router-redux';
+import Cookie from 'utils/cookie';
 import Storage from 'utils/localStorage';
+import history from 'store/history';
 import Api from 'api';
 
-const AUTH_TOKEN = 'auth_data';
+const AUTH_STORE = 'cookie';
+const ACCESS_TOKEN_KEY = 'access_token';
+const EXPIRES_TOKEN_KEY = 'expires_at';
+const AUTH_STORE_LOCAL = 'local';
+const AUTH_STORE_COOKIE = 'cookie';
 
-const withAuth = (AuthComponent) => class AuthWrapped extends Component {
-
+const withAuth = AuthComponent => class AuthWrapped extends Component {
   state = {
     isAuth: false
   };
@@ -17,33 +19,40 @@ const withAuth = (AuthComponent) => class AuthWrapped extends Component {
     const { token, isTokenValid } = this.checkToken();
 
     if (isTokenValid) {
-      Api.addHeader('Authorization', token.access_token);
+      Api.addHeader('Authorization', token[ACCESS_TOKEN_KEY]);
 
-      this.setState({ isAuth: true })
+      this.setState({ isAuth: true });
     } else {
       Storage.clearStorage();
-      this.props.replace('/auth');
+      Cookie.removeAll();
+      history.replace('/auth/signin');
     }
   }
 
   checkToken = () => {
-    const token = this.getToken(AUTH_TOKEN);
-    const isTokenValid = !!token && !!token.access_token && !this.isTokenExpired(token.expires_at);
+    let token = this.getToken();
+    let hasToken = false;
+    let isTokenExpires = false;
+
+    if (AUTH_STORE === AUTH_STORE_LOCAL) {
+      token = token[ACCESS_TOKEN_KEY];
+      hasToken = !!token && !!token[ACCESS_TOKEN_KEY];
+      isTokenExpires = this.isTokenExpired(token[EXPIRES_TOKEN_KEY]);
+    } else if (AUTH_STORE === AUTH_STORE_COOKIE) {
+      hasToken = !!token;
+    }
+
+    const isTokenValid = hasToken && !isTokenExpires;
 
     return {
       token,
-      isTokenValid
+      isTokenValid,
     };
   };
 
-  isTokenExpired = (expires_at) => {
-    const currentDate = new Date();
-    const expiresDate = new Date(expires_at * 1000);
+  getToken = () => AUTH_STORE === AUTH_STORE_COOKIE ? Cookie.get(ACCESS_TOKEN_KEY) : Storage.getItem(ACCESS_TOKEN_KEY);
 
-    return expiresDate < currentDate;
-  };
-
-  getToken = (tokenName = 'auth_data') => Storage.getItem(tokenName);
+  isTokenExpired = expires_at => new Date(expires_at * 1000) < new Date();
 
   render() {
     const { isAuth } = this.state;
@@ -52,7 +61,4 @@ const withAuth = (AuthComponent) => class AuthWrapped extends Component {
   }
 };
 
-export default compose(
-  connect(null, { replace }),
-  withAuth
-);
+export default withAuth;

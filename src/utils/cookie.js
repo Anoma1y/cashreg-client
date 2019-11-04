@@ -14,6 +14,12 @@ class CookieService {
 			expires: CookieService.getExpiresMinutes(minutes),
 		});
 	};
+
+	static removeAll = () => {
+		Object.keys(Cookie.get()).forEach(cookie => {
+			Cookie.remove(cookie);
+		});
+	};
 }
 
 export default CookieService;

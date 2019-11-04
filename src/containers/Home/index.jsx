@@ -4,6 +4,7 @@ import {
   Route,
   Link,
 } from 'react-router-dom';
+import WithAuth from 'components/WithAuth';
 import Transactions from './containers/Transactions';
 import MyEvents from './containers/MyEvents';
 import Events from './containers/Events';
@@ -19,4 +20,4 @@ const Home = () => (
   </Fragment>
 );
 
-export default Home;
+export default WithAuth(Home);
