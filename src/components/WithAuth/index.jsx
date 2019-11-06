@@ -9,6 +9,7 @@ const ACCESS_TOKEN_KEY = 'access_token';
 const EXPIRES_TOKEN_KEY = 'expires_at';
 const AUTH_STORE_LOCAL = 'local';
 const AUTH_STORE_COOKIE = 'cookie';
+const TOKEN_TYPE = 'Bearer ';
 
 const withAuth = AuthComponent => class AuthWrapped extends Component {
   state = {
@@ -19,7 +20,7 @@ const withAuth = AuthComponent => class AuthWrapped extends Component {
     const { token, isTokenValid } = this.checkToken();
 
     if (isTokenValid) {
-      Api.addHeader('Authorization', token[ACCESS_TOKEN_KEY]);
+      Api.addHeader('Authorization', `${TOKEN_TYPE}${token[ACCESS_TOKEN_KEY]}`);
 
       this.setState({ isAuth: true });
     } else {

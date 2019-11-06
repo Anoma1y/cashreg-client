@@ -76,7 +76,7 @@ class ApiService {
 				}
 			}
 
-			return isInRange;
+			return [isInRange, err.response.status];
 		}
 
 		return false;
@@ -85,10 +85,14 @@ class ApiService {
 	onResponseFulfilled = res => res;
 
 	onResponseError = err => {
-		if (this.isServerError(err)) {
-			store.dispatch(changeError(this.codes.TOO_MANY_REQUESTS));
+		const [isServerErr, status] = this.isServerError(err);
 
-			Cookie.setExpiresMinutes('error_codes', err.response.status.toString(), 10);
+		if (isServerErr) {
+			if (status === Api.codes.TOO_MANY_REQUESTS) {
+				Cookie.setExpiresMinutes('error_codes', status.toString(), 10);
+			}
+
+			store.dispatch(changeError(status.toString()));
 		}
 
 		return Promise.reject(err);

@@ -10,7 +10,6 @@ import {
 import Signin from './containers/Signin';
 import Signup from './containers/Signup';
 import Restore from './containers/Restore';
-import PageReady from 'components/PageReady';
 import './index.scss';
 
 const Auth = ({ match }) => {

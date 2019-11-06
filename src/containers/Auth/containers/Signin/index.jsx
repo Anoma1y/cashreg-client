@@ -1,7 +1,5 @@
 import React, {
 	memo,
-	useState,
-	useEffect,
 } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -18,59 +16,56 @@ import { format, addSeconds } from 'date-fns';
 import Cookie from 'utils/cookie';
 import history from 'store/history';
 import Api from 'api';
+import useLoading from 'hooks/useLoading';
 
 const Signin = ({ form }) => {
-	const [loading, setLoading] = useState(false);
+	const [isLoading, setLoad] = useLoading();
 
-	useEffect(() => {
-		return () => {
-			setLoading(false);
-		}
-	});
-
-	const handleSignin = e => {
+	const handleSignin = async e => {
 		e.preventDefault();
 
+		if (form.signin.syncErrors) {
+			return
+		}
+
 		const {
-			values: {
-				email,
-				password,
-				rememberMe
-			},
-			syncErrors
-		} = form.signin;
+			email,
+			password,
+			rememberMe
+		} = form.signin.values;
 
-		if (syncErrors) return;
+		try {
+			const data = await setLoad(Api.modules.auth.signin({ email, password, }));
+			const { access_token, refresh_token, created_at, expires_at } = data.data.data;
 
-		setLoading(true);
-		Api.modules.auth.signin({ email, password, })
-			.then(data => {
-				const { access_token, refresh_token, created_at, expires_at } = data.data.data;
+			if (rememberMe) {
+				const minutes = (expires_at - created_at) / 1000 / 60;
 
-				if (rememberMe) {
-					const minutes = (expires_at - created_at) / 1000 / 60;
+				Cookie.setExpiresMinutes('access_token', access_token, minutes);
+				Cookie.set('refresh_token', refresh_token, {expires: 60});
+			} else {
+				Cookie.set('access_token', access_token);
+				Cookie.set('refresh_token', refresh_token);
+			}
 
-					Cookie.setExpiresMinutes('access_token', access_token, minutes);
-					Cookie.set('refresh_token', refresh_token, {expires: 60});
-				} else {
-					Cookie.set('access_token', access_token);
-					Cookie.set('refresh_token', refresh_token);
-				}
+			history.replace('/');
+		} catch (err) {
+			if (err.response.status === Api.codes.UNAUTHORIZED) {
+				AppToater.show({ message: "Invalid email or password", intent: Intent.DANGER });
+			} else if (err.response.status === Api.codes.FORBIDDEN) {
+				const { ban_period } = err.response.data.extra;
 
-				history.replace('/');
-			})
-			.catch(err => {
-				console.log(err.response)
-				if (err.response.status === Api.codes.UNAUTHORIZED) {
-					AppToater.show({ message: "Invalid email or password", intent: Intent.DANGER });
-				} else if (err.response.status === Api.codes.FORBIDDEN) {
-					const { ban_period } = err.response.data.extra;
-					const leftTime = format(addSeconds(new Date(0), ban_period), 'mm:ss');
+				const leftTime = format(addSeconds(new Date(0), ban_period), 'mm:ss');
 
-					AppToater.show({ message: `User banned, ${leftTime} left`, intent: Intent.DANGER });
-				}
-			})
-			.finally(() => {setLoading(false)});
+				AppToater.show({ message: `User banned, ${leftTime} left`, intent: Intent.WARNING });
+			} else if (err.response.status === Api.codes.NOT_FOUND) {
+				AppToater.show({ message: "User not found", intent: Intent.WARNING });
+			} else if (err.response.status === Api.codes.IM_A_TEAPOT) {
+				history.push('/auth/signup/send', {
+					email
+				});
+			}
+		}
 	};
 
 	return (
@@ -108,7 +103,7 @@ const Signin = ({ form }) => {
 					<div className="auth-form_col">
 						<Button
 							type={'submit'}
-							loading={loading}
+							loading={isLoading}
 							className={'auth-form_btn'}
 						>
 							Sign In

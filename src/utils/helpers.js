@@ -132,3 +132,12 @@ const isObjectLike = value => !!value && typeof value == 'object';
 const keys = object => isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object);
 
 export const conformsTo = (object, source) => source == null || baseConformsTo(object, source, keys(source));
+
+export const debounce = (fn, wait) => {
+	let timeout;
+
+	return function () {
+		clearTimeout(timeout)
+		timeout = setTimeout(() => fn.apply(this, arguments), wait)
+	}
+};

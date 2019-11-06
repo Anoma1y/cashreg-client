@@ -64,3 +64,13 @@ button {
   justify-content: center;
   align-items: center;
 }
+
+.mb {
+  &-s {
+    margin-bottom: .5rem !important;
+  }
+
+  &-m {
+    margin-bottom: 1rem !important;
+  }
+}

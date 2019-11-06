@@ -1,4 +1,13 @@
 import Validator from 'validator';
+import Api from 'api';
+
+export const asyncValidateSignup = async values => {
+	try {
+		await Api.modules.auth.checkEmailExist(values.email);
+	} catch (e) {
+		throw { email: 'That email is taken' }
+	}
+};
 
 export const validateEmail = values => {
 	const errors = {};

@@ -20,6 +20,12 @@ class Auth {
 			...data
 		});
 	}
+
+	verifyEmailViaKey(user_id, data) {
+		return this.http.post(`/user/${user_id}/verify/key`, {
+			...data
+		});
+	};
 	
 	checkEmailExist(email = '') {
 		return this.http.get(`/user/email/check?email=${email}`);
