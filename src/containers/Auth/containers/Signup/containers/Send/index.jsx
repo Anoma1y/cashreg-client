@@ -19,8 +19,9 @@ const Send = (props) => {
 	const {
 		email,
 		user_id,
-		token_id,
 	} = props.location.state;
+
+	const [token_id, setTokenId] = useState(props.location.state.token_id);
 	const [isLoading, load] = useLoading();
 	const [verificationCode, setVerificationCode] = useState('');
 
@@ -45,7 +46,7 @@ const Send = (props) => {
 				key: parseInt(verificationCode)
 			}));
 
-
+			history.push('/auth/signup/success');
 		} catch (err) {
 			if (err.response.status === Api.codes.FORBIDDEN) {
 				AppToater.show({ message: "Activation key doesn\'t match", intent: Intent.WARNING });
@@ -97,7 +98,10 @@ const Send = (props) => {
 			</form>
 
 			<ReSendButton
+				user_id={user_id}
+				token_id={token_id}
 				isLoading={isLoading}
+				setTokenId={setTokenId}
 				load={load}
 			>
 				Resend Code

@@ -21,6 +21,12 @@ class Auth {
 		});
 	}
 
+	resendVerificationEmail(user_id, data) {
+		return this.http.post(`/user/${user_id}/resend_mail`, {
+			...data,
+		});
+	}
+
 	verifyEmailViaKey(user_id, data) {
 		return this.http.post(`/user/${user_id}/verify/key`, {
 			...data,

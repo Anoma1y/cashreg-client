@@ -12,7 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { makeSelectError } from 'containers/store/selectors';
 import ErrorPage from 'components/ErrorPage';
 
-const ALLOWED_CODES = ['429'];
+const ALLOWED_CODES = ['429', '500', '501', '502', '503', '504', '505', '506', '507', '508', '510', '511', '599'];
 
 const PageReady = props => {
 	const [ready, setReady] = useState(false);
