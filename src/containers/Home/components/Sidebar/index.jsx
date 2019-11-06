@@ -17,17 +17,20 @@ import SidebarActions from '../SidebarActions';
 import {
 	TransactionsIcon,
 	OverviewIcon,
+	UsersIcon,
 } from 'components/Icons';
 
 const LS_KEY = "sidebarState";
-const V_THRESHOLD = 0.05; // velocity --> how fast the swipe is
-const D_THRESHOLD = 0.4; // direction --> how straight the swipe is
+const VELOCITY_THRESHOLD = 0.05; // how fast the swipe is
+const DIRECTION_THRESHOLD = 0.4; // how straight the swipe is
 const MOBILE_BREAKPOINT = 768;
 const SIDEBAR_WIDTH = 238;
 
 const routes = [
 	{ id: 1, name: 'Overview', linkTo: '/', icon: <OverviewIcon /> },
 	{ id: 2, name: 'Transactions', linkTo: '/transactions', icon: <TransactionsIcon /> },
+	{ id: 3, name: 'Workspaces', linkTo: '/workspaces', icon: <UsersIcon /> },
+
 ];
 
 export const useSidebar = () => {
@@ -53,10 +56,10 @@ export const useSidebar = () => {
 	const toggleSidebar = () => setIsOpen(!isOpen);
 
 	const dragSidebar = useDrag(({ direction, velocity, last }) => {
-		if (direction[0] < -D_THRESHOLD && last && velocity > V_THRESHOLD) {
+		if (direction[0] < -DIRECTION_THRESHOLD && last && velocity > VELOCITY_THRESHOLD) {
 			setIsOpen(false);
 		}
-		if (direction[0] > D_THRESHOLD && last && velocity > V_THRESHOLD) {
+		if (direction[0] > DIRECTION_THRESHOLD && last && velocity > VELOCITY_THRESHOLD) {
 			setIsOpen(true);
 		}
 	});
