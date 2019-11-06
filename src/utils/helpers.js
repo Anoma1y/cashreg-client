@@ -155,6 +155,21 @@ const keys = object => (isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(o
 export const conformsTo = (object, source) =>
 	source == null || baseConformsTo(object, source, keys(source));
 
+export const objectToArray = obj => {
+	const arr = [];
+
+	for (let i in obj) {
+		const item = {
+			id: i,
+			name: obj[i],
+		};
+
+		arr.push(item);
+	}
+
+	return arr;
+};
+
 export const debounce = (fn, wait) => {
 	let timeout;
 
@@ -162,4 +177,41 @@ export const debounce = (fn, wait) => {
 		clearTimeout(timeout);
 		timeout = setTimeout(() => fn.apply(this, arguments), wait);
 	};
+};
+
+export const parseParams = str => {
+	const query = {};
+	const pairs = (str[0] === '?' ? str.substr(1) : str).split('&');
+
+	if (str.length !== 0) {
+		for (let i = 0; i < pairs.length; i++) {
+			const pair = pairs[i].split('=');
+			const [key, val] = pair;
+
+			if (!key || !val) {
+				break;
+			}
+
+			query[decodeURIComponent(key)] = decodeURIComponent(val);
+		}
+	}
+
+	return query;
+};
+
+export const serializeParams = obj => {
+	const str = [];
+
+	for (const p in obj) {
+		if (obj.hasOwnProperty(p)) {
+			if (Array.isArray(obj[p])) {
+				str.push(`${encodeURIComponent(p)}=${obj[p]}`);
+				continue;
+			}
+
+			str.push(`${encodeURIComponent(p)}=${encodeURIComponent(obj[p])}`);
+		}
+	}
+
+	return str.join('&');
 };

@@ -16,7 +16,7 @@ const withAuth = AuthComponent => class AuthWrapped extends Component {
     isAuth: false
   };
 
-  componentWillMount() {
+  componentDidMount() {
     const { token, isTokenValid } = this.checkToken();
 
     if (isTokenValid) {

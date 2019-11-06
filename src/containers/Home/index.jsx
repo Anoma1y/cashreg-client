@@ -1,23 +1,34 @@
-import React, { Fragment } from 'react';
+import React, {
+  Fragment,
+  createContext,
+} from 'react';
 import {
   Switch,
   Route,
   Link,
 } from 'react-router-dom';
 import WithAuth from 'components/WithAuth';
-import Transactions from './containers/Transactions';
-import MyEvents from './containers/MyEvents';
-import Events from './containers/Events';
-import EventsCreate from './containers/EventsCreate';
+import { animated } from 'react-spring';
+import Sidebar, { useSidebar } from './components/Sidebar';
+import './index.scss';
 
-const Home = () => (
-  <Fragment>
-    <ul style={{ marginBottom: 40, }}>
-      <li><Link to={'/transactions'}>Transactions</Link></li>
-    </ul>
-    {/*<Switch>*/}
-    {/*</Switch>*/}
-  </Fragment>
-);
+export const Context = createContext({});
+
+const Home = () => {
+  const sidebarState = useSidebar();
+
+  return (
+    <Context.Provider value={sidebarState}>
+      <Sidebar />
+
+      <animated.main
+        style={sidebarState.mainStyle}
+        className={'main h-full'}
+      >
+
+      </animated.main>
+    </Context.Provider>
+  )
+}
 
 export default WithAuth(Home);
