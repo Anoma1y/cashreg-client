@@ -6,7 +6,9 @@ export const INITIAL_STATE = {
 };
 
 const HANDLERS = {
-	[CHANGE_ERROR]: (draft, payload) => {draft.error = payload},
+	[CHANGE_ERROR]: (draft, payload) => {
+		draft.error = payload;
+	},
 };
 
-export default createReducer(INITIAL_STATE, HANDLERS)
+export default createReducer(INITIAL_STATE, HANDLERS);

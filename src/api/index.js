@@ -11,16 +11,13 @@ class ApiService {
 		this.codes = codes;
 		this.http = null;
 		this.modules = {};
-		this.error_codes =[
-			[429, 429],
-			[500, 599],
-		];
+		this.error_codes = [[429, 429], [500, 599]];
 	}
-	
+
 	setModules(modules) {
 		this.modules = { ...this.modules, ...modules };
 	}
-	
+
 	init = () => {
 		this.http = axios.create({
 			baseURL: config.BASE_URL,
@@ -29,13 +26,13 @@ class ApiService {
 				...config.HEADERS,
 			},
 		});
-		
+
 		const generatedModules = {};
-		
+
 		for (const mod in Modules) {
 			if (Modules.hasOwnProperty(mod)) {
 				const moduleKey = mod.replace(/([Aa]pi[Mm]odule)/g, '').toLocaleLowerCase();
-				
+
 				generatedModules[moduleKey] = new Modules[mod](this.http);
 			}
 		}
@@ -56,7 +53,7 @@ class ApiService {
 	removeHeader(key) {
 		if (key in this.http.defaults.headers) {
 			delete this.http.defaults.headers[key];
-			
+
 			return true;
 		}
 
@@ -99,17 +96,11 @@ class ApiService {
 	};
 
 	registerBeforeInterceptor() {
-		this.http.interceptors.request.use(
-			config => config,
-			error => Promise.reject(error)
-		);
+		this.http.interceptors.request.use(config => config, error => Promise.reject(error));
 	}
 
 	registerAfterInterceptor() {
-		this.http.interceptors.response.use(
-			this.onResponseFulfilled,
-			this.onResponseError
-		);
+		this.http.interceptors.response.use(this.onResponseFulfilled, this.onResponseError);
 	}
 }
 

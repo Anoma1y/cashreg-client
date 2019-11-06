@@ -1,32 +1,28 @@
 import invariant from 'invariant';
-import {
-  isString,
-  isFunction,
-  isEmpty,
-} from './helpers';
+import { isString, isFunction, isEmpty } from './helpers';
 import checkStore from './checkStore';
 import createReducer from '../store/reducers';
 
 export const injectReducerFactory = (store, isValid) => {
-  return function injectReducer(key, reducer) {
-    if (!isValid) checkStore(store);
+	return function injectReducer(key, reducer) {
+		if (!isValid) checkStore(store);
 
-    invariant(
-      isString(key) && !isEmpty(key) && isFunction(reducer),
-      '(app/utils...) injectReducer: Expected `reducer` to be a reducer function',
-    );
+		invariant(
+			isString(key) && !isEmpty(key) && isFunction(reducer),
+			'(app/utils...) injectReducer: Expected `reducer` to be a reducer function',
+		);
 
-    if (Reflect.has(store.injectedReducers, key) && store.injectedReducers[key] === reducer) return;
+		if (Reflect.has(store.injectedReducers, key) && store.injectedReducers[key] === reducer) return;
 
-    store.injectedReducers[key] = reducer;
-    store.replaceReducer(createReducer(store.injectedReducers));
-  };
+		store.injectedReducers[key] = reducer;
+		store.replaceReducer(createReducer(store.injectedReducers));
+	};
 };
 
-export default (store) => {
-  checkStore(store);
+export default store => {
+	checkStore(store);
 
-  return {
-    injectReducer: injectReducerFactory(store, true),
-  };
-}
+	return {
+		injectReducer: injectReducerFactory(store, true),
+	};
+};

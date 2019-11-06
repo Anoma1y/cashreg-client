@@ -5,7 +5,8 @@ export const selectApp = state => state.app || INITIAL_STATE;
 
 const selectRouter = state => state.router;
 
-export const makeSelectError = () => createSelector(
-	selectApp,
-	appState => appState.error
-);
+export const makeSelectError = () =>
+	createSelector(
+		selectApp,
+		appState => appState.error,
+	);

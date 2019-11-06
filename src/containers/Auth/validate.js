@@ -5,7 +5,7 @@ export const asyncValidateSignup = async values => {
 	try {
 		await Api.modules.auth.checkEmailExist(values.email);
 	} catch (e) {
-		throw { email: 'That email is taken' }
+		throw { email: 'That email is taken' };
 	}
 };
 
@@ -32,7 +32,7 @@ export const validateSignin = values => {
 
 	if (!values.password) {
 		errors.password = 'Required';
-	} else if (!Validator.isLength(values.password, { min: 6, })) {
+	} else if (!Validator.isLength(values.password, { min: 6 })) {
 		errors.password = 'Your password must me at least 6 characters.';
 	}
 
@@ -50,13 +50,13 @@ export const validateSignup = values => {
 
 	if (!values.password) {
 		errors.password = 'Required';
-	} else if (!Validator.isLength(values.password, { min: 6, })) {
+	} else if (!Validator.isLength(values.password, { min: 6 })) {
 		errors.password = 'Your password must me at least 6 characters.';
 	}
 
 	if (!values.repeat_password) {
 		errors.repeat_password = 'Required';
-	} else if (!Validator.isLength(values.repeat_password, { min: 6, })) {
+	} else if (!Validator.isLength(values.repeat_password, { min: 6 })) {
 		errors.repeat_password = 'Your password must me at least 6 characters.';
 	} else if (values.repeat_password !== values.password) {
 		errors.repeat_password = 'Passwords do not match.';
