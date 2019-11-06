@@ -1,0 +1,26 @@
+.sidebar-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Lato, sans-serif;
+  height: 60px;
+  cursor: default;
+  overflow: hidden;
+
+  h1 {
+    font-size: 33px;
+    line-height: 40px;
+    color: #F1EBEB;
+  }
+
+  strong {
+    font-weight: 700;
+  }
+
+  &_logo {
+    position: absolute;
+    display: block;
+    width: 32px;
+  }
+}

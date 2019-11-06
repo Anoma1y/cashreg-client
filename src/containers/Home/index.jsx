@@ -10,6 +10,7 @@ import {
 import WithAuth from 'components/WithAuth';
 import { animated } from 'react-spring';
 import Sidebar, { useSidebar } from './components/Sidebar';
+import Header from './components/Header';
 import './index.scss';
 
 export const Context = createContext({});
@@ -25,7 +26,7 @@ const Home = () => {
         style={sidebarState.mainStyle}
         className={'main h-full'}
       >
-
+        <Header />
       </animated.main>
     </Context.Provider>
   )
