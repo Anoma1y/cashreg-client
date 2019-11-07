@@ -39,9 +39,9 @@ ul {
 }
 
 svg {
-  fill: currentColor;
-  stroke: currentColor;
-  stroke-width: 0;
+  //fill: currentColor;
+  //stroke: currentColor;
+  //stroke-width: 0;
   width: 1em;
   height: 1em;
   flex-shrink: 0;
@@ -141,4 +141,6 @@ button {
   -webkit-overflow-scrolling: auto;
 }
 
-
+.site-loader {
+  font-size: 3rem;
+}

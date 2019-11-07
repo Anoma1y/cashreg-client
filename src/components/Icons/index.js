@@ -3,6 +3,7 @@ import Overview from './Overview';
 import Plus from './Plus';
 import Sidebar from './Sidebar';
 import Users from './Users';
+import User from './User';
 
 export {
 	Overview as OverviewIcon,
@@ -10,4 +11,5 @@ export {
 	Plus as PlusIcon,
 	Sidebar as SidebarIcon,
 	Users as UsersIcon,
+	User as UserIcon,
 };

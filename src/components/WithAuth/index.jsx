@@ -20,7 +20,7 @@ const withAuth = AuthComponent => class AuthWrapped extends Component {
     const { token, isTokenValid } = this.checkToken();
 
     if (isTokenValid) {
-      Api.addHeader('Authorization', `${TOKEN_TYPE}${token[ACCESS_TOKEN_KEY]}`);
+      Api.addHeader('Authorization', `${TOKEN_TYPE}${token}`);
 
       this.setState({ isAuth: true });
     } else {
@@ -58,7 +58,7 @@ const withAuth = AuthComponent => class AuthWrapped extends Component {
   render() {
     const { isAuth } = this.state;
 
-    return isAuth ? <AuthComponent /> : null;
+    return isAuth ? <AuthComponent {...this.props} /> : null;
   }
 };
 

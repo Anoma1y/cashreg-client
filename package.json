@@ -44,6 +44,7 @@
     "history": "^4.10.1",
     "immer": "^4.0.2",
     "js-cookie": "^2.2.1",
+    "lodash": "^4.17.15",
     "mini-css-extract-plugin": "^0.8.0",
     "node-sass": "^4.13.0",
     "prop-types": "^15.7.2",

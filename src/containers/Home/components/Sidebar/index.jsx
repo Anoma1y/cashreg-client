@@ -19,6 +19,7 @@ import {
 	OverviewIcon,
 	UsersIcon,
 } from 'components/Icons';
+import './index.scss';
 
 const LS_KEY = "sidebarState";
 const VELOCITY_THRESHOLD = 0.05; // how fast the swipe is
@@ -27,10 +28,9 @@ const MOBILE_BREAKPOINT = 768;
 const SIDEBAR_WIDTH = 238;
 
 const routes = [
-	{ id: 1, name: 'Overview', linkTo: '/', icon: <OverviewIcon /> },
+	{ id: 1, name: 'Overview', linkTo: '/overview', icon: <OverviewIcon /> },
 	{ id: 2, name: 'Transactions', linkTo: '/transactions', icon: <TransactionsIcon /> },
 	{ id: 3, name: 'Workspaces', linkTo: '/workspaces', icon: <UsersIcon /> },
-
 ];
 
 export const useSidebar = () => {
@@ -93,27 +93,27 @@ const Sidebar = () => {
 	return (
 		<animated.div
 			{...dragSidebar()}
-			className="fixed top-0 left-0 h-full text-white py-12 px-6 scrolling-touch"
+			className="sidebar"
 			style={{
 				...style,
 				width: sidebarWidth,
-				backgroundColor: "#363740"
 			}}
 		>
+			<div className="sidebar-wrapper">
+				<SidebarHeader
+					isOpen={isOpen}
+				/>
 
-			<SidebarHeader
-				isOpen={isOpen}
-			/>
+				<SidebarActions
+					isOpen={isOpen}
+				/>
 
-			<SidebarActions
-				isOpen={isOpen}
-			/>
-
-			<SidebarMenu
-				isOpen={isOpen}
-				routes={routes}
-				toggleSidebar={toggleSidebar}
-			/>
+				<SidebarMenu
+					isOpen={isOpen}
+					routes={routes}
+					toggleSidebar={toggleSidebar}
+				/>
+			</div>
 		</animated.div>
 	);
 };

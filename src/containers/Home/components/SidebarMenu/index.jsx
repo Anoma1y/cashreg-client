@@ -19,7 +19,7 @@ const SidebarMenu = ({ routes, isOpen, toggleSidebar }) => (
 				</NavLink>
 			))}
 		</ul>
-
+		{console.log('update sidebar menu')}
 		<ul className={'sidebar-menu sidebar-menu__bottom'}>
 			<li className={'sidebar-menu_link'} onClick={toggleSidebar}>
 				<SidebarIcon />

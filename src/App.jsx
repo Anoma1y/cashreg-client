@@ -17,7 +17,7 @@ const App = () => (
     <Suspense fallback={<Loader />}>
       <Switch>
         <Route path={'/auth'} component={AuthLoaded} />
-        <Route exact path={'/'} component={HomeLoaded} />
+        <Route path={'/'} component={HomeLoaded} />
       </Switch>
     </Suspense>
   </PageReady>

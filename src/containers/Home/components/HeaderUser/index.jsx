@@ -5,6 +5,7 @@ import React, {
 } from 'react';
 import { useClickOutside } from 'hooks';
 import { NavLink } from 'react-router-dom';
+import { UserIcon } from 'components/Icons';
 import './index.scss';
 
 const HeaderUser = () => {
@@ -14,6 +15,14 @@ const HeaderUser = () => {
 	useClickOutside(ref, () => {
 		if (isOpen) setIsOpen(false)
 	});
+
+	const renderAvatar = () => {
+
+		return (
+			<div className={'header-user_avatar header-user_avatar__placeholder'}><UserIcon /></div>
+		)
+
+	};
 
 	return (
 		<div className={'header-user'}>
@@ -36,6 +45,7 @@ const HeaderUser = () => {
 					<li className="current-user">
 						<p className={'user-name'}>German Voytekhovich</p>
 						<p>@Anoma1y</p>
+						<p>Personal</p>
 					</li>
 					<li className="divider" />
 					<li><NavLink className={'header-user-dropdown_link'} to={'/'}>Profile</NavLink></li>
