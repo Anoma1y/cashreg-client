@@ -21,7 +21,7 @@ import './index.scss';
 
 export const Context = createContext({});
 
-const Home = ({ pullHomeData, ready }) => {
+const Home = ({ pullHomeData, ready, location }) => {
   const sidebarState = useSidebar();
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const Home = ({ pullHomeData, ready }) => {
         style={sidebarState.mainStyle}
         className={'main h-full'}
       >
-        <Header />
+        <Header location={location} />
 
         <Switch>
           <Route exact path={'/'}>

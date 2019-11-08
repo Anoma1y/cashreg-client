@@ -6,15 +6,12 @@ import React, {
 import { useClickOutside } from 'hooks';
 import { NavLink } from 'react-router-dom';
 import { UserIcon } from 'components/Icons';
+import HeaderUserDropdown from '../HeaderUserDropdown';
 import './index.scss';
 
 const HeaderUser = () => {
 	const [isOpen, setIsOpen] = useState(false);
-	const ref = useRef(null);
 
-	useClickOutside(ref, () => {
-		if (isOpen) setIsOpen(false)
-	});
 
 	const renderAvatar = () => {
 
@@ -34,27 +31,11 @@ const HeaderUser = () => {
 					}}
 				/>
 			</div>
-			<div
-				className="header-user-dropdown"
-				ref={ref}
-				style={{
-					display: isOpen ? 'block' : 'none',
-				}}
-			>
-				<ul>
-					<li className="current-user">
-						<p className={'user-name'}>German Voytekhovich</p>
-						<p>@Anoma1y</p>
-						<p>Personal</p>
-					</li>
-					<li className="divider" />
-					<li><NavLink className={'header-user-dropdown_link'} to={'/'}>Profile</NavLink></li>
-					<li><NavLink className={'header-user-dropdown_link'} to={'/'}>Settings</NavLink></li>
-					<li className="divider" />
-					<li><span className={'header-user-dropdown_link'}>Sign out</span></li>
-				</ul>
 
-			</div>
+			<HeaderUserDropdown
+				isOpen={isOpen}
+				setIsOpen={setIsOpen}
+			/>
 		</div>
 	);
 };
