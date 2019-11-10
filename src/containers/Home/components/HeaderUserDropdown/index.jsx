@@ -1,33 +1,22 @@
 import React, {
 	memo,
-	useState,
-	useEffect,
-	useRef,
 } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useClickOutside } from 'hooks';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import {
 	makeSelectActiveWorkspaceName,
 	makeSelectUserInfo,
 } from '../../store/selectors';
+import { logout } from 'utils/auth';
+import HeaderDropdown from '../HeaderDropdown';
 import PropTypes from 'prop-types';
 
 const HeaderUserDropdown = ({ isOpen, setIsOpen, user_info, workspace_name }) => {
-	const ref = useRef(null);
-
-	useClickOutside(ref, () => {
-		if (isOpen) setIsOpen(false)
-	});
-
 	return (
-		<div
-			className="header-user-dropdown"
-			ref={ref}
-			style={{
-				display: isOpen ? 'block' : 'none',
-			}}
+		<HeaderDropdown
+			isOpen={isOpen}
+			setIsOpen={setIsOpen}
 		>
 			<ul>
 				<li className="current-user">
@@ -36,13 +25,12 @@ const HeaderUserDropdown = ({ isOpen, setIsOpen, user_info, workspace_name }) =>
 					<p>{workspace_name}</p>
 				</li>
 				<li className="divider" />
-				<li><NavLink className={'header-user-dropdown_link'} to={'/'}>Profile</NavLink></li>
-				<li><NavLink className={'header-user-dropdown_link'} to={'/'}>Settings</NavLink></li>
+				<li><NavLink className={'header-user-dropdown_link'} onClick={close} to={'/profile'}>Profile</NavLink></li>
+				<li><NavLink className={'header-user-dropdown_link'} onClick={close} to={'/settings'}>Settings</NavLink></li>
 				<li className="divider" />
-				<li><span className={'header-user-dropdown_link'}>Sign out</span></li>
+				<li onClick={logout}><span className={'header-user-dropdown_link'}>Sign out</span></li>
 			</ul>
-
-		</div>
+		</HeaderDropdown>
 	)
 };
 

@@ -2,13 +2,17 @@ import { put, call, select, takeLatest, all, fork } from 'redux-saga/effects';
 import { PULL_DATA } from './constants';
 import { setUser, setCurrencies, setWorkspaces, setActiveWorkspace, setReady } from './actions';
 import Cookie from 'utils/cookie';
-import Api from 'api';
+import {
+	getMe,
+	getWorkspaceList,
+	getCurrencyList,
+} from 'api';
 
 const wait = time => new Promise(resolve => setTimeout(resolve, time));
 
 export function* getUser() {
 	try {
-		const user = yield call([Api, Api.modules.user.getMe]);
+		const user = yield call(getMe);
 
 		yield put(setUser(user.data));
 
@@ -20,7 +24,7 @@ export function* getUser() {
 
 export function* getCurrency() {
 	try {
-		const currency = yield call([Api, Api.modules.currency.getList]);
+		const currency = yield call(getCurrencyList);
 
 		yield put(setCurrencies(currency.data));
 
@@ -32,12 +36,12 @@ export function* getCurrency() {
 
 export function* getWorkspaces() {
 	try {
-		const workspaces = yield call([Api, Api.modules.workspace.getList]);
+		const workspaces = yield call(getWorkspaceList);
 
 		yield put(setWorkspaces(workspaces.data));
 
 		const active_workspace_id = Cookie.get('active_workspace');
-		console.log(workspaces.data);
+
 		if (active_workspace_id) {
 			const active_workspace = workspaces.data.find(ws => ws.id === parseInt(active_workspace_id));
 
@@ -57,11 +61,16 @@ export function* getWorkspaces() {
 
 export function* getData() {
 	try {
-		const hasData = yield all([call(getUser), call(getCurrency), call(getWorkspaces)]);
+		yield call(getCurrency);
+		yield call(getUser);
+		yield call(getWorkspaces);
 
-		if (hasData.every(Boolean)) {
-			yield put(setReady(true));
-		}
+		yield put(setReady(true));
+		// const hasData = yield all([call(getUser), call(getCurrency), call(getWorkspaces)]);
+
+		// if (hasData.every(Boolean)) {
+		// 	yield put(setReady(true));
+		// }
 	} catch (e) {
 		console.error(e);
 	}

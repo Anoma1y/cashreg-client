@@ -1,5 +1,6 @@
 import React from 'react';
 import HeaderUser from '../HeaderUser';
+import HeaderAdd from '../HeaderAdd';
 import './index.scss';
 
 const Header = ({ location }) => {
@@ -11,7 +12,7 @@ const Header = ({ location }) => {
 				<p>{title}</p>
 			</div>
 			<div className={'header-navbar'}>
-				{/*<HeaderSearch />*/}
+				<HeaderAdd />
 				<div className="divider" />
 				<HeaderUser />
 			</div>

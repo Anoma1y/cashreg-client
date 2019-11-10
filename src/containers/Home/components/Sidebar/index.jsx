@@ -88,7 +88,7 @@ export const useSidebar = () => {
 };
 
 const Sidebar = () => {
-	const { style, toggleSidebar, dragSidebar, sidebarWidth, isOpen } = useContext(Context);
+	const { style, toggleSidebar, dragSidebar, sidebarWidth, isOpen, setTransactionIsOpen } = useContext(Context);
 
 	return (
 		<animated.div
@@ -106,6 +106,7 @@ const Sidebar = () => {
 
 				<SidebarActions
 					isOpen={isOpen}
+					setTransactionIsOpen={setTransactionIsOpen}
 				/>
 
 				<SidebarMenu

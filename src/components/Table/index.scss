@@ -1,0 +1,40 @@
+$td-pad: .7rem .7rem;
+$th-pad: .9rem .7rem;
+
+$negative-color: crimson;
+$positive-color: #16c46f;
+
+.table {
+  width: 100%;
+  text-align: left;
+  color: rgba(0, 0, 0, 0.87);
+  border-collapse: separate;
+  border-spacing: 0;
+  font-family: Lato, sans-serif;
+  cursor: default;
+
+  & thead th {
+    font-size: 13px;
+    line-height: 16px;
+    letter-spacing: 0.2px;
+    color: #A4AFB7;
+    background-color: #FCFBFC;
+    padding: $th-pad;
+  }
+
+  & td {
+    padding: $td-pad;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: .2px;
+    color: #252733;
+
+    &.positive {
+      color: $positive-color;
+    }
+
+    &.negative {
+      color: $negative-color;
+    }
+  }
+}
