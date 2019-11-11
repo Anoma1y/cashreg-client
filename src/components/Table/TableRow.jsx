@@ -4,22 +4,17 @@ import PropTypes from 'prop-types';
 import { useValueAndKey, getUnhandledProps } from 'utils/ui';
 
 const TableRow = props => {
-	const {
-		children,
-		className,
-		textAlign,
-		verticalAlign,
-	} = props;
+	const { children, className, textAlign, verticalAlign } = props;
 
-	const classes = cx(
-		className,
-	);
+	const classes = cx(className);
 
 	const restProps = getUnhandledProps(TableRow, props);
 
 	return (
-		<tr {...restProps} className={classes}>{children}</tr>
-	)
+		<tr {...restProps} className={classes}>
+			{children}
+		</tr>
+	);
 };
 
 TableRow.propTypes = {

@@ -1,9 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
-import {
-	Switch,
-	Route,
-	Link,
-} from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 import { HTMLTable } from '@blueprintjs/core';
 import Table from 'components/Table';
 

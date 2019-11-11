@@ -14,11 +14,11 @@ const useLoading = (async = true) => {
 
 	const load = async
 		? aPromise => {
-			setIsLoading(true);
-			return aPromise.finally(() => {
-				if (mount.current) setIsLoading(false);
-			});
-		}
+				setIsLoading(true);
+				return aPromise.finally(() => {
+					if (mount.current) setIsLoading(false);
+				});
+		  }
 		: state => setIsLoading(state);
 
 	return [isLoading, load];

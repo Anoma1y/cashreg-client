@@ -1,8 +1,4 @@
-import React, {
-	useState,
-	useEffect,
-	memo,
-} from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { connect } from 'react-redux';
 import Cookie from 'utils/cookie';
 import PropTypes from 'prop-types';
@@ -48,4 +44,7 @@ const mapDispatchToProps = {
 	changeError,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(memo(PageReady));
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(memo(PageReady));

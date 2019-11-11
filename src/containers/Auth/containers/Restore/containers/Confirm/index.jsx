@@ -1,10 +1,5 @@
-import React, {
-	memo,
-} from 'react';
+import React, { memo } from 'react';
 
-const Confirm = () => (
-	<div>confirm</div>
-);
+const Confirm = () => <div>confirm</div>;
 
-export default memo(Confirm)
-
+export default memo(Confirm);

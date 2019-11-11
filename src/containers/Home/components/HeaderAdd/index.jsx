@@ -1,7 +1,4 @@
-import React, {
-	useState,
-	memo,
-} from 'react';
+import React, { useState, memo } from 'react';
 import HeaderDropdown from '../HeaderDropdown';
 import './index.scss';
 
@@ -20,7 +17,6 @@ const HeaderUser = () => {
 					<li className={'header-user-dropdown_link'}>Add category</li>
 				</ul>
 			</HeaderDropdown>
-
 		</div>
 	);
 };

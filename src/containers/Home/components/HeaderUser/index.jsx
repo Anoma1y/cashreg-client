@@ -1,8 +1,4 @@
-import React, {
-	useState,
-	useRef,
-	memo,
-} from 'react';
+import React, { useState, useRef, memo } from 'react';
 import { useClickOutside } from 'hooks';
 import { NavLink } from 'react-router-dom';
 import { UserIcon } from 'components/Icons';
@@ -12,13 +8,12 @@ import './index.scss';
 const HeaderUser = () => {
 	const [isOpen, setIsOpen] = useState(false);
 
-
 	const renderAvatar = () => {
-
 		return (
-			<div className={'header-user_avatar header-user_avatar__placeholder'}><UserIcon /></div>
-		)
-
+			<div className={'header-user_avatar header-user_avatar__placeholder'}>
+				<UserIcon />
+			</div>
+		);
 	};
 
 	return (
@@ -27,15 +22,12 @@ const HeaderUser = () => {
 				<div
 					className={'header-user_avatar'}
 					style={{
-						backgroundImage: `url('https://i.ytimg.com/vi/naJd-mHU0Pw/maxresdefault.jpg')`
+						backgroundImage: `url('https://i.ytimg.com/vi/naJd-mHU0Pw/maxresdefault.jpg')`,
 					}}
 				/>
 			</div>
 
-			<HeaderUserDropdown
-				isOpen={isOpen}
-				setIsOpen={setIsOpen}
-			/>
+			<HeaderUserDropdown isOpen={isOpen} setIsOpen={setIsOpen} />
 		</div>
 	);
 };

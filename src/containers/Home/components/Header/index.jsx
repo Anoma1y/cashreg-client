@@ -17,6 +17,6 @@ const Header = ({ location }) => {
 				<HeaderUser />
 			</div>
 		</header>
-	)
-}
+	);
+};
 export default Header;

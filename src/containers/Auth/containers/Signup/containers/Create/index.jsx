@@ -1,15 +1,10 @@
-import React, {
-	memo,
-} from 'react';
+import React, { memo } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import AuthInput from '../../../../components/AuthInput';
 import { validateSignup, asyncValidateSignup } from '../../../../validate';
-import {
-	Button,
-	Intent,
-} from '@blueprintjs/core';
+import { Button, Intent } from '@blueprintjs/core';
 import { AppToater } from 'components/Toaster';
 import history from 'store/history';
 import Api from 'api';
@@ -22,13 +17,10 @@ const Signup = ({ form }) => {
 		e.preventDefault();
 
 		if (form.signup.syncErrors || form.signup.asyncErrors) {
-			return
+			return;
 		}
 
-		const {
-			email,
-			password,
-		} = form.signup.values;
+		const { email, password } = form.signup.values;
 
 		try {
 			const data = await setLoad(Api.modules.auth.signup({ email, password }));
@@ -36,11 +28,11 @@ const Signup = ({ form }) => {
 			history.replace('/auth/signup/send', {
 				email,
 				user_id: data.data.id,
-				token_id: data.data.token_id
+				token_id: data.data.token_id,
 			});
 		} catch (err) {
 			if (err.response.status === Api.codes.CONFLICT) {
-				AppToater.show({message: "That email already taken", intent: Intent.DANGER});
+				AppToater.show({ message: 'That email already taken', intent: Intent.DANGER });
 			}
 		}
 	};
@@ -50,7 +42,6 @@ const Signup = ({ form }) => {
 			<h1 className={'auth_title'}>Create Your Account</h1>
 
 			<form className={'auth-form'} onSubmit={handleSignup}>
-
 				<Field
 					label={'E-Mail'}
 					name="email"
@@ -60,13 +51,7 @@ const Signup = ({ form }) => {
 					placeholder={'test@example.com'}
 				/>
 
-				<Field
-					label={'Password'}
-					name="password"
-					component={AuthInput}
-					type="password"
-					id={'password'}
-				/>
+				<Field label={'Password'} name="password" component={AuthInput} type="password" id={'password'} />
 
 				<Field
 					label={'Repeat Password'}
@@ -76,16 +61,14 @@ const Signup = ({ form }) => {
 					id={'repeat_password'}
 				/>
 
-				<Button
-					type={'submit'}
-					loading={isLoading}
-					className={'auth-form_btn'}
-				>
+				<Button type={'submit'} loading={isLoading} className={'auth-form_btn'}>
 					Create Account
 				</Button>
 			</form>
 
-			<span>Already have an account? <Link to={'/auth/signin'}>Sign In!</Link></span>
+			<span>
+				Already have an account? <Link to={'/auth/signin'}>Sign In!</Link>
+			</span>
 		</div>
 	);
 };

@@ -5,7 +5,7 @@ import { SidebarIcon } from 'components/Icons';
 const SidebarMenu = ({ routes, isOpen, toggleSidebar }) => (
 	<nav className={`sidebar-nav${!isOpen ? ' sidebar-nav__collapsed' : ''}`}>
 		<ul className={'sidebar-menu'}>
-			{routes.map((route) => (
+			{routes.map(route => (
 				<NavLink
 					className={'sidebar-menu_link'}
 					activeClassName={'sidebar-menu_link__active'}

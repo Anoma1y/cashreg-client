@@ -1,11 +1,5 @@
 import createReducer from 'utils/createReducer';
-import {
-	SET_USERS,
-	SET_CURRENCIES,
-	SET_READY,
-	SET_WORKSPACES,
-	SET_ACTIVE_WORKSPACE,
-} from './constants';
+import { SET_USERS, SET_CURRENCIES, SET_READY, SET_WORKSPACES, SET_ACTIVE_WORKSPACE } from './constants';
 
 export const INITIAL_STATE = {
 	user: {},

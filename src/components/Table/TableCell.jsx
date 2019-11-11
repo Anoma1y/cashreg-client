@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import { useKeyOnly, getUnhandledProps, } from 'utils/ui';
+import { useKeyOnly, getUnhandledProps } from 'utils/ui';
 
 const TableCell = props => {
 	const {
@@ -31,7 +31,7 @@ const TableCell = props => {
 		useKeyOnly(selectable, 'selectable'),
 		useKeyOnly(singleLine, 'singleLine'),
 		useKeyOnly(warning, 'warning'),
-		className
+		className,
 	);
 
 	return (

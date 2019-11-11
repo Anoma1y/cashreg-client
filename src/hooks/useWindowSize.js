@@ -1,6 +1,4 @@
-import {
-	useRef, useState, useEffect, useCallback,
-} from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import useUnmount from './useUnmount';
 
 const useRafState = initialState => {

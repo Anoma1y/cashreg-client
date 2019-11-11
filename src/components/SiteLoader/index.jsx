@@ -4,11 +4,7 @@ import PropTypes from 'prop-types';
 
 const SiteLoader = ({ value, size = Spinner.SIZE_STANDARD }) => (
 	<div className={'site-loader'}>
-		<Spinner
-			className={'site-loader_spinner'}
-			size={size}
-			value={value}
-		/>
+		<Spinner className={'site-loader_spinner'} size={size} value={value} />
 	</div>
 );
 

@@ -1,18 +1,19 @@
 {
   "parser": "babel-eslint",
-  "extends": ["airbnb", "plugin:react/recommended"],
+  "extends": ["airbnb", "prettier", "prettier/react"],
+  "plugins": [
+    "redux-saga",
+    "react",
+    "promise",
+    "prettier",
+    "jsx-a11y",
+    "react-hooks"
+  ],
   "env": {
     "browser": true,
     "node": true,
     "es6": true
   },
-  "plugins": [
-    "redux-saga",
-    "react",
-    "promise",
-    "jsx-a11y",
-    "react-hooks"
-  ],
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
@@ -22,6 +23,8 @@
     }
   },
   "rules": {
+    "prettier/prettier": "error",
+
     // base
     "no-param-reassign": "off",
     "dot-notation": "off",
@@ -38,7 +41,7 @@
     "camelcase": "off",
     "radix": "off",
     "no-unused-vars": "warn",
-    "max-len": "off",
+    "max-len": ["error", {"code": 120, "ignoreUrls": true}],
     "object-curly-newline": "warn",
     "no-nested-ternary": "off",
     "no-plusplus": "off",
@@ -62,9 +65,12 @@
     "react/jsx-curly-brace-presence": "off",
     "react/jsx-one-expression-per-line": "off",
 
+    // redux-saga
+    "redux-saga/no-yield-in-race": 2,
+    "redux-saga/yield-effects": 2,
+    "require-yield": 0,
 
     // react hooks
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/rules-of-hooks": "error"
   }
 }

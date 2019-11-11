@@ -2,8 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 
 const useCountdown = (timeToCount = 60 * 1000, interval = 1000) => {
 	const [timeLeft, setTimeLeft] = useState(0);
-	const cb = newTimeToCount =>
-		setTimeLeft(newTimeToCount !== undefined ? newTimeToCount : timeToCount);
+	const cb = newTimeToCount => setTimeLeft(newTimeToCount !== undefined ? newTimeToCount : timeToCount);
 	const start = useCallback(cb, []);
 
 	let timer = null;

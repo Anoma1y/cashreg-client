@@ -1,11 +1,5 @@
-import React, {
-	memo,
-} from 'react';
-import {
-	Switch,
-	Route,
-	Redirect,
-} from 'react-router-dom';
+import React, { memo } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Email from './containers/Email';
 import Confirm from './containers/Confirm';
 import NewPassword from './containers/NewPassword';
@@ -19,6 +13,6 @@ const Restore = ({ match }) => (
 		<Route path={`${match.url}/confirm`} component={Confirm} />
 		<Route path={`${match.url}/password`} component={NewPassword} />
 	</Switch>
-)
+);
 
 export default memo(Restore);

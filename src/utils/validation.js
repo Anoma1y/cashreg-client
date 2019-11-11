@@ -11,8 +11,6 @@ export const validationWarning = {
 	password: v => passwordReg.test(v),
 };
 
-export const errorValidator = (name, value) =>
-	(name in validationError ? validationError[name](value) : true);
+export const errorValidator = (name, value) => (name in validationError ? validationError[name](value) : true);
 
-export const warningValidator = (name, value) =>
-	(name in validationWarning ? validationWarning[name](value) : true);
+export const warningValidator = (name, value) => (name in validationWarning ? validationWarning[name](value) : true);

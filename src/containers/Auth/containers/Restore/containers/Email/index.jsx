@@ -1,6 +1,4 @@
-import React, {
-	memo,
-} from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { reduxForm, Field } from 'redux-form';
 import AuthInput from '../../../../components/AuthInput';
@@ -17,7 +15,6 @@ const Email = () => {
 			<p>Enter your account email address and we will send you a link to reset your password.</p>
 
 			<form className={'auth-form'} onSubmit={handleSignin}>
-
 				<Field
 					label={'E-Mail'}
 					name="email"
@@ -30,13 +27,14 @@ const Email = () => {
 				<button className={'auth-form_btn'}>Request Password Reset</button>
 			</form>
 
-			<span><Link to={'/auth/signin'}>Back!</Link></span>
+			<span>
+				<Link to={'/auth/signin'}>Back!</Link>
+			</span>
 		</div>
 	);
-}
+};
 
 export default reduxForm({
 	form: 'signin',
 	validate: validateEmail,
 })(memo(Email));
-

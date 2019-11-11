@@ -4,13 +4,7 @@ import { useKeyOnly } from 'utils/ui';
 import './index.scss';
 
 const Table = props => {
-	const {
-		children,
-		disabled,
-		collapsing = true,
-		striped = true,
-		className,
-	} = props;
+	const { children, disabled, collapsing = true, striped = true, className } = props;
 
 	const classes = cx(
 		useKeyOnly(disabled, 'disabled'),
@@ -20,11 +14,7 @@ const Table = props => {
 		className,
 	);
 
-	return (
-		<table className={classes}>
-			{children}
-		</table>
-	);
+	return <table className={classes}>{children}</table>;
 };
 
 export default Table;

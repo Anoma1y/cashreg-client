@@ -1,7 +1,4 @@
-import React, {
-	memo,
-	useRef,
-} from 'react';
+import React, { memo, useRef } from 'react';
 import { useClickOutside } from 'hooks';
 import PropTypes from 'prop-types';
 
@@ -24,7 +21,7 @@ const HeaderDropdown = ({ isOpen, setIsOpen, children }) => {
 		>
 			{children}
 		</div>
-	)
+	);
 };
 
 HeaderDropdown.propTypes = {

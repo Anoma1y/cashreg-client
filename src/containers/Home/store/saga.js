@@ -1,14 +1,8 @@
-import {
-	put, call, select, takeLatest, all, fork,
-} from 'redux-saga/effects';
+import { put, call, takeLatest } from 'redux-saga/effects';
 import Cookie from 'utils/cookie';
 import { getMe, getWorkspaceList, getCurrencyList } from 'api';
 import { PULL_DATA } from './constants';
-import {
-	setUser, setCurrencies, setWorkspaces, setActiveWorkspace, setReady,
-} from './actions';
-
-const wait = time => new Promise(resolve => setTimeout(resolve, time));
+import { setUser, setCurrencies, setWorkspaces, setActiveWorkspace, setReady } from './actions';
 
 export function* getUser() {
 	try {

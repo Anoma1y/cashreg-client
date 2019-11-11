@@ -1,19 +1,12 @@
 import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import { useKeyOnly, getUnhandledProps, } from 'utils/ui';
+import { useKeyOnly, getUnhandledProps } from 'utils/ui';
 
 const TableHeader = props => {
-	const {
-		children,
-		className,
-		fullwidth,
-	} = props;
+	const { children, className, fullwidth } = props;
 
-	const classes = cx(
-		useKeyOnly(fullwidth, 'full-width'),
-		className,
-	);
+	const classes = cx(useKeyOnly(fullwidth, 'full-width'), className);
 
 	const restProps = getUnhandledProps(TableHeader, props);
 
@@ -21,7 +14,7 @@ const TableHeader = props => {
 		<thead {...restProps} className={classes}>
 			{children}
 		</thead>
-	)
+	);
 };
 
 TableHeader.propTypes = {

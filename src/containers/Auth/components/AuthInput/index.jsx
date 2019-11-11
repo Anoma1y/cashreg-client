@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-	FormGroup,
-	InputGroup,
-} from '@blueprintjs/core';
+import { FormGroup, InputGroup } from '@blueprintjs/core';
 import AuthError from '../AuthError';
 
 const AuthInput = props => {
@@ -12,30 +9,18 @@ const AuthInput = props => {
 		label,
 		type,
 		placeholder,
-		meta: {
-			error,
-			touched,
-		},
+		meta: { error, touched },
 		id,
 	} = props;
 
 	const isError = touched && error;
 
 	return (
-		<FormGroup
-			className={'auth-form-group'}
-			label={label}
-			labelFor={id}
-		>
-			<InputGroup
-				{...input}
-				id={id}
-				type={type}
-				placeholder={placeholder}
-			/>
-			{isError && (<AuthError text={error} />)}
+		<FormGroup className={'auth-form-group'} label={label} labelFor={id}>
+			<InputGroup {...input} id={id} type={type} placeholder={placeholder} />
+			{isError && <AuthError text={error} />}
 		</FormGroup>
-	)
+	);
 };
 
 AuthInput.propTypes = {

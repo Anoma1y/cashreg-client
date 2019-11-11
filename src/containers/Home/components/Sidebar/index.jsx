@@ -1,31 +1,16 @@
-import React, {
-	useState,
-	useEffect,
-	useContext,
-	memo,
-} from 'react';
-import { useSpring, animated, to } from "react-spring";
+import React, { useState, useEffect, useContext, memo } from 'react';
+import { useSpring, animated, to } from 'react-spring';
 import { useDrag } from 'react-use-gesture';
-import {
-	useWindowSize,
-	useLocalStorage,
-} from 'hooks';
+import { useWindowSize, useLocalStorage } from 'hooks';
 import { Context } from '../../index';
 import SidebarMenu from './Menu';
 import SidebarHeader from './Header';
 import SidebarActions from './Actions';
 import SidebarFooter from './Footer';
-import {
-	TransactionsIcon,
-	OverviewIcon,
-	UsersIcon,
-	EntityIcon,
-	ProjectIcon,
-	CategoryIcon,
-} from 'components/Icons';
+import { TransactionsIcon, OverviewIcon, UsersIcon, EntityIcon, ProjectIcon, CategoryIcon } from 'components/Icons';
 import './index.scss';
 
-const LS_KEY = "sidebarState";
+const LS_KEY = 'sidebarState';
 const VELOCITY_THRESHOLD = 0.05; // how fast the swipe is
 const DIRECTION_THRESHOLD = 0.4; // how straight the swipe is
 const MOBILE_BREAKPOINT = 768;
@@ -72,15 +57,15 @@ export const useSidebar = () => {
 	});
 
 	const sidebarStyle = useSpring({
-		translate: [isOpen ? 0 : (isMobile ? -sidebarWidth : -(sidebarWidth - 48))]
+		translate: [isOpen ? 0 : isMobile ? -sidebarWidth : -(sidebarWidth - 48)],
 	});
 
 	const mainStyle = useSpring({
-		marginLeft: isMobile ? 0 : isOpen ? sidebarWidth : 48
+		marginLeft: isMobile ? 0 : isOpen ? sidebarWidth : 48,
 	});
 
 	const style = {
-		transform: to(sidebarStyle.translate, x => `translateX(${x}px)`)
+		transform: to(sidebarStyle.translate, x => `translateX(${x}px)`),
 	};
 
 	return {
@@ -106,14 +91,9 @@ const Sidebar = () => {
 			}}
 		>
 			<div className="sidebar-content">
-				<SidebarHeader
-					isOpen={isOpen}
-				/>
+				<SidebarHeader isOpen={isOpen} />
 
-				<SidebarActions
-					isOpen={isOpen}
-					setTransactionIsOpen={setTransactionIsOpen}
-				/>
+				<SidebarActions isOpen={isOpen} setTransactionIsOpen={setTransactionIsOpen} />
 
 				<SidebarMenu
 					isOpen={isOpen}
@@ -121,9 +101,7 @@ const Sidebar = () => {
 					// toggleSidebar={toggleSidebar}
 				/>
 
-				<SidebarFooter
-					isOpen={isOpen}
-				/>
+				<SidebarFooter isOpen={isOpen} />
 			</div>
 		</animated.div>
 	);

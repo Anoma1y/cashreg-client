@@ -24,10 +24,7 @@ if (process.env.NODE_ENV !== 'production') {
 	});
 
 	if (typeof window === 'object') {
-		enchancers = [
-			...enchancers,
-			window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-		];
+		enchancers = [...enchancers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()];
 	}
 
 	middlewares = [...middlewares, logger];

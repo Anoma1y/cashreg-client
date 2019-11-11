@@ -1,10 +1,5 @@
-import React, {
-  createContext,
-  useState,
-  useCallback,
-  useEffect,
-} from 'react';
-import { Switch, Route, Redirect, } from 'react-router-dom';
+import React, { createContext, useState, useCallback, useEffect } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
@@ -27,80 +22,82 @@ import './index.scss';
 export const Context = createContext({});
 
 const useMain = () => {
-  const [transactionIsOpen, setTransactionIsOpen] = useState(false);
+	const [transactionIsOpen, setTransactionIsOpen] = useState(false);
 
-  return {
-    transactionIsOpen,
-    setTransactionIsOpen,
-  }
+	return {
+		transactionIsOpen,
+		setTransactionIsOpen,
+	};
 };
 
 const Home = ({ pullHomeData, ready, location }) => {
-  const sidebarState = useSidebar();
-  const mainState = useMain();
+	const sidebarState = useSidebar();
+	const mainState = useMain();
 
-  useEffect(() => {
-    pullHomeData();
-  }, []);
+	useEffect(() => {
+		pullHomeData();
+	}, []);
 
-  if (!ready) return <SiteLoader />;
+	if (!ready) return <SiteLoader />;
 
-  return (
-    <Context.Provider value={{ ...sidebarState, ...mainState}}>
-      <Sidebar />
+	return (
+		<Context.Provider value={{ ...sidebarState, ...mainState }}>
+			<Sidebar />
 
-      <animated.main
-        style={sidebarState.mainStyle}
-        className={'main h-full'}
-      >
-        <Header location={location} />
+			<animated.main style={sidebarState.mainStyle} className={'main h-full'}>
+				<Header location={location} />
 
-        <div className={'main-container'}>
-          <Switch>
-            <Route exact path={'/'}>
-              <Redirect to={'/overview'}/>
-            </Route>
-            <Route path={'/overview'}>
-              <h1>Overview</h1>
-            </Route>
-            <Route path={'/transactions'} component={Transactions} />
-            <Route path={'/workspaces'}>
-              <h1>Workspaces</h1>
-            </Route>
-            <Route path={'/settings'}>
-              <h1>Settings</h1>
-            </Route>
-          </Switch>
-        </div>
-      </animated.main>
+				<div className={'main-container'}>
+					<Switch>
+						<Route exact path={'/'}>
+							<Redirect to={'/overview'} />
+						</Route>
+						<Route path={'/overview'}>
+							<h1>Overview</h1>
+						</Route>
+						<Route path={'/transactions'} component={Transactions} />
+						<Route path={'/workspaces'}>
+							<h1>Workspaces</h1>
+						</Route>
+						<Route path={'/settings'}>
+							<h1>Settings</h1>
+						</Route>
+					</Switch>
+				</div>
+			</animated.main>
 
-      <CreateTransaction />
-    </Context.Provider>
-  )
+			<CreateTransaction />
+		</Context.Provider>
+	);
 };
 
 const withReducer = injectReducer({
-  key: 'home',
-  reducer,
+	key: 'home',
+	reducer,
 });
 
 const withSaga = injectSaga({
-  key: 'home',
-  saga,
+	key: 'home',
+	saga,
 });
 
 const mapStateToProps = createStructuredSelector({
-  ready: makeSelectReady(),
+	ready: makeSelectReady(),
 });
 
 const mapDispatchToProps = {
-  pullHomeData,
+	pullHomeData,
 };
 
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
+const withConnect = connect(
+	mapStateToProps,
+	mapDispatchToProps,
+);
 
-export default WithAuth(compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(Home));
+export default WithAuth(
+	compose(
+		withReducer,
+		withSaga,
+		withConnect,
+	)(Home),
+);

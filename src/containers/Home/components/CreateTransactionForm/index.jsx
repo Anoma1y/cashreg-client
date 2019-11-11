@@ -3,14 +3,10 @@ import { reduxForm, Field } from 'redux-form';
 
 const CreateTransactionForm = () => {
 	// console.log(transaction)
-	return (
-		<div>
-
-		</div>
-	)
+	return <div></div>;
 };
 
 export default reduxForm({
 	form: 'transaction',
 	destroyOnUnmount: false,
-})(memo(CreateTransactionForm))
+})(memo(CreateTransactionForm));

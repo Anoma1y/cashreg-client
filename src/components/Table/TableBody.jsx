@@ -1,23 +1,20 @@
 import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import { useValueAndKey, getUnhandledProps, } from 'utils/ui';
+import { useValueAndKey, getUnhandledProps } from 'utils/ui';
 
 const TableBody = props => {
-	const {
-		children,
-		className,
-	} = props;
+	const { children, className } = props;
 
-	const classes = cx(
-		className,
-	);
+	const classes = cx(className);
 
 	const restProps = getUnhandledProps(TableBody, props);
 
 	return (
-		<tbody {...restProps} className={classes}>{children}</tbody>
-	)
+		<tbody {...restProps} className={classes}>
+			{children}
+		</tbody>
+	);
 };
 
 TableBody.propTypes = {

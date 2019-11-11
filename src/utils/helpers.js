@@ -18,11 +18,11 @@ export const isObject = value => {
 };
 
 const getTag = value =>
-	(value === null
+	value === null
 		? typeof value === 'undefined'
 			? '[object Undefined]'
 			: '[object Null]'
-		: Object.prototype.toString.call(value));
+		: Object.prototype.toString.call(value);
 
 export const isFunction = value => {
 	if (!isObject(value)) {
@@ -32,19 +32,18 @@ export const isFunction = value => {
 	const tag = getTag(getTag);
 
 	return (
-		tag === '[object Function]'
-		|| tag === '[object AsyncFunction]'
-		|| tag === '[object GeneratorFunction]'
-		|| tag === '[object Proxy]'
+		tag === '[object Function]' ||
+		tag === '[object AsyncFunction]' ||
+		tag === '[object GeneratorFunction]' ||
+		tag === '[object Proxy]'
 	);
 };
 const isIndex = (value, length) => {
 	length = length == null ? MAX_SAFE_INTEGER : length;
 
 	return (
-		!!length
-		&& (typeof value === 'number' || reIsUint.test(value))
-		&& (value > -1 && value % 1 === 0 && value < length)
+		// eslint-disable-next-line max-len
+		!!length && (typeof value === 'number' || reIsUint.test(value)) && (value > -1 && value % 1 === 0 && value < length)
 	);
 };
 
@@ -63,19 +62,16 @@ const isArrayLike = value => value != null && isLength(value.length) && !isFunct
 const isArrayLikeObject = value => isObjectLike(value) && isArrayLike(value);
 
 const isArguments = value =>
-	isArrayLikeObject(value)
-	&& hasOwnProperty.call(value, 'callee')
-	&& (!propertyIsEnumerable.call(value, 'callee') || objectToString.call(value) === argsTag);
+	isArrayLikeObject(value) &&
+	hasOwnProperty.call(value, 'callee') &&
+	(!propertyIsEnumerable.call(value, 'callee') || objectToString.call(value) === argsTag);
 
 export const isString = value => {
 	const type = typeof value;
 
 	return (
-		type === 'string'
-		|| (type === 'object'
-			&& value != null
-			&& !Array.isArray(value)
-			&& getTag(value) === '[object String]')
+		type === 'string' ||
+		(type === 'object' && value != null && !Array.isArray(value) && getTag(value) === '[object String]')
 	);
 };
 
@@ -98,8 +94,8 @@ const arrayLikeKeys = (value, inherited) => {
 
 	for (const key in value) {
 		if (
-			(inherited || hasOwnProperty.call(value, key))
-			&& !(skipIndexes && (key === 'length' || isIndex(key, length)))
+			(inherited || hasOwnProperty.call(value, key)) &&
+			!(skipIndexes && (key === 'length' || isIndex(key, length)))
 		) {
 			result.push(key);
 		}
@@ -147,8 +143,7 @@ const baseKeys = object => {
 
 const keys = object => (isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object));
 
-export const conformsTo = (object, source) =>
-	source == null || baseConformsTo(object, source, keys(source));
+export const conformsTo = (object, source) => source == null || baseConformsTo(object, source, keys(source));
 
 export const objectToArray = obj => {
 	const arr = [];

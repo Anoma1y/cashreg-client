@@ -1,12 +1,8 @@
-import React, {
-	memo,
-	useEffect,
-} from 'react';
+import React, { memo, useEffect } from 'react';
 import queryString from 'query-string';
 import Storage from 'utils/localStorage';
 import history from 'store/history';
 import Api from 'api';
-
 
 const Callback = ({ location }) => {
 	const handleCallback = async () => {
@@ -21,10 +17,10 @@ const Callback = ({ location }) => {
 				const data = await Api.modules.auth.loginViaGoogle(code);
 
 				Storage.setItem('auth_data', data.data.data);
-				Api.addHeader('Authorization', data.data.data.access_token)
+				Api.addHeader('Authorization', data.data.data.access_token);
 			}
 		} catch (e) {
-			console.error(e.response)
+			console.error(e.response);
 		}
 	};
 
@@ -34,7 +30,7 @@ const Callback = ({ location }) => {
 				console.log('google auth ok - redirect');
 				history.replace('/');
 			})
-			.catch(console.error)
+			.catch(console.error);
 	}, []);
 
 	return null;

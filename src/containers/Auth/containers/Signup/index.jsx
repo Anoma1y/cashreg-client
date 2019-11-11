@@ -1,11 +1,5 @@
-import React, {
-	memo,
-} from 'react';
-import {
-	Switch,
-	Route,
-	Redirect,
-} from 'react-router-dom';
+import React, { memo } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Create from './containers/Create';
 import Send from './containers/Send';
 import Confirm from './containers/Confirm';

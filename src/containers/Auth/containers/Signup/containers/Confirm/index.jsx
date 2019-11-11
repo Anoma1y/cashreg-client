@@ -1,7 +1,4 @@
-import React, {
-	useEffect,
-	useState,
-} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { parseParams } from 'utils/helpers';
 import SiteLoader from 'components/SiteLoader';
@@ -12,19 +9,20 @@ const Confirm = ({ location }) => {
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
-		const { user_id, code_id, code, } = parseParams(location.search);
+		const { user_id, code_id, code } = parseParams(location.search);
 
 		if (user_id && code_id && code) {
-			Api.modules.auth.verifyEmail(user_id, {
-				token_id: code_id,
-				token: code,
-			})
+			Api.modules.auth
+				.verifyEmail(user_id, {
+					token_id: code_id,
+					token: code,
+				})
 				.then(() => {
 					history.replace('/auth/signup/success');
 				})
 				.catch(() => {
 					setError(true);
-				})
+				});
 		}
 	}, []);
 

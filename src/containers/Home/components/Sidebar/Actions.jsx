@@ -9,22 +9,18 @@ const SidebarActions = ({ isOpen, setTransactionIsOpen }) => {
 	});
 
 	const sidebarStyleText = useSpring({
-		opacity: isOpen ? 1 : 0
+		opacity: isOpen ? 1 : 0,
 	});
 
 	const openDrawer = () => setTransactionIsOpen(true);
 
 	return (
 		<div className={'sidebar-actions'}>
-			<animated.button
-				style={sidebarStyle}
-				className={'sidebar-actions_btn'}
-				onClick={openDrawer}
-			>
+			<animated.button style={sidebarStyle} className={'sidebar-actions_btn'} onClick={openDrawer}>
 				{isOpen ? <animated.span style={sidebarStyleText}>Add transaction</animated.span> : <PlusIcon />}
 			</animated.button>
 		</div>
-	)
+	);
 };
 
 export default memo(SidebarActions);

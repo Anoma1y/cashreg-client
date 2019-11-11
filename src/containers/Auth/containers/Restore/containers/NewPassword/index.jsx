@@ -1,10 +1,5 @@
-import React, {
-	memo,
-} from 'react';
+import React, { memo } from 'react';
 
-const MewPassword = () => (
-	<div>new password</div>
-);
+const MewPassword = () => <div>new password</div>;
 
-export default memo(MewPassword)
-
+export default memo(MewPassword);
