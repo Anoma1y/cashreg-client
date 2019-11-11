@@ -2,8 +2,8 @@ import React, { memo } from 'react';
 import { NavLink } from 'react-router-dom';
 import { SidebarIcon } from 'components/Icons';
 
-const SidebarMenu = ({ routes, isOpen, toggleSidebar }) => (
-	<nav className={`sidebar-nav${!isOpen ? ' sidebar-nav__collapsed' : ''}`}>
+const SidebarMenu = ({ routes }) => (
+	<nav className={`sidebar-nav`}>
 		<ul className={'sidebar-menu'}>
 			{routes.map(route => (
 				<NavLink
@@ -18,12 +18,6 @@ const SidebarMenu = ({ routes, isOpen, toggleSidebar }) => (
 			))}
 		</ul>
 		{console.log('update sidebar menu')}
-		{/*<ul className={'sidebar-menu sidebar-menu__bottom'}>*/}
-		{/*	<li className={'sidebar-menu_link'} onClick={toggleSidebar}>*/}
-		{/*		<SidebarIcon />*/}
-		{/*		<span>Toggle Sidebar</span>*/}
-		{/*	</li>*/}
-		{/*</ul>*/}
 	</nav>
 );
 

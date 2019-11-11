@@ -69,7 +69,9 @@ const refreshAuthLogic = failedRequest => {
 
 	return refreshToken(refresh_token).then(data => {
 		setAuthToken(data.data.data);
-		failedRequest.response.config.headers['Authorization'] = `Bearer ${data.data.data.access_token}`;
+		failedRequest.response.config.headers[
+			'Authorization'
+		] = `Bearer ${data.data.data.access_token}`;
 		return Promise.resolve();
 	});
 };

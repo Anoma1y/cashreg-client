@@ -1,11 +1,10 @@
 {
   "parser": "babel-eslint",
-  "extends": ["airbnb", "prettier", "prettier/react"],
+  "extends": ["airbnb", "plugin:react/recommended"],
   "plugins": [
     "redux-saga",
     "react",
     "promise",
-    "prettier",
     "jsx-a11y",
     "react-hooks"
   ],
@@ -23,8 +22,6 @@
     }
   },
   "rules": {
-    "prettier/prettier": "error",
-
     // base
     "no-param-reassign": "off",
     "dot-notation": "off",
@@ -38,11 +35,12 @@
     "arrow-parens": "off",
     "implicit-arrow-linebreak": "off",
     "consistent-return": "off",
+    "no-trailing-spaces": "off",
     "camelcase": "off",
     "radix": "off",
     "no-unused-vars": "warn",
     "max-len": ["error", {"code": 120, "ignoreUrls": true}],
-    "object-curly-newline": "warn",
+    "object-curly-newline": "off",
     "no-nested-ternary": "off",
     "no-plusplus": "off",
     "no-continue": "off",
@@ -52,6 +50,7 @@
     "import/no-extraneous-dependencies": 0,
     "import/prefer-default-export": 0,
     "import/no-unresolved": "off",
+    "import/no-cycle": "off",
 
     // react
     "react/sort-comp": "off",
@@ -63,7 +62,7 @@
     "react/jsx-indent": ["warn", "tab"],
     "react/forbid-prop-types": 0,
     "react/jsx-curly-brace-presence": "off",
-    "react/jsx-one-expression-per-line": "off",
+    "react/jsx-one-expression-per-line": 0,
 
     // redux-saga
     "redux-saga/no-yield-in-race": 2,

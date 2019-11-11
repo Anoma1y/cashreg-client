@@ -10,7 +10,9 @@ export default ({ key, reducer }) => WrappedComponent => {
 
 		static contextType = ReactReduxContext;
 
-		static displayName = `withReducer(${WrappedComponent.displayName || WrappedComponent.name || 'Component'})`;
+		static displayName = `withReducer(${WrappedComponent.displayName ||
+			WrappedComponent.name ||
+			'Component'})`;
 
 		constructor(props, context) {
 			super(props, context);

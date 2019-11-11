@@ -7,6 +7,15 @@
   background-color: #363740;
   -webkit-overflow-scrolling: touch;
 
+  &__collapsed {
+    & .sidebar-menu_link {
+      svg {
+        left: calc(100% - 39px);
+        font-size: 1.8rem;
+      }
+    }
+  }
+
   ::-webkit-scrollbar {
     width: 5px;
     height: 7px;
@@ -116,15 +125,6 @@
   font-family: Lato, sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-
-  &__collapsed {
-    & .sidebar-menu_link {
-      svg {
-        left: calc(100% - 39px);
-        font-size: 1.8rem;
-      }
-    }
-  }
 }
 
 .sidebar-menu {
@@ -194,4 +194,11 @@
       }
     }
   }
+}
+
+.sidebar-footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  display: flex;
 }

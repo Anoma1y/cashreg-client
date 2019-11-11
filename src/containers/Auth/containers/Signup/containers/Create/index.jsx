@@ -51,7 +51,13 @@ const Signup = ({ form }) => {
 					placeholder={'test@example.com'}
 				/>
 
-				<Field label={'Password'} name="password" component={AuthInput} type="password" id={'password'} />
+				<Field
+					label={'Password'}
+					name="password"
+					component={AuthInput}
+					type="password"
+					id={'password'}
+				/>
 
 				<Field
 					label={'Repeat Password'}

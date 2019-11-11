@@ -16,7 +16,9 @@ const TOKEN_TYPE = 'Bearer ';
 const isTokenExpired = expires_at => new Date(expires_at * 1000) < new Date();
 
 const getToken = () =>
-	AUTH_STORE === AUTH_STORE_COOKIE ? Cookie.get(ACCESS_TOKEN_KEY) : Storage.getItem(ACCESS_TOKEN_KEY);
+	AUTH_STORE === AUTH_STORE_COOKIE
+		? Cookie.get(ACCESS_TOKEN_KEY)
+		: Storage.getItem(ACCESS_TOKEN_KEY);
 
 const checkToken = () => {
 	let token = getToken();

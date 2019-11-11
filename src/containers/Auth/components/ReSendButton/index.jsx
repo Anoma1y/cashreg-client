@@ -40,7 +40,13 @@ const ReSendButton = ({ user_id, token_id, setTokenId, load, isLoading, children
 	}, []);
 
 	return (
-		<Button minimal loading={isLoading} disabled={timeLeft !== 0} onClick={handleResend} className={'auth_resend-btn'}>
+		<Button
+			minimal
+			loading={isLoading}
+			disabled={timeLeft !== 0}
+			onClick={handleResend}
+			className={'auth_resend-btn'}
+		>
 			{timeLeft === 0 ? children : `Resend the verification code in ${timeLeft / 1000}`}
 		</Button>
 	);

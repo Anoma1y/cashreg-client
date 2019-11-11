@@ -64,11 +64,22 @@ const Signin = ({ form }) => {
 					placeholder={'test@example.com'}
 				/>
 
-				<Field label={'Password'} name="password" component={AuthInput} type="password" id={'password'} />
+				<Field
+					label={'Password'}
+					name="password"
+					component={AuthInput}
+					type="password"
+					id={'password'}
+				/>
 
 				<div className="auth-form_row">
 					<div className="auth-form_col">
-						<Field label={'Remember Me'} name="rememberMe" component={AuthCheckbox} id={'rememberMe'} />
+						<Field
+							label={'Remember Me'}
+							name="rememberMe"
+							component={AuthCheckbox}
+							id={'rememberMe'}
+						/>
 					</div>
 					<div className="auth-form_col">
 						<Button type={'submit'} loading={isLoading} className={'auth-form_btn'}>

@@ -1,13 +1,22 @@
 import React, { useState, useEffect, useContext, memo } from 'react';
+import cx from 'classnames';
 import { useSpring, animated, to } from 'react-spring';
 import { useDrag } from 'react-use-gesture';
 import { useWindowSize, useLocalStorage } from 'hooks';
+import {
+	TransactionsIcon,
+	OverviewIcon,
+	UsersIcon,
+	EntityIcon,
+	ProjectIcon,
+	CategoryIcon,
+} from 'components/Icons';
+import { useKeyOnly } from 'utils/ui';
 import { Context } from '../../index';
 import SidebarMenu from './Menu';
 import SidebarHeader from './Header';
 import SidebarActions from './Actions';
 import SidebarFooter from './Footer';
-import { TransactionsIcon, OverviewIcon, UsersIcon, EntityIcon, ProjectIcon, CategoryIcon } from 'components/Icons';
 import './index.scss';
 
 const LS_KEY = 'sidebarState';
@@ -79,12 +88,20 @@ export const useSidebar = () => {
 };
 
 const Sidebar = () => {
-	const { style, toggleSidebar, dragSidebar, sidebarWidth, isOpen, setTransactionIsOpen } = useContext(Context);
+	const {
+		style,
+		toggleSidebar,
+		dragSidebar,
+		sidebarWidth,
+		isOpen,
+		setTransactionIsOpen,
+	} = useContext(Context);
+	const classes = cx('sidebar', 'sidebar-wrapper', useKeyOnly(!isOpen, 'sidebar__collapsed'));
 
 	return (
 		<animated.div
 			{...dragSidebar()}
-			className="sidebar sidebar-wrapper"
+			className={classes}
 			style={{
 				...style,
 				width: sidebarWidth,
@@ -95,13 +112,9 @@ const Sidebar = () => {
 
 				<SidebarActions isOpen={isOpen} setTransactionIsOpen={setTransactionIsOpen} />
 
-				<SidebarMenu
-					isOpen={isOpen}
-					routes={routes}
-					// toggleSidebar={toggleSidebar}
-				/>
+				<SidebarMenu routes={routes} />
 
-				<SidebarFooter isOpen={isOpen} />
+				<SidebarFooter toggleSidebar={toggleSidebar} />
 			</div>
 		</animated.div>
 	);

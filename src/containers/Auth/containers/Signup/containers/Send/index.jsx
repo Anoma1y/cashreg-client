@@ -52,7 +52,10 @@ const Send = props => {
 	const handleChangeSendCode = e => {
 		const { value } = e.target;
 
-		if (Validator.isLength(value, { min: 0, max: 6 }) && (value !== '' ? Validator.isNumeric(value) : true)) {
+		if (
+			Validator.isLength(value, { min: 0, max: 6 }) &&
+			(value !== '' ? Validator.isNumeric(value) : true)
+		) {
 			setVerificationCode(value);
 		}
 	};
@@ -75,12 +78,23 @@ const Send = props => {
 					{/*{isError && (<AuthError text={error} />)}*/}
 				</FormGroup>
 
-				<Button type={'submit'} loading={isLoading} disabled={isValidLength} className={'auth-form_btn'}>
+				<Button
+					type={'submit'}
+					loading={isLoading}
+					disabled={isValidLength}
+					className={'auth-form_btn'}
+				>
 					Confirm
 				</Button>
 			</form>
 
-			<ReSendButton user_id={user_id} token_id={token_id} isLoading={isLoading} setTokenId={setTokenId} load={load}>
+			<ReSendButton
+				user_id={user_id}
+				token_id={token_id}
+				isLoading={isLoading}
+				setTokenId={setTokenId}
+				load={load}
+			>
 				Resend Code
 			</ReSendButton>
 		</div>

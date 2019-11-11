@@ -16,8 +16,16 @@ const SidebarActions = ({ isOpen, setTransactionIsOpen }) => {
 
 	return (
 		<div className={'sidebar-actions'}>
-			<animated.button style={sidebarStyle} className={'sidebar-actions_btn'} onClick={openDrawer}>
-				{isOpen ? <animated.span style={sidebarStyleText}>Add transaction</animated.span> : <PlusIcon />}
+			<animated.button
+				style={sidebarStyle}
+				className={'sidebar-actions_btn'}
+				onClick={openDrawer}
+			>
+				{isOpen ? (
+					<animated.span style={sidebarStyleText}>Add transaction</animated.span>
+				) : (
+					<PlusIcon />
+				)}
 			</animated.button>
 		</div>
 	);
