@@ -11,13 +11,17 @@ import {
 	useLocalStorage,
 } from 'hooks';
 import { Context } from '../../index';
-import SidebarMenu from '../SidebarMenu';
-import SidebarHeader from '../SidebarHeader';
-import SidebarActions from '../SidebarActions';
+import SidebarMenu from './Menu';
+import SidebarHeader from './Header';
+import SidebarActions from './Actions';
+import SidebarFooter from './Footer';
 import {
 	TransactionsIcon,
 	OverviewIcon,
 	UsersIcon,
+	EntityIcon,
+	ProjectIcon,
+	CategoryIcon,
 } from 'components/Icons';
 import './index.scss';
 
@@ -31,6 +35,9 @@ const routes = [
 	{ id: 1, name: 'Overview', linkTo: '/overview', icon: <OverviewIcon /> },
 	{ id: 2, name: 'Transactions', linkTo: '/transactions', icon: <TransactionsIcon /> },
 	{ id: 3, name: 'Workspaces', linkTo: '/workspaces', icon: <UsersIcon /> },
+	{ id: 4, name: 'Cagegories', linkTo: '/categories', icon: <CategoryIcon /> },
+	{ id: 5, name: 'Contragents', linkTo: '/contragents', icon: <EntityIcon /> },
+	{ id: 6, name: 'Projects', linkTo: '/projects', icon: <ProjectIcon /> },
 ];
 
 export const useSidebar = () => {
@@ -74,7 +81,6 @@ export const useSidebar = () => {
 
 	const style = {
 		transform: to(sidebarStyle.translate, x => `translateX(${x}px)`)
-		// transform: to(sidebarStyle.translate, x => `translateX(${x}%)`)
 	};
 
 	return {
@@ -93,13 +99,13 @@ const Sidebar = () => {
 	return (
 		<animated.div
 			{...dragSidebar()}
-			className="sidebar"
+			className="sidebar sidebar-wrapper"
 			style={{
 				...style,
 				width: sidebarWidth,
 			}}
 		>
-			<div className="sidebar-wrapper">
+			<div className="sidebar-content">
 				<SidebarHeader
 					isOpen={isOpen}
 				/>
@@ -112,7 +118,11 @@ const Sidebar = () => {
 				<SidebarMenu
 					isOpen={isOpen}
 					routes={routes}
-					toggleSidebar={toggleSidebar}
+					// toggleSidebar={toggleSidebar}
+				/>
+
+				<SidebarFooter
+					isOpen={isOpen}
 				/>
 			</div>
 		</animated.div>

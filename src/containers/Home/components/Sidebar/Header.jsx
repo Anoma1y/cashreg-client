@@ -1,5 +1,4 @@
 import React, { memo } from 'react';
-import './index.scss';
 import LogoIcon from 'static/images/logo.svg';
 import { animated, useSpring } from 'react-spring';
 

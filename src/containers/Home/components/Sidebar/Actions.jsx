@@ -1,8 +1,6 @@
 import React, { memo } from 'react';
-import { Button } from '@blueprintjs/core';
 import { PlusIcon } from 'components/Icons';
 import { animated, useSpring } from 'react-spring';
-import './index.scss';
 
 const SidebarActions = ({ isOpen, setTransactionIsOpen }) => {
 	const sidebarStyle = useSpring({

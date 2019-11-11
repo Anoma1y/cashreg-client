@@ -13,10 +13,6 @@ export const INITIAL_STATE = {
 	currencies: [],
 	workspaces: [],
 	active_workspace: null,
-	transaction: {
-		sum: '',
-		description: ''
-	},
 	cash: [],
 	ready: false,
 };
@@ -27,9 +23,6 @@ const HANDLERS = {
 	},
 	[SET_CURRENCIES]: (draft, payload) => {
 		draft.currencies = payload;
-	},
-	[CHANGE_TRANSACTION]: (draft, payload) => {
-		draft.transaction[payload.key] = payload.value
 	},
 	[SET_WORKSPACES]: (draft, payload) => {
 		draft.workspaces = payload;

@@ -20,7 +20,4 @@ export const setActiveWorkspace = value => ({ type: SET_ACTIVE_WORKSPACE, payloa
 
 export const setReady = value => ({ type: SET_READY, payload: value });
 
-export const changeTransaction = (key, value) => ({ type: CHANGE_TRANSACTION, payload: { key, value} });
-
 export const pullHomeData = () => ({ type: PULL_DATA });
-

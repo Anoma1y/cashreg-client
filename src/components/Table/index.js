@@ -13,4 +13,4 @@ Table.Header = TableHeader;
 Table.HeaderCell = TableHeaderCell;
 Table.Row = TableRow;
 
-export default Table
+export default Table;

@@ -6,4 +6,3 @@ export const SET_READY = 'Home/SET_READY';
 export const PULL_DATA = 'Home/PULL_DATA';
 export const SET_CURRENCIES = 'Home/SET_CURRENCIES';
 export const SET_ACTIVE_WORKSPACE = 'Home/SET_ACTIVE_WORKSPACE';
-export const CHANGE_TRANSACTION = 'Home/CHANGE_TRANSACTION';

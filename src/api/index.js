@@ -10,8 +10,6 @@ import history from 'store/history';
 import { setAuthToken } from 'utils/auth';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
 
-
-
 // const defaults = {
 //
 // 	statusCodes: [
@@ -56,31 +54,31 @@ const http = axios.create({
 	},
 });
 
-export const signin = (data) => http.post('/session', { ...data, });
+export const signin = data => http.post('/session', { ...data });
 
-export const refreshToken = (token) => http.post('/session/refresh', { refreshToken: token, });
+export const refreshToken = token => http.post('/session/refresh', { refreshToken: token });
 
 export const getWorkspaceList = () => http.get('/workspace');
 
 export const getCurrencyList = () => http.get('/currency');
 
-export const getMe =() => http.get('/me');
-
+export const getMe = () => http.get('/me');
 
 const refreshAuthLogic = failedRequest => {
 	const refresh_token = Cookie.get('refresh_token');
 
 	return refreshToken(refresh_token).then(data => {
-		setAuthToken(data.data.data)
-		failedRequest.response.config.headers['Authorization'] = `Bearer ${data.data.data.access_token}`;
+		setAuthToken(data.data.data);
+		failedRequest.response.config.headers[
+			'Authorization'
+		] = `Bearer ${data.data.data.access_token}`;
 		return Promise.resolve();
-	})
+	});
 };
 
 createAuthRefreshInterceptor(http, refreshAuthLogic, {
-	statusCodes: [ 403 ],
+	statusCodes: [403],
 });
-
 
 export default http;
 
