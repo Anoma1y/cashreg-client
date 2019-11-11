@@ -25,7 +25,7 @@ const useLocalStorage = (key, initialValue, raw) => {
 		} catch (e) {
 			console.error(e);
 		}
-	}, [state]);
+	}, [key, raw, state]);
 
 	return [state, setState];
 };

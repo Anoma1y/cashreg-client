@@ -31,7 +31,7 @@
     "no-tabs": "off",
     "template-curly-spacing" : "off",
     "semi": "warn",
-
+    "no-underscore-dangle": "off",
     "arrow-parens": "off",
     "implicit-arrow-linebreak": "off",
     "consistent-return": "off",
@@ -39,6 +39,11 @@
     "radix": "off",
     "no-unused-vars": "warn",
     "max-len": "off",
+    "object-curly-newline": "warn",
+    "no-nested-ternary": "off",
+    "no-plusplus": "off",
+    "no-continue": "off",
+    "no-restricted-syntax": "off",
 
     // import
     "import/no-extraneous-dependencies": 0,
@@ -46,6 +51,8 @@
     "import/no-unresolved": "off",
 
     // react
+    "react/sort-comp": "off",
+    "react/static-property-placement": "warn",
     "react/require-default-props": "off",
     "react/prop-types": "warn",
     "react/jsx-props-no-spreading": "off",

@@ -1,10 +1,15 @@
+import history from 'store/history';
 import Cookie from './cookie';
 import Storage from './localStorage';
-import history from 'store/history';
 
 export const setAuthToken = (data, rememberMe) => {
 	try {
-		const { access_token, refresh_token, created_at, expires_at } = data;
+		const {
+			access_token,
+			refresh_token,
+			created_at,
+			expires_at,
+		} = data;
 
 		if (rememberMe) {
 			const minutes = (expires_at - created_at) / 1000 / 60;

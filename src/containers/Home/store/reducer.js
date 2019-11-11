@@ -5,7 +5,6 @@ import {
 	SET_READY,
 	SET_WORKSPACES,
 	SET_ACTIVE_WORKSPACE,
-	CHANGE_TRANSACTION,
 } from './constants';
 
 export const INITIAL_STATE = {

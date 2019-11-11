@@ -7,7 +7,9 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config=internals/webpack/dev.config.js --mode=development",
     "build": "yarn generate:api && cross-env NODE_ENV=production webpack --env=production --config=internals/webpack/prod.config.js --mode=production --color -p --progress --hide-modules --display-optimization-bailout",
     "generate:api": "node ./internals/helpers/ApiGenerator.js",
-    "prettify": "prettier --write 'src/**/*.{js, jsx}'"
+    "prettify": "prettier --write 'src/**/*.{js, jsx}'",
+    "lint": "eslint -- .",
+    "lint:fix": "eslint --fix -- ."
   },
   "author": "anoma1y",
   "license": "ISC",

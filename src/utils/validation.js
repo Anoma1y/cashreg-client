@@ -12,7 +12,7 @@ export const validationWarning = {
 };
 
 export const errorValidator = (name, value) =>
-	name in validationError ? validationError[name](value) : true;
+	(name in validationError ? validationError[name](value) : true);
 
 export const warningValidator = (name, value) =>
-	name in validationWarning ? validationWarning[name](value) : true;
+	(name in validationWarning ? validationWarning[name](value) : true);

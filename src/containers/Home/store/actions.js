@@ -7,7 +7,6 @@ import {
 	PULL_USER,
 	SET_WORKSPACES,
 	SET_ACTIVE_WORKSPACE,
-	CHANGE_TRANSACTION,
 } from './constants';
 
 export const setUser = value => ({ type: SET_USERS, payload: value });

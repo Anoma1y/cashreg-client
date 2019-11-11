@@ -10,11 +10,12 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import WithAuth from 'components/WithAuth';
 import { animated } from 'react-spring';
-import Sidebar, { useSidebar } from './components/Sidebar';
-import Header from './components/Header';
 import SiteLoader from 'components/SiteLoader';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+// eslint-disable-next-line import/no-cycle
+import Sidebar, { useSidebar } from './components/Sidebar';
+import Header from './components/Header';
 import saga from './store/saga';
 import { pullHomeData } from './store/actions';
 import { makeSelectReady } from './store/selectors';
@@ -80,12 +81,12 @@ const Home = ({ pullHomeData, ready, location }) => {
 
 const withReducer = injectReducer({
   key: 'home',
-  reducer
+  reducer,
 });
 
 const withSaga = injectSaga({
   key: 'home',
-  saga
+  saga,
 });
 
 const mapStateToProps = createStructuredSelector({
@@ -101,5 +102,5 @@ const withConnect = connect(mapStateToProps, mapDispatchToProps);
 export default WithAuth(compose(
   withReducer,
   withSaga,
-  withConnect
+  withConnect,
 )(Home));

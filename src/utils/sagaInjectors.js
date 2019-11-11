@@ -1,5 +1,7 @@
 import invariant from 'invariant';
-import { isString, isFunction, isEmpty, conformsTo } from './helpers';
+import {
+	isString, isFunction, isEmpty, conformsTo,
+} from './helpers';
 import checkStore from './checkStore';
 import { DAEMON, ONCE_TILL_UNMOUNT, RESTART_ON_REMOUNT } from './constants';
 

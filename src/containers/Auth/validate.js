@@ -5,6 +5,7 @@ export const asyncValidateSignup = async values => {
 	try {
 		await Api.modules.auth.checkEmailExist(values.email);
 	} catch (e) {
+		// eslint-disable-next-line no-throw-literal
 		throw { email: 'That email is taken' };
 	}
 };

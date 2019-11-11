@@ -1,4 +1,6 @@
-import { useRef, useState, useEffect, useCallback } from 'react';
+import {
+	useRef, useState, useEffect, useCallback,
+} from 'react';
 import useUnmount from './useUnmount';
 
 const useRafState = initialState => {
@@ -39,7 +41,7 @@ const useWindowSize = () => {
 		return () => {
 			window.removeEventListener('resize', handler);
 		};
-	}, []);
+	}, [setState]);
 
 	return state;
 };

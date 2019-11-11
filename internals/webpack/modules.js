@@ -1,4 +1,4 @@
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
 	rules: [
@@ -7,12 +7,12 @@ module.exports = {
 			exclude: /node_modules/,
 			use: [
 				{
-					loader: "cache-loader"
+					loader: 'cache-loader',
 				},
 				{
-					loader: "babel-loader"
-				}
-			]
+					loader: 'babel-loader',
+				},
+			],
 		},
 		{
 			test: /\.scss$/,
@@ -20,21 +20,21 @@ module.exports = {
 			use: [
 				MiniCssExtractPlugin.loader,
 				{
-					loader: "cache-loader"
+					loader: 'cache-loader',
 				},
 				{
 					loader: 'css-loader',
 					options: {
-						sourceMap: true
-					}
+						sourceMap: true,
+					},
 				},
 				{
 					loader: 'sass-loader',
 					options: {
-						sourceMap: true
-					}
+						sourceMap: true,
+					},
 				},
-			]
+			],
 		},
 		{
 			test: /\.css$/,
@@ -43,10 +43,10 @@ module.exports = {
 				{
 					loader: 'css-loader',
 					options: {
-						sourceMap: true
-					}
+						sourceMap: true,
+					},
 				},
-			]
+			],
 		},
 		{
 			test: /\.(eot|otf|ttf|woff2?)$/,
@@ -60,27 +60,27 @@ module.exports = {
 					limit: 10 * 1024,
 					noquotes: true,
 				},
-			}
+			},
 		},
 		{
 			test: /\.(jpg|png|gif)$/,
 			use: [
 				{
-					loader: "cache-loader"
+					loader: 'cache-loader',
 				},
 				{
 					loader: 'url-loader',
 					options: {
 						limit: 10 * 1024,
-					}
+					},
 				},
 				{
 					loader: 'file-loader',
 					options: {
-						name: '[name].[ext]'
-					}
-				}
-			]
+						name: '[name].[ext]',
+					},
+				},
+			],
 		},
-	]
+	],
 };

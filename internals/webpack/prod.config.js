@@ -1,6 +1,6 @@
 const merge = require('webpack-merge');
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
@@ -82,7 +82,7 @@ const prodConfig = merge(baseConfig, {
 				minifyCSS: true,
 				minifyURLs: true,
 			},
-			inject: true
+			inject: true,
 		}),
 	],
 	performance: {

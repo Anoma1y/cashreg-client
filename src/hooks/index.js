@@ -5,4 +5,6 @@ import useUnmount from './useUnmount';
 import useLocalStorage from './useLocalStorage';
 import useClickOutside from './useClickOutside';
 
-export { useLoading, useCountDown, useWindowSize, useUnmount, useLocalStorage, useClickOutside };
+export {
+	useLoading, useCountDown, useWindowSize, useUnmount, useLocalStorage, useClickOutside,
+};
