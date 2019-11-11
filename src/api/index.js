@@ -1,6 +1,5 @@
 import axios from 'axios';
 import config from './config';
-import codes from './codes';
 // import Modules from './Modules/_index';
 import Cookie from 'utils/cookie';
 import store from 'store/configureStore';
@@ -9,6 +8,7 @@ import { changeError } from 'containers/store/actions';
 import history from 'store/history';
 import { setAuthToken } from 'utils/auth';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
+import codes from './codes';
 
 // const defaults = {
 //

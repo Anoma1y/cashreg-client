@@ -9,7 +9,7 @@ const Table = props => {
 		disabled,
 		collapsing = true,
 		striped = true,
-		className
+		className,
 	} = props;
 
 	const classes = cx(
@@ -17,14 +17,14 @@ const Table = props => {
 		useKeyOnly(collapsing, 'collapsing'),
 		useKeyOnly(striped, 'striped'),
 		'table',
-		className
+		className,
 	);
 
 	return (
 		<table className={classes}>
 			{children}
 		</table>
-	)
+	);
 };
 
 export default Table;

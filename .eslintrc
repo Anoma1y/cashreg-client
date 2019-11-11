@@ -1,0 +1,63 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["airbnb", "plugin:react/recommended"],
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "plugins": [
+    "redux-saga",
+    "react",
+    "promise",
+    "jsx-a11y",
+    "react-hooks"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "legacyDecorators": true,
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    // base
+    "no-param-reassign": "off",
+    "dot-notation": "off",
+    "indent": ["warn", "tab", {
+      "ignoredNodes": ["TemplateLiteral"]
+    }],
+    "no-tabs": "off",
+    "template-curly-spacing" : "off",
+    "semi": "warn",
+
+    "arrow-parens": "off",
+    "implicit-arrow-linebreak": "off",
+    "consistent-return": "off",
+    "camelcase": "off",
+    "radix": "off",
+    "no-unused-vars": "warn",
+    "max-len": "off",
+
+    // import
+    "import/no-extraneous-dependencies": 0,
+    "import/prefer-default-export": 0,
+    "import/no-unresolved": "off",
+
+    // react
+    "react/require-default-props": "off",
+    "react/prop-types": "warn",
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-indent-props": "off",
+    "react/jsx-indent": ["warn", "tab"],
+    "react/forbid-prop-types": 0,
+    "react/jsx-curly-brace-presence": "off",
+    "react/jsx-one-expression-per-line": "off",
+
+
+    // react hooks
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
+  }
+}

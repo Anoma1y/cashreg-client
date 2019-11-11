@@ -6,11 +6,11 @@ import React, {
 import { connect } from 'react-redux';
 import Cookie from 'utils/cookie';
 import PropTypes from 'prop-types';
-import SiteLoader from '../SiteLoader';
 import { changeError } from 'containers/store/actions';
 import { createStructuredSelector } from 'reselect';
 import { makeSelectError } from 'containers/store/selectors';
 import ErrorPage from 'components/ErrorPage';
+import SiteLoader from '../SiteLoader';
 
 const ALLOWED_CODES = ['429', '500', '501', '502', '503', '504', '505', '506', '507', '508', '510', '511', '599'];
 

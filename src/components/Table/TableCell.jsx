@@ -18,8 +18,6 @@ const TableCell = props => {
 		textAlign,
 		verticalAlign,
 		warning,
-
-
 		colSpan,
 	} = props;
 
@@ -40,7 +38,7 @@ const TableCell = props => {
 		<td colSpan={colSpan} className={classes}>
 			{children}
 		</td>
-	)
+	);
 };
 
 TableCell.propTypes = {

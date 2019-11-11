@@ -32,7 +32,7 @@ const ErrorPage = ({ error }) => {
 				<span className={'server-error-content_text'}>{text}</span>
 			</div>
 		</div>
-	)
+	);
 };
 
 ErrorPage.propTypes = {

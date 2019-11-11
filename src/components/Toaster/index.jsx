@@ -1,6 +1,6 @@
 import {
 	Position,
-	Toaster
+	Toaster,
 } from "@blueprintjs/core";
 
 export const AppToater = Toaster.create({

@@ -11,13 +11,13 @@ const TableHeaderCell = props => {
 
 	const classes = cx(
 		useValueAndKey(sorted, 'sorted'),
-		className
+		className,
 	);
 
 	const restProps = getUnhandledProps(TableHeaderCell, props);
 
 	return (
-		<th {...restProps} className={classes}/>
+		<th {...restProps} className={classes} />
 	)
 };
 

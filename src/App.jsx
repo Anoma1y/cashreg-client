@@ -4,7 +4,7 @@ import {
   Switch,
 } from 'react-router-dom';
 import PageReady from 'components/PageReady';
-import loadable from '@loadable/component'
+import loadable from '@loadable/component';
 import './index.scss';
 
 const Loader = () => <span>Loading...</span>;

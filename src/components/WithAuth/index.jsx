@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Cookie from 'utils/cookie';
 import Storage from 'utils/localStorage';
 import history from 'store/history';
@@ -16,7 +16,7 @@ const TOKEN_TYPE = 'Bearer ';
 
 const isTokenExpired = expires_at => new Date(expires_at * 1000) < new Date();
 
-const getToken = () => AUTH_STORE === AUTH_STORE_COOKIE ? Cookie.get(ACCESS_TOKEN_KEY) : Storage.getItem(ACCESS_TOKEN_KEY);
+const getToken = () => (AUTH_STORE === AUTH_STORE_COOKIE ? Cookie.get(ACCESS_TOKEN_KEY) : Storage.getItem(ACCESS_TOKEN_KEY));
 
 const checkToken = () => {
   let token = getToken();
@@ -44,7 +44,7 @@ const setTokenApi = async (token) => {
 };
 
 const WithAuth = AuthComponent => props => {
-  const [isAuth, setIsAuth] = React.useState(false);
+  const [isAuth, setIsAuth] = useState(false);
 
   const toggleAuth = () => setIsAuth(true);
 
@@ -77,7 +77,7 @@ const WithAuth = AuthComponent => props => {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     initAuth()
       .then(setTokenApi)
       .then(toggleAuth)

@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import { useValueAndKey, getUnhandledProps, } from 'utils/ui';
+import { useValueAndKey, getUnhandledProps } from 'utils/ui';
 
 const TableRow = props => {
 	const {

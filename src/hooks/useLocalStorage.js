@@ -9,9 +9,9 @@ const useLocalStorage = (key, initialValue, raw) => {
 				localStorage.setItem(key, raw ? String(initialValue) : JSON.stringify(initialValue));
 
 				return initialValue;
-			} else {
-				return raw ? localStorageValue : JSON.parse(localStorageValue || 'null');
 			}
+
+			return raw ? localStorageValue : JSON.parse(localStorageValue || 'null');
 		} catch {
 			return initialValue;
 		}
