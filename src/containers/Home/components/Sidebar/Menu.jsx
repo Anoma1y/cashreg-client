@@ -7,8 +7,8 @@ const SidebarMenu = ({ routes }) => (
 		<ul className={'sidebar-menu'}>
 			{routes.map(route => (
 				<NavLink
-					className={'sidebar-menu_link'}
-					activeClassName={'sidebar-menu_link__active'}
+					className={'sidebar_link'}
+					activeClassName={'sidebar_link__active'}
 					key={route.id}
 					to={route.linkTo}
 				>

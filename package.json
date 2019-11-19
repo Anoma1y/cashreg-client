@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config=internals/webpack/dev.config.js --mode=development",
     "build": "yarn generate:api && cross-env NODE_ENV=production webpack --env=production --config=internals/webpack/prod.config.js --mode=production --color -p --progress --hide-modules --display-optimization-bailout",
-    "generate:api": "node ./internals/helpers/ApiGenerator.js",
     "lint": "eslint -- .",
     "lint:fix": "eslint --fix -- ."
   },
@@ -44,6 +43,7 @@
   },
   "dependencies": {
     "@blueprintjs/core": "^3.19.1",
+    "@blueprintjs/datetime": "^3.15.1",
     "@loadable/component": "^5.10.3",
     "axios": "^0.19.0",
     "axios-auth-refresh": "^1.0.7",

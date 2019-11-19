@@ -7,6 +7,10 @@ import User from './User';
 import Entity from './Entity';
 import Project from './Project';
 import Category from './Category';
+import Calendar from './Calendar';
+import TransactionType from './TransactionType';
+import Search from './Search';
+import Filter from './Filter';
 
 export {
 	Overview as OverviewIcon,
@@ -18,4 +22,8 @@ export {
 	Entity as EntityIcon,
 	Project as ProjectIcon,
 	Category as CategoryIcon,
+	Calendar as CalendarIcon,
+	TransactionType as TransactionTypeIcon,
+	Search as SearchIcon,
+	Filter as FilterIcon,
 };

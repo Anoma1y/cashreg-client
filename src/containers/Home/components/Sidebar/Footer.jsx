@@ -6,7 +6,7 @@ const SidebarFooter = ({ toggleSidebar }) => (
 	<div className={'sidebar-footer'}>
 		<button
 			type={'submit'}
-			className={'sidebar-menu_link'}
+			className={'sidebar_link sidebar_link__btn'}
 			style={{ width: '100%' }}
 			onClick={toggleSidebar}
 		>

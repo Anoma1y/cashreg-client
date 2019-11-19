@@ -107,15 +107,15 @@ const Sidebar = () => {
 				width: sidebarWidth,
 			}}
 		>
-			<div className="sidebar-content">
+			<div className={'sidebar-content'}>
 				<SidebarHeader isOpen={isOpen} />
 
 				<SidebarActions isOpen={isOpen} setTransactionIsOpen={setTransactionIsOpen} />
 
 				<SidebarMenu routes={routes} />
-
-				<SidebarFooter toggleSidebar={toggleSidebar} />
 			</div>
+
+			<SidebarFooter toggleSidebar={toggleSidebar} />
 		</animated.div>
 	);
 };

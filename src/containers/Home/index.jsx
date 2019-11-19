@@ -15,6 +15,7 @@ import saga from './store/saga';
 import { pullHomeData } from './store/actions';
 import { makeSelectReady } from './store/selectors';
 import Transactions from './containers/Transactions';
+import Projects from './containers/Projects';
 import reducer from './store/reducer';
 import CreateTransaction from './components/CreateTransaction';
 import './index.scss';
@@ -56,6 +57,7 @@ const Home = ({ pullHomeData, ready, location }) => {
 							<h1>Overview</h1>
 						</Route>
 						<Route path={'/transactions'} component={Transactions} />
+						<Route path={'/projects'} component={Projects} />
 						<Route path={'/workspaces'}>
 							<h1>Workspaces</h1>
 						</Route>

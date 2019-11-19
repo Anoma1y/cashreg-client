@@ -22,6 +22,12 @@ $positive-color: #16c46f;
     padding: $th-pad;
   }
 
+  & tbody tr {
+    &:hover {
+      background-color: darken(#FCFBFC, 3.5%);
+    }
+  }
+
   & td {
     padding: $td-pad;
     font-size: 14px;

@@ -1,47 +1,28 @@
-import React, { PureComponent, Fragment } from 'react';
+import React from 'react';
+import { compose } from 'redux';
 import { Switch, Route, Link } from 'react-router-dom';
-import { HTMLTable } from '@blueprintjs/core';
-import Table from 'components/Table';
+import List from './containers/List';
+import injectReducer from 'utils/injectReducer';
+import injectSaga from 'utils/injectSaga';
+import reducer from './store/reducer';
+import './index.scss';
 
-const Transactions = () => (
-	<div>
-		<Table>
-			<Table.Header>
-				<Table.Row>
-					<Table.HeaderCell>ID</Table.HeaderCell>
-					<Table.HeaderCell>Date & Time</Table.HeaderCell>
-					<Table.HeaderCell>Category</Table.HeaderCell>
-					<Table.HeaderCell>Contragent</Table.HeaderCell>
-					<Table.HeaderCell>Project</Table.HeaderCell>
-					<Table.HeaderCell>Sum</Table.HeaderCell>
-					<Table.HeaderCell>Status</Table.HeaderCell>
-					{/*<Table.HeaderCell />*/}
-				</Table.Row>
-			</Table.Header>
-			<Table.Body>
-				<Table.Row>
-					<Table.Cell>1</Table.Cell>
-					<Table.Cell>27 Apr. 2019</Table.Cell>
-					<Table.Cell>Buy dildo</Table.Cell>
-					<Table.Cell>OOO Moya Oborona</Table.Cell>
-					<Table.Cell>Havar</Table.Cell>
-					<Table.Cell positive>7 878 554.00 $</Table.Cell>
-					<Table.Cell>Approved</Table.Cell>
-					{/*<Table.Cell></Table.Cell>*/}
-				</Table.Row>
-				<Table.Row>
-					<Table.Cell>1</Table.Cell>
-					<Table.Cell>27 Apr. 2019</Table.Cell>
-					<Table.Cell>Buy dildo</Table.Cell>
-					<Table.Cell>OOO Moya Oborona</Table.Cell>
-					<Table.Cell>Havar</Table.Cell>
-					<Table.Cell negative>7 878 554.00 $</Table.Cell>
-					<Table.Cell>Approved</Table.Cell>
-					{/*<Table.Cell></Table.Cell>*/}
-				</Table.Row>
-			</Table.Body>
-		</Table>
-	</div>
+const Transactions = ({ match }) => (
+	<Switch>
+		<Route path={`${match.url}`} component={List} />
+	</Switch>
 );
 
-export default Transactions;
+const withReducer = injectReducer({
+	key: 'transaction',
+	reducer,
+});
+
+// const withSaga = injectSaga({
+// 	key: 'transaction',
+// 	saga,
+// });
+
+export default compose(
+	withReducer,
+)(Transactions);
