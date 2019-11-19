@@ -16,9 +16,9 @@ const TOKEN_TYPE = 'Bearer ';
 const isTokenExpired = expires_at => new Date(expires_at * 1000) < new Date();
 
 const getToken = () =>
-	AUTH_STORE === AUTH_STORE_COOKIE
+	(AUTH_STORE === AUTH_STORE_COOKIE
 		? Cookie.get(ACCESS_TOKEN_KEY)
-		: Storage.getItem(ACCESS_TOKEN_KEY);
+		: Storage.getItem(ACCESS_TOKEN_KEY));
 
 const checkToken = () => {
 	let token = getToken();
@@ -42,7 +42,7 @@ const checkToken = () => {
 };
 
 const setTokenApi = async token => {
-	Api.defaults.headers['Authorization'] = `${TOKEN_TYPE}${token}`;
+	Api.http.defaults.headers['Authorization'] = `${TOKEN_TYPE}${token}`;
 };
 
 const WithAuth = AuthComponent => props => {

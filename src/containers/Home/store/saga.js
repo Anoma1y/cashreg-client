@@ -1,36 +1,35 @@
 import { put, call, takeLatest } from 'redux-saga/effects';
 import Cookie from 'utils/cookie';
-import { getMe, getWorkspaceList, getCurrencyList } from 'api';
+import Api from 'api';
 import { PULL_DATA } from './constants';
 import { setUser, setCurrencies, setWorkspaces, setActiveWorkspace, setReady } from './actions';
 
 export function* getUser() {
 	try {
-		const user = yield call(getMe);
-
+		const user = yield call(Api.getMe);
 		yield put(setUser(user.data));
 
 		return true;
 	} catch (err) {
-		console.error(err);
+		throw new Error(err)
 	}
 }
 
 export function* getCurrency() {
 	try {
-		const currency = yield call(getCurrencyList);
+		const currency = yield call(Api.getCurrencyList);
 
 		yield put(setCurrencies(currency.data));
 
 		return true;
 	} catch (err) {
-		console.error(err);
+		throw new Error(err)
 	}
 }
 
 export function* getWorkspaces() {
 	try {
-		const workspaces = yield call(getWorkspaceList);
+		const workspaces = yield call(Api.getWorkspaceList);
 
 		yield put(setWorkspaces(workspaces.data));
 
@@ -49,7 +48,7 @@ export function* getWorkspaces() {
 
 		return true;
 	} catch (err) {
-		console.error(err);
+		throw new Error(err)
 	}
 }
 
@@ -60,19 +59,10 @@ export function* getData() {
 		yield call(getWorkspaces);
 
 		yield put(setReady(true));
-		// const hasData = yield all([call(getUser), call(getCurrency), call(getWorkspaces)]);
-
-		// if (hasData.every(Boolean)) {
-		// 	yield put(setReady(true));
-		// }
 	} catch (e) {
 		console.error(e);
 	}
 }
-
-// export function* homeData() {
-// 	yield takeLatest(PULL_DATA, getData);
-// }
 
 export default function* homeSagas() {
 	yield takeLatest(PULL_DATA, getData);

@@ -9,7 +9,7 @@ import Modules from './Modules/_index';
 import config from './config';
 import codes from './codes';
 
-const http = axios.create({
+export const http = axios.create({
 	baseURL: config.BASE_URL,
 	timeout: config.TIMEOUT,
 	headers: {
@@ -17,24 +17,27 @@ const http = axios.create({
 	},
 });
 
-export const signin = data => http.post('/session', { ...data });
+const api = {
+	codes,
+	http,
+};
 
-export const refreshToken = token => http.post('/session/refresh', { refreshToken: token });
-
-export const getWorkspaceList = () => http.get('/workspace');
-
-export const getCurrencyList = () => http.get('/currency');
-
-export const getMe = () => http.get('/me');
+api.checkEmailExist = (email = '') => http.get(`/user/email/check?email=${email}`);
+api.signin = data => http.post('/session', { ...data });
+api.refreshToken = token => http.post('/session/refresh', { refreshToken: token });
+api.getWorkspaceList = () => http.get('/workspace');
+api.getCurrencyList = () => http.get('/currency');
+api.getMe = () => http.get('/me');
+api.getCategories = (wsid) => http.get(`/category?workspace_id=${wsid}`); // todo add query
+api.getProjects = (wsid) => http.get(`/project?workspace_id=${wsid}`); // todo add query
+api.getContragents = (wsid) => http.get(`/contragent?workspace_id=${wsid}`); // todo add query
 
 const refreshAuthLogic = failedRequest => {
 	const refresh_token = Cookie.get('refresh_token');
 
-	return refreshToken(refresh_token).then(data => {
+	return api.refreshToken(refresh_token).then(data => {
 		setAuthToken(data.data.data);
-		failedRequest.response.config.headers[
-			'Authorization'
-		] = `Bearer ${data.data.data.access_token}`;
+		failedRequest.response.config.headers['Authorization'] = `Bearer ${data.data.data.access_token}`;
 		return Promise.resolve();
 	});
 };
@@ -43,14 +46,4 @@ createAuthRefreshInterceptor(http, refreshAuthLogic, {
 	statusCodes: [403],
 });
 
-// const generatedModules = {};
-//
-// for (const mod in Modules) {
-// 	if (Modules.hasOwnProperty(mod)) {
-// 		const moduleKey = mod.replace(/([Aa]pi[Mm]odule)/g, '').toLocaleLowerCase();
-//
-// 		generatedModules[moduleKey] = new Modules[mod](this.http);
-// 	}
-// }
-
-export default http;
+export default api;

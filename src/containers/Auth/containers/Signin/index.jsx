@@ -10,7 +10,7 @@ import { validateSignin } from '../../validate';
 import { format, addSeconds } from 'date-fns';
 import { setAuthToken } from 'utils/auth';
 import history from 'store/history';
-import Api, { signin } from 'api';
+import Api from 'api';
 import useLoading from 'hooks/useLoading';
 
 const Signin = ({ form }) => {
@@ -26,7 +26,7 @@ const Signin = ({ form }) => {
 		const { email, password, rememberMe } = form.signin.values;
 
 		try {
-			const data = await setLoad(signin({ email, password }));
+			const data = await setLoad(Api.signin({ email, password }));
 
 			setAuthToken(data.data.data, rememberMe);
 
