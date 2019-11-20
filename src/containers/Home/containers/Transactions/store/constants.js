@@ -1,4 +1,5 @@
 export const CHANGE_FILTER = 'Transactions/CHANGE_FILTER';
+export const CHANGE_FILTER_DATE_RANGE = 'Transactions/CHANGE_FILTER_DATE_RANGE';
 export const SET_READY = 'Tranasctions/SET_READY';
 export const SET_CATEGORIES = 'Tranasctions/SET_CATEGORIES';
 export const SET_PROJECTS = 'Tranasctions/SET_PROJECTS';

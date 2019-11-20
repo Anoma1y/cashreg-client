@@ -21,6 +21,7 @@
   &-content {
     height: 100%;
     max-height: 100%;
+    padding: 1rem;
     //height: calc(100% - #{$sidebar-footer-height});
     //max-height: calc(100% - #{$sidebar-footer-height});
     overflow-y: auto;

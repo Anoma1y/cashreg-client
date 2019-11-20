@@ -170,14 +170,18 @@ export const objectToArray = obj => {
 	return arr;
 };
 
-// export const debounce = (fn, wait) => {
-// 	let timeout;
-//
-// 	return function () {
-// 		clearTimeout(timeout);
-// 		timeout = setTimeout(() => fn.apply(this, arguments), wait);
-// 	};
-// };
+export const debounce = (callback, time) => {
+	let interval;
+
+	return (...args) => {
+		clearTimeout(interval);
+
+		interval = setTimeout(() => {
+			interval = null;
+			callback(...args);
+		}, time);
+	};
+};
 
 export const parseParams = str => {
 	const query = {};

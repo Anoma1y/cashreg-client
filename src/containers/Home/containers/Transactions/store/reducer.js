@@ -5,12 +5,20 @@ import {
 	SET_CATEGORIES,
 	SET_PROJECTS,
 	SET_CONTRAGENTS,
+	CHANGE_FILTER_DATE_RANGE,
 } from './constants';
 
 export const INITIAL_STATE = {
 	filter: {
 		date_from: null,
 		date_to: null,
+		categories: [],
+		contragents: [],
+		projects: [],
+		sum_from: '',
+		sum_to: '',
+		type: null,
+		search: '',
 	},
 	ready: false,
 	categories: [],
@@ -21,6 +29,10 @@ export const INITIAL_STATE = {
 const HANDLERS = {
 	[CHANGE_FILTER]: (draft, payload) => {
 		draft.filter[payload.key] = payload.value;
+	},
+	[CHANGE_FILTER_DATE_RANGE]: (draft, payload) => {
+		draft.filter.date_from = payload.from;
+		draft.filter.date_to = payload.to;
 	},
 	[SET_READY]: (draft, payload) => {
 		draft.ready = payload;
