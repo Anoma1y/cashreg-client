@@ -54,6 +54,18 @@ export const makeSelectFilterSum = () =>
 		}),
 	);
 
+export const makeSelectTransactionOrder = () =>
+	createSelector(
+		selectTransaction,
+		state => state.transactions_order,
+	);
+
+export const makeSelectTransactionInfo = () =>
+	createSelector(
+		selectTransaction,
+		state => state.transactions_info,
+	);
+
 export const makeSelectFilterDate = () =>
 	createSelector(
 		selectTransaction,

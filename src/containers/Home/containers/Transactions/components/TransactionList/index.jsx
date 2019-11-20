@@ -6,6 +6,7 @@ const TransactionList = () => (
 		<Table>
 			<Table.Header>
 				<Table.Row>
+					<Table.HeaderCell></Table.HeaderCell>
 					<Table.HeaderCell>ID</Table.HeaderCell>
 					<Table.HeaderCell>Date & Time</Table.HeaderCell>
 					<Table.HeaderCell>Category</Table.HeaderCell>
@@ -17,6 +18,7 @@ const TransactionList = () => (
 			</Table.Header>
 			<Table.Body>
 				<Table.Row>
+					<Table.Cell></Table.Cell>
 					<Table.Cell>1</Table.Cell>
 					<Table.Cell>27 Apr. 2019</Table.Cell>
 					<Table.Cell>Buy dildo</Table.Cell>
@@ -26,6 +28,7 @@ const TransactionList = () => (
 					<Table.Cell>Approved</Table.Cell>
 				</Table.Row>
 				<Table.Row>
+					<Table.Cell></Table.Cell>
 					<Table.Cell>34</Table.Cell>
 					<Table.Cell>27 Apr. 2019</Table.Cell>
 					<Table.Cell>Buy dildo</Table.Cell>

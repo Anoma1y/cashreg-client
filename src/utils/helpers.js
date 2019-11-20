@@ -203,7 +203,7 @@ export const parseParams = str => {
 	return query;
 };
 
-export const serializeParams = obj => {
+export const serializeParams = (obj, start = true) => {
 	const str = [];
 
 	for (const p in obj) {
@@ -217,5 +217,17 @@ export const serializeParams = obj => {
 		}
 	}
 
-	return str.join('&');
+	if (str.length === 0) return '';
+
+	return start ? `?${str.join('&')}` : str.join('&');
+};
+
+export const removeEmpty = (obj) => {
+	const modObj = { ...obj };
+
+	// eslint-disable-next-line max-len
+	Object.keys(modObj).forEach((key) => (modObj[key] === undefined || modObj[key] === '' || (Array.isArray(modObj[key]) && modObj[key].length === 0) || modObj[key] === null ? delete modObj[key] : modObj[key]));
+	// todo test
+
+	return modObj;
 };

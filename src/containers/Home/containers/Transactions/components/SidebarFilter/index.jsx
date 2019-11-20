@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
@@ -12,7 +12,7 @@ import {
 	makeSelectFilterCategories,
 	makeSelectFilterContragents,
 } from '../../store/selectors';
-import { changeFilter } from '../../store/actions';
+import { changeFilter, pullTransactions } from '../../store/actions';
 import MultiSelect from '../MultiSelect';
 
 const SidebarFilter = (props) => {
@@ -28,7 +28,7 @@ const SidebarFilter = (props) => {
 
 	const [, cancel] = useDebounce(() => {}, 500, [sum.from, sum.to]);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		cancel();
 	}, []);
 
@@ -45,7 +45,7 @@ const SidebarFilter = (props) => {
 
 				<MultiSelect
 					selectItems={selectCategories}
-					items={categories}
+					data={categories}
 					changeFilter={props.changeFilter}
 					filterKey={'categories'}
 					labelKey={'name'}
@@ -56,7 +56,7 @@ const SidebarFilter = (props) => {
 
 				<MultiSelect
 					selectItems={selectContragents}
-					items={contragents}
+					data={contragents}
 					changeFilter={props.changeFilter}
 					filterKey={'contragents'}
 					labelKey={'title'}
@@ -67,7 +67,7 @@ const SidebarFilter = (props) => {
 
 				<MultiSelect
 					selectItems={selectProjects}
-					items={projects}
+					data={projects}
 					changeFilter={props.changeFilter}
 					filterKey={'projects'}
 					labelKey={'title'}
@@ -77,10 +77,22 @@ const SidebarFilter = (props) => {
 				<p className="filter-item_label">Sum</p>
 				<div>
 					<div>
-						<input type="text" name={'sum_from'} value={sum.from} onChange={handleChangeSum} />
+						<input
+							type="text"
+							name={'sum_from'}
+							value={sum.from}
+							onChange={handleChangeSum}
+							placeholder={'От'}
+						/>
 					</div>
 					<div>
-						<input type="text" name={'sum_to'} value={sum.to} onChange={handleChangeSum} />
+						<input
+							type="text"
+							name={'sum_to'}
+							value={sum.to}
+							onChange={handleChangeSum}
+							placeholder={'До'}
+						/>
 					</div>
 				</div>
 			</div>
@@ -114,6 +126,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = {
 	changeFilter,
+	pullTransactions,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(memo(SidebarFilter));

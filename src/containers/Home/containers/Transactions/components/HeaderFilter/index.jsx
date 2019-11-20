@@ -1,21 +1,18 @@
 import React, { memo } from 'react';
-import { DateRangePicker } from '@blueprintjs/datetime';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
-	Dialog,
 	Popover,
 	Checkbox,
-	InputGroup,
 } from '@blueprintjs/core';
 import {
-	CalendarIcon,
 	TransactionTypeIcon,
 	SearchIcon,
 	FilterIcon,
 } from 'components/Icons';
 import './index.scss';
 import { createStructuredSelector } from 'reselect';
+import { useDebounce } from 'hooks';
 import {
 	makeSelectFilterSearch,
 	makeSelectFilterType,
@@ -25,7 +22,7 @@ import {
 	changeFilter,
 	changeFilterDateRange,
 } from '../../store/actions';
-import { useDebounce } from 'hooks';
+import DatePickerRange from '../../../../components/DatePickerRange';
 
 const HeaderFilter = (props) => {
 	const {
@@ -35,7 +32,6 @@ const HeaderFilter = (props) => {
 		search,
 	} = props;
 
-	const [datePickerIsOpen, setDatePickerIsOpen] = React.useState(false);
 	const [typeIsOpen, setTypeIsOpen] = React.useState(false);
 	const typeLabel = type === 1 ? 'Income' : type === 2 ? 'Outcome' : 'All';
 
@@ -65,17 +61,14 @@ const HeaderFilter = (props) => {
 
 	const outcomeChange = () => props.changeFilter('type', type === 2 ? null : 2);
 
-	const handleDateChange = range => props.changeFilterDateRange(range[0], range[1]);
-
 	return (
 		<>
 			<div className={'header-filter'}>
 				<div className="header-filter_col">
-					<div className={'hf-item'}>
-						<CalendarIcon />
-						<b>Date</b>
-						<button type={'button'} onClick={() => setDatePickerIsOpen(true)}>Last week</button>
-					</div>
+					<DatePickerRange
+						date={date}
+						changeFilterDateRange={props.changeFilterDateRange}
+					/>
 					<div className={'hf-item'}>
 						<TransactionTypeIcon />
 						<b>Type</b>
@@ -115,18 +108,6 @@ const HeaderFilter = (props) => {
 					<button type={'button'} className={'hf_btn'} onClick={toggleFilterOpen}><FilterIcon /></button>
 				</div>
 			</div>
-
-			<Dialog
-				isOpen={datePickerIsOpen}
-				className={'hf-modal'}
-				onClose={() => setDatePickerIsOpen(false)}
-			>
-				<DateRangePicker
-					shortcuts
-					value={[date.from, date.to]}
-					onChange={handleDateChange}
-				/>
-			</Dialog>
 		</>
 	);
 };
