@@ -16,6 +16,7 @@ import { pullHomeData } from './store/actions';
 import { makeSelectReady } from './store/selectors';
 import Transactions from './containers/Transactions';
 import Projects from './containers/Projects';
+import Workspaces from './containers/Workspaces';
 import reducer from './store/reducer';
 import CreateTransaction from './components/CreateTransaction';
 import './index.scss';
@@ -58,9 +59,7 @@ const Home = ({ pullHomeData, ready, location }) => {
 						</Route>
 						<Route path={'/transactions'} component={Transactions} />
 						<Route path={'/projects'} component={Projects} />
-						<Route path={'/workspaces'}>
-							<h1>Workspaces</h1>
-						</Route>
+						<Route path={'/workspaces'} component={Workspaces} />
 						<Route path={'/settings'}>
 							<h1>Settings</h1>
 						</Route>

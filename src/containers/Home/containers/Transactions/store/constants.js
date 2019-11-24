@@ -12,4 +12,3 @@ export const PULL_CATEGORIES = 'Tranasctions/PULL_CATEGORIES';
 export const PULL_CONTRAGENTS = 'Tranasctions/PULL_CONTRAGENTS';
 export const PULL_PROJECTS = 'Tranasctions/PULL_PROJECTS';
 export const PULL_TRANSACTIONS = 'Tranasctions/PULL_TRANSACTIONS';
-

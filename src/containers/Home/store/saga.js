@@ -11,7 +11,7 @@ export function* getUser() {
 
 		return true;
 	} catch (err) {
-		throw new Error(err)
+		throw new Error(err);
 	}
 }
 
@@ -23,7 +23,7 @@ export function* getCurrency() {
 
 		return true;
 	} catch (err) {
-		throw new Error(err)
+		throw new Error(err);
 	}
 }
 
@@ -48,7 +48,7 @@ export function* getWorkspaces() {
 
 		return true;
 	} catch (err) {
-		throw new Error(err)
+		throw new Error(err);
 	}
 }
 

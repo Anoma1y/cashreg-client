@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState, memo } from 'react';
 import { MultiSelect } from '@blueprintjs/select';
 import { MenuItem, Button } from '@blueprintjs/core';
 import PropTypes from 'prop-types';
@@ -18,8 +18,6 @@ const MultiSelectComponent = props => {
 	const getSelectedItemIndex = item => selectItems.indexOf(item);
 
 	const isItemSelected = item => getSelectedItemIndex(item) !== -1;
-
-	console.log('MultiSelectComponent update', filterKey)
 
 	const renderItem = (item, { modifiers, handleClick }) => {
 		if (!modifiers.matchesPredicate) {
@@ -69,9 +67,9 @@ const MultiSelectComponent = props => {
 	return (
 		<MultiSelect
 			fill
+			resetOnSelect
 			items={items}
 			itemRenderer={renderItem}
-			resetOnSelect
 			tagRenderer={renderTag}
 			onQueryChange={handleQueryChange}
 			noResults={<MenuItem disabled text="No results." />}

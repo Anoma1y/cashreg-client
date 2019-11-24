@@ -2,6 +2,7 @@ import { put, call, select, takeLatest } from 'redux-saga/effects';
 import Cookie from 'utils/cookie';
 import Api from 'api';
 import { removeEmpty, serializeParams } from 'utils/helpers';
+import { getUnixTime } from 'date-fns';
 import {
 	PULL_DATA,
 	PULL_CATEGORIES,
@@ -14,8 +15,14 @@ import {
 	makeSelectTransactionOrder,
 	makeSelectTransactionInfo,
 } from './selectors';
-import { setReady, setCategories, setContrangets, setProjects, setTransactions, setTransactionInfo } from './actions';
-import { getUnixTime } from 'date-fns';
+import {
+	setReady,
+	setCategories,
+	setContrangets,
+	setProjects,
+	setTransactions,
+	setTransactionInfo,
+} from './actions';
 
 export function* getCategories() {
 	try {
