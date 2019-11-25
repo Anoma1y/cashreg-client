@@ -20,8 +20,7 @@ const CreateTransaction = () => {
 				icon={'join-table'}
 				title={'Add transaction'}
 				onClose={closeDrawer}
-				// isOpen={transactionIsOpen}
-				isOpen={true}
+				isOpen={transactionIsOpen}
 				position={Position.RIGHT}
 				size={undefined}
 			>

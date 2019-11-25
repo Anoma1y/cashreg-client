@@ -28,10 +28,10 @@ api.refreshToken = token => http.post('/session/refresh', { refreshToken: token 
 api.getWorkspaceList = () => http.get('/workspace');
 api.getCurrencyList = () => http.get('/currency');
 api.getMe = () => http.get('/me');
-api.getCategories = (wsid) => http.get(`/category?workspace_id=${wsid}`); // todo add query
-api.getProjects = (wsid) => http.get(`/project?workspace_id=${wsid}`); // todo add query
-api.getContragents = (wsid) => http.get(`/contragent?workspace_id=${wsid}`); // todo add query
-api.getTransactions = (filter) => http.get(`/transaction${filter}`); // todo add query
+api.getCategories = (wsid) => http.get(`/workspace/${wsid}/category`); // todo add query
+api.getProjects = (wsid) => http.get(`/workspace/${wsid}/project`); // todo add query
+api.getContragents = (wsid) => http.get(`/workspace/${wsid}/contragent`); // todo add query
+api.getTransactions = (wsid, filter) => http.get(`/workspace/${wsid}/transaction${filter}`); // todo add query
 
 const refreshAuthLogic = failedRequest => {
 	const refresh_token = Cookie.get('refresh_token');

@@ -25,7 +25,7 @@ const SidebarFilter = (props) => {
 		selectProjects,
 		sum,
 	} = props;
-
+	console.log('update sidebar filter')
 	const [, cancel] = useDebounce(() => {}, 500, [sum.from, sum.to]);
 
 	useEffect(() => {
