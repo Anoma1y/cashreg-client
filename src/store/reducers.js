@@ -4,11 +4,11 @@ import { connectRouter } from 'connected-react-router';
 import history from './history';
 import AppReducer from '../containers1/store/reducer';
 
-// import contragentsReducer from 'src/containers1/Home/containers/Contragents/store/reducer';
-// import categoriesReducer from 'src/containers1/Home/containers/Categories/store/reducer';
-// import projectsReducer from 'src/containers1/Home/containers/Projects/store/reducer';
-// import homeReducer from 'src/containers1/Home/store/reducer';
-// import transactionsReducer from 'src/containers1/Home/containers/Transactions/store/reducer';
+import contragentReducer from 'containers/Contragent/store/reducer';
+import categoryReducer from 'containers/Category/store/reducer';
+import projectReducer from 'containers/Project/store/reducer';
+// import homeReducer from 'containers/Home/store/reducer';
+import transactionReducer from 'containers/Transaction/store/reducer';
 
 export default injectedReducers =>
 	combineReducers({
@@ -16,10 +16,10 @@ export default injectedReducers =>
 		app: AppReducer,
 		form: formReducer,
 		// home: homeReducer,
-		// contragents: contragentsReducer,
-		// categories: categoriesReducer,
-		// projects: projectsReducer,
-		// workspaces: workspacesReducer,
-		// transactions: transactionsReducer,
+		contragent: contragentReducer,
+		category: categoryReducer,
+		project: projectReducer,
+		// workspace: workspacesReducer,
+		transaction: transactionReducer,
 		...injectedReducers,
 	});
