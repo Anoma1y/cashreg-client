@@ -1,35 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import Cookie from 'utils/cookie';
 import Storage from 'utils/localStorage';
 import history from 'store/history';
 import { setAuthToken, logout } from 'utils/auth';
 import Api from 'api';
+import { tokenInfo } from 'utils/constants';
 
-const AUTH_STORE = 'cookie';
-const ACCESS_TOKEN_KEY = 'access_token';
-const REFRESH_TOKEN_KEY = 'refresh_token';
-const EXPIRES_TOKEN_KEY = 'expires_at';
-const AUTH_STORE_LOCAL = 'local';
-const AUTH_STORE_COOKIE = 'cookie';
-const TOKEN_TYPE = 'Bearer ';
+export const AuthContext = createContext(null);
 
 const isTokenExpired = expires_at => new Date(expires_at * 1000) < new Date();
 
 const getToken = () =>
-	(AUTH_STORE === AUTH_STORE_COOKIE
-		? Cookie.get(ACCESS_TOKEN_KEY)
-		: Storage.getItem(ACCESS_TOKEN_KEY));
+	(tokenInfo.auth_store === tokenInfo.auth_store_cookie
+		? Cookie.get(tokenInfo.access_token_key)
+		: Storage.getItem(tokenInfo.access_token_key));
 
 const checkToken = () => {
 	let token = getToken();
 	let hasToken = false;
 	let isTokenExpires = false;
 
-	if (AUTH_STORE === AUTH_STORE_LOCAL) {
-		token = token[ACCESS_TOKEN_KEY];
-		hasToken = !!token && !!token[ACCESS_TOKEN_KEY];
-		isTokenExpires = isTokenExpired(token[EXPIRES_TOKEN_KEY]);
-	} else if (AUTH_STORE === AUTH_STORE_COOKIE) {
+	if (tokenInfo.auth_store === tokenInfo.auth_store_local) {
+		token = token[tokenInfo.access_token_key];
+		hasToken = !!token && !!token[tokenInfo.access_token_key];
+		isTokenExpires = isTokenExpired(token[tokenInfo.expires_token_key]);
+	} else if (tokenInfo.auth_store === tokenInfo.auth_store_cookie) {
 		hasToken = !!token;
 	}
 
@@ -42,10 +37,12 @@ const checkToken = () => {
 };
 
 const setTokenApi = async token => {
-	Api.http.defaults.headers['Authorization'] = `${TOKEN_TYPE}${token}`;
+	Api.http.defaults.headers['Authorization'] = `${tokenInfo.token_type}${token}`;
 };
 
-const WithAuth = AuthComponent => props => {
+const WithAuth = (props) => {
+	console.log('update WithAuth')
+	const [ready, setReady] = useState(false);
 	const [isAuth, setIsAuth] = useState(false);
 
 	const toggleAuth = () => setIsAuth(true);
@@ -58,6 +55,7 @@ const WithAuth = AuthComponent => props => {
 				console.log('token valid');
 				return token;
 			} else {
+				throw new Error('')
 				// console.log('begin refresh token')
 				// const refreshToken = Cookie.get(REFRESH_TOKEN_KEY);
 				// const rememberMe = Cookie.get('remember_me');
@@ -68,7 +66,7 @@ const WithAuth = AuthComponent => props => {
 				//
 				//   setAuthToken(newToken.data.data, true);
 				//
-				//   return newToken.data.data[ACCESS_TOKEN_KEY];
+				//   return newToken.data.data[tokenInfo.access_token_key];
 				// } else {
 				//   console.log('refresh token not found')
 				//   throw 'Refresh auth token error'; // todo ??
@@ -83,10 +81,15 @@ const WithAuth = AuthComponent => props => {
 		initAuth()
 			.then(setTokenApi)
 			.then(toggleAuth)
-			.catch(logout);
+			.catch(logout)
+			.finally(() => setReady(true))
 	}, []);
 
-	return isAuth ? <AuthComponent {...props} /> : null;
+	return (
+		<AuthContext.Provider value={{ ready, isAuth, setIsAuth }}>
+			{props.children}
+		</AuthContext.Provider>
+	);
 };
 
 export default WithAuth;

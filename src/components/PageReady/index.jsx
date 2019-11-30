@@ -2,9 +2,9 @@ import React, { useState, useEffect, memo } from 'react';
 import { connect } from 'react-redux';
 import Cookie from 'utils/cookie';
 import PropTypes from 'prop-types';
-import { changeError } from 'containers/store/actions';
+// import { changeError } from 'src/containers1/store/actions';
 import { createStructuredSelector } from 'reselect';
-import { makeSelectError } from 'containers/store/selectors';
+// import { makeSelectError } from 'src/containers/store/selectors';
 import ErrorPage from 'components/ErrorPage';
 import SiteLoader from '../SiteLoader';
 
@@ -31,7 +31,7 @@ const PageReady = props => {
 		const error_codes = Cookie.get('error_codes');
 
 		if (error_codes) {
-			props.changeError(error_codes);
+			// props.changeError(error_codes);
 		}
 
 		setReady(true);
@@ -49,13 +49,16 @@ PageReady.propTypes = {
 	children: PropTypes.node,
 	error: PropTypes.oneOf(ALLOWED_CODES),
 };
-
-const mapStateToProps = createStructuredSelector({
-	error: makeSelectError(),
+const mapStateToProps = () => ({
+	error: null,
 });
+// const mapStateToProps = createStructuredSelector({
+// 	error: null,
+// 	// error: makeSelectError(),
+// });
 
 const mapDispatchToProps = {
-	changeError,
+	// changeError,
 };
 
 export default connect(

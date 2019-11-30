@@ -1,3 +1,54 @@
-export const RESTART_ON_REMOUNT = '@@saga-injector/restart-on-remount';
-export const DAEMON = '@@saga-injector/daemon';
-export const ONCE_TILL_UNMOUNT = '@@saga-injector/once-till-unmount';
+export const url = {
+	index: '/',
+	auth: {
+		index: '/auth',
+		signin: {
+			index: '/auth/signin',
+		},
+		signup: {
+			index: '/auth/signup',
+			confirm: '/auth/signup/confirm',
+			create: '/auth/signup/create',
+			send: '/auth/signup/send',
+			success: '/auth/signup/success',
+		},
+		restore: {
+			index: '/auth/restore',
+			email: '/auth/restore/email',
+			send: '/auth/restore/send',
+			password: '/auth/restore/password',
+			success: '/auth/restore/success',
+		},
+	},
+	home: {
+		workspace: {
+			index: '/workspace',
+		},
+		project: {
+			index: '/project',
+		},
+		transaction: {
+			index: '/transaction',
+		},
+		category: {
+			index: '/category',
+		},
+		contragent: {
+			index: '/contragent',
+		},
+	},
+};
+
+export const tokenInfo = {
+	auth_store: 'cookie',
+	access_token_key: 'access_token',
+	refresh_token_key: 'refresh_token',
+	expires_token_key: 'expires_at',
+	auth_store_local: 'local',
+	auth_store_cookie: 'cookie',
+	token_type: 'Bearer ',
+};
+
+export const endpoint = {
+
+};

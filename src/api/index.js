@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Cookie from 'utils/cookie';
 import store from 'store/configureStore';
-import { changeError } from 'containers/store/actions';
+// import { changeError } from 'src/containers1/store/actions';
 import history from 'store/history';
 import { setAuthToken } from 'utils/auth';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
