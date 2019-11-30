@@ -68,9 +68,9 @@ export function* getTransactions(payload) {
 		const wsid = Cookie.get('active_workspace');
 
 		if (payload && payload.resetPage) {
-			const transaction_info = yield select(makeSelectTransactionInfo());
+			const info = yield select(makeSelectTransactionInfo());
 
-			yield put(setTransactionInfo(Object.assign(transaction_info, { page: 1 })));
+			yield put(setTransactionInfo(Object.assign(info, { page: 1 })));
 		}
 
 		const filter = yield select(makeSelectFilter());

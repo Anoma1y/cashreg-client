@@ -1,23 +1,22 @@
-import React, { createContext, useState, useCallback, useEffect } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import React, { createContext, useState, useEffect } from 'react';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
 import { connect } from 'react-redux';
 import WithAuth from 'components/WithAuth';
 import { animated } from 'react-spring';
 import SiteLoader from 'components/SiteLoader';
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-// eslint-disable-next-line import/no-cycle
+import PropTypes from 'prop-types';
 import Sidebar, { useSidebar } from './components/Sidebar';
 import Header from './components/Header';
-import saga from './store/saga';
 import { pullHomeData } from './store/actions';
+import { pullCategoryData } from './containers/Categories/store/actions';
+import { pullProjectData } from './containers/Projects/store/actions';
+import { pullContragentData } from './containers/Contragents/store/actions';
 import { makeSelectReady } from './store/selectors';
-import Transactions from './containers/Transactions';
-import Projects from './containers/Projects';
-import Workspaces from './containers/Workspaces';
-import reducer from './store/reducer';
+import MainContainer from './main';
+import { makeSelectReady as makeSelectReadyProjects } from './containers/Projects/store/selectors';
+import { makeSelectReady as makeSelectReadyCategories } from './containers/Categories/store/selectors';
+import { makeSelectReady as makeSelectReadyContragents } from './containers/Contragents/store/selectors';
+
 import CreateTransaction from './components/CreateTransaction';
 import './index.scss';
 
@@ -32,15 +31,20 @@ const useMain = () => {
 	};
 };
 
-const Home = ({ pullHomeData, ready, location }) => {
+const Home = (props) => {
+	const { ready, location, readyProjects, readyCategories, readyContragents } = props;
+
 	const sidebarState = useSidebar();
 	const mainState = useMain();
 
 	useEffect(() => {
-		pullHomeData();
+		props.pullHomeData();
+		props.pullCategoryData();
+		props.pullProjectData();
+		props.pullContragentData();
 	}, []);
 
-	if (!ready) return <SiteLoader />;
+	if (!ready || !readyProjects || !readyCategories || !readyContragents) return <SiteLoader />;
 
 	return (
 		<Context.Provider value={{ ...sidebarState, ...mainState }}>
@@ -49,22 +53,7 @@ const Home = ({ pullHomeData, ready, location }) => {
 			<animated.main style={sidebarState.mainStyle} className={'main h-full'}>
 				<Header location={location} />
 
-				<div className={'main-container'}>
-					<Switch>
-						<Route exact path={'/'}>
-							<Redirect to={'/overview'} />
-						</Route>
-						<Route path={'/overview'}>
-							<h1>Overview</h1>
-						</Route>
-						<Route path={'/transactions'} component={Transactions} />
-						<Route path={'/projects'} component={Projects} />
-						<Route path={'/workspaces'} component={Workspaces} />
-						<Route path={'/settings'}>
-							<h1>Settings</h1>
-						</Route>
-					</Switch>
-				</div>
+				<MainContainer />
 			</animated.main>
 
 			<CreateTransaction />
@@ -72,33 +61,30 @@ const Home = ({ pullHomeData, ready, location }) => {
 	);
 };
 
-const withReducer = injectReducer({
-	key: 'home',
-	reducer,
-});
-
-const withSaga = injectSaga({
-	key: 'home',
-	saga,
-});
+Home.propTypes = {
+	location: PropTypes.any.isRequired,
+	ready: PropTypes.bool.isRequired,
+	readyProjects: PropTypes.bool.isRequired,
+	readyCategories: PropTypes.bool.isRequired,
+	readyContragents: PropTypes.bool.isRequired,
+	pullHomeData: PropTypes.func.isRequired,
+	pullCategoryData: PropTypes.func.isRequired,
+	pullProjectData: PropTypes.func.isRequired,
+	pullContragentData: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = createStructuredSelector({
 	ready: makeSelectReady(),
+	readyProjects: makeSelectReadyProjects(),
+	readyCategories: makeSelectReadyCategories(),
+	readyContragents: makeSelectReadyContragents(),
 });
 
 const mapDispatchToProps = {
 	pullHomeData,
+	pullCategoryData,
+	pullProjectData,
+	pullContragentData,
 };
 
-const withConnect = connect(
-	mapStateToProps,
-	mapDispatchToProps,
-);
-
-export default WithAuth(
-	compose(
-		withReducer,
-		withSaga,
-		withConnect,
-	)(Home),
-);
+export default WithAuth(connect(mapStateToProps, mapDispatchToProps)(Home));

@@ -24,18 +24,41 @@ const SelectComponent = props => {
 			return null;
 		}
 
+		if (item.children.length === 0) {
+			return (
+				<MenuItem
+					active={parseInt(input.value) === item.id}
+					// active={modifiers.active}
+					key={item.id}
+					onClick={() => handleClick(item.id)}
+					text={item.name}
+				/>
+			);
+		}
+
 		return (
-			<MenuItem
-				active={modifiers.active}
-				key={item.id}
-				onClick={handleClick}
-				text={item.name}
-			/>
+			<div key={item.id}>
+				<MenuItem
+					// active={modifiers.active}
+					disabled
+					text={item.name}
+				/>
+				{item.children.map(child => (
+					<MenuItem
+						// active={modifiers.active}
+						active={parseInt(input.value) === child.id}
+						key={child.id}
+						onClick={() => handleClick(child.id)}
+						text={child.name}
+						style={{ paddingLeft: 20 }}
+					/>
+				))}
+			</div>
 		)
 	};
 
-	const handleItemSelect = (item) => {
-		input.onChange(item.id);
+	const handleItemSelect = (item, id) => {
+		input.onChange(id);
 	};
 
 	// const areItemEqual = (item, query) => item[labelKey].toLowerCase().includes(query.toLowerCase());
@@ -48,18 +71,41 @@ const SelectComponent = props => {
 	// 	return setItems(data.filter(item => areItemEqual(item, query)));
 	// };
 
+	const id = parseInt(input.value);
+	const dataLen = data.length;
+	let currentItem = null;
+
+	for (let i = 0; i < dataLen; i++) {
+		const dataItem = data[i];
+		const dataChildrenLen = dataItem.children.length;
+
+		if (dataItem.id === id) {
+			currentItem = dataItem;
+			break;
+		}
+
+		for (let j = 0; j < dataChildrenLen; j++) {
+			const dataChildItem = dataItem.children[j];
+
+			if (dataChildItem.id === id) {
+				currentItem = dataChildItem;
+				break;
+			}
+		}
+	}
+
 	return (
 		<Select
 			filterable
 			items={data}
-			itemRenderer={renderItem}
+			itemRenderer={(item, rest) => renderItem(item, rest)}
 			// onQueryChange={handleQueryChange}
 			noResults={<MenuItem disabled text="No results." />}
 			onItemSelect={handleItemSelect}
 		>
 			<Button
 				rightIcon="caret-down"
-				text={input.value ? data.find(a => a.id === parseInt(input.value))[labelKey] : '(No selection)'}
+				text={currentItem ? currentItem[labelKey] : '(No selection)'}
 			/>
 		</Select>
 	);

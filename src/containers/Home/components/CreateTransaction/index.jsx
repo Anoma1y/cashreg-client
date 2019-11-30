@@ -14,13 +14,14 @@ const CreateTransaction = () => {
 				autoFocus
 				canEscapeKeyClose
 				canOutsideClickClose
-				enforceFocus
+				enforceFocus={false} // fix suggest select focus
 				hasBackdrop
 				usePortal
 				icon={'join-table'}
 				title={'Add transaction'}
 				onClose={closeDrawer}
-				isOpen={transactionIsOpen}
+				isOpen
+				// isOpen={transactionIsOpen}
 				position={Position.RIGHT}
 				size={undefined}
 			>

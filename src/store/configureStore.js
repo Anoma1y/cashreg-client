@@ -41,6 +41,19 @@ const store = createStore(
 		...enchancers,
 	),
 );
+
+import contragentsSaga from 'containers/Home/containers/Contragents/store/saga';
+import categoriesSaga from 'containers/Home/containers/Categories/store/saga';
+import projectsSaga from 'containers/Home/containers/Projects/store/saga';
+import homeSaga from 'containers/Home/store/saga';
+import transactionsSaga from 'containers/Home/containers/Transactions/store/saga';
+
+sagaMiddleware.run(contragentsSaga);
+sagaMiddleware.run(categoriesSaga);
+sagaMiddleware.run(projectsSaga);
+sagaMiddleware.run(homeSaga);
+sagaMiddleware.run(transactionsSaga);
+
 store.runSaga = sagaMiddleware.run;
 store.injectedReducers = {};
 store.injectedSagas = {};

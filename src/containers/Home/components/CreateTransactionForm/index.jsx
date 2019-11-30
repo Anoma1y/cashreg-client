@@ -1,9 +1,12 @@
 import React, { memo, useState, useEffect } from 'react';
 import cx from 'classnames';
 import { reduxForm, Field } from 'redux-form';
+import { connect } from 'react-redux';
 import { Button, Classes, MenuItem } from '@blueprintjs/core';
 import { DateInput } from '@blueprintjs/datetime';
-// import { Select } from '@blueprintjs/select';
+import { createStructuredSelector } from 'reselect';
+import { makeSelectCategories } from 'containers/Home/containers/Categories/store/selectors';
+
 import Select from 'containers/Home/containers/Transactions/components/Select'; // todo go to up
 import './index.scss';
 
@@ -13,63 +16,7 @@ const items = [
 	{id: 3, name: 'Third'},
 ];
 
-// const SelectHui = (props) => {
-// 	const {
-// 		input,
-// 	} = props;
-// 	const [query, setQuery] = useState('')
-//
-// 	const renderItem = (item, { handleClick, modifiers }) => {
-// 		if (!modifiers.matchesPredicate) {
-// 			return null;
-// 		}
-//
-// 		return (
-// 			<MenuItem
-// 				active={modifiers.active}
-// 				key={item.id}
-// 				onClick={handleClick}
-// 				text={item.name}
-// 			/>
-// 		);
-// 	};
-//
-// 	const handleSelectChange = (item) => {
-// 		input.onChange(item.id)
-// 	};
-//
-// 	const filterItems = (query, item) => {
-// 		console.log(query, item)
-// 		return item.name.toLowerCase().indexOf(query.toLowerCase()) >= 0;
-// 	};
-//
-// 	const handleQueryChange = query => {
-// 		setQuery(query)
-// 		// if (query === '') {
-// 		// 	return setItems(data);
-// 		// }
-// 		//
-// 		// return setItems(data.filter(item => areItemEqual(item, query)));
-// 	};
-//
-// 	return (
-// 		<Select
-// 			filterable
-// 			items={props.items}
-// 			itemRenderer={renderItem}
-// 			// onQueryChange={handleQueryChange}
-// 			noResults={<MenuItem disabled text="No results." />}
-// 			onItemSelect={handleSelectChange}
-// 		>
-// 			<Button
-// 				rightIcon="caret-down"
-// 				text={input.value ? items.find(a => a.id === parseInt(input.value)).name : '(No selection)'}
-// 			/>
-// 		</Select>
-// 	)
-// }
-
-const CreateTransactionForm = () => {
+const CreateTransactionForm = (props) => {
 	return (
 		<>
 			<div className={Classes.DRAWER_HEADER}>
@@ -108,7 +55,12 @@ const CreateTransactionForm = () => {
 				<div className="transaction-group">
 					<label htmlFor="">Category</label>
 					<div className={'transaction-group_input'}>
-						<Field name={'category'} component={Select} data={items} labelKey={'name'} />
+						<Field
+							name={'category'}
+							component={Select}
+							data={props.categories}
+							labelKey={'name'}
+						/>
 					</div>
 				</div>
 
@@ -145,7 +97,11 @@ const CreateTransactionForm = () => {
 	);
 };
 
+const mapStateToProps = createStructuredSelector({
+	categories: makeSelectCategories(),
+});
+
 export default reduxForm({
 	form: 'transaction',
 	destroyOnUnmount: false,
-})(memo(CreateTransactionForm));
+})(connect(mapStateToProps)(memo(CreateTransactionForm)));

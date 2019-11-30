@@ -15,9 +15,9 @@ const List = () => {
 			headerRightContent={<HeaderSearch />}
 			sidebarFilter={<TransactionFilter />}
 		>
-			{/*<TransactionList />*/}
+			<TransactionList />
 		</TableWrapper>
-	)
+	);
 };
 
 export default List;

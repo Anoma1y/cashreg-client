@@ -27,15 +27,9 @@ const Transactions = ({ pullTransactionData, ready, match }) => {
 	);
 };
 
-const withReducer = injectReducer({
-	key: 'transaction',
-	reducer,
-});
+const withReducer = injectReducer('transaction', reducer);
 
-const withSaga = injectSaga({
-	key: 'transaction',
-	saga,
-});
+const withSaga = injectSaga('transaction', saga);
 
 const mapStateToProps = createStructuredSelector({
 	ready: makeSelectReady(),

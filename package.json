@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config=internals/webpack/dev.config.js --mode=development",
-    "build": "yarn generate:api && cross-env NODE_ENV=production webpack --env=production --config=internals/webpack/prod.config.js --mode=production --color -p --progress --hide-modules --display-optimization-bailout",
+    "build": "cross-env NODE_ENV=production webpack --env=production --config=internals/webpack/prod.config.js --mode=production --color -p --progress --hide-modules --display-optimization-bailout",
     "lint": "eslint -- .",
     "lint:fix": "eslint --fix -- ."
   },
@@ -49,6 +49,7 @@
     "axios": "^0.19.0",
     "axios-auth-refresh": "^1.0.7",
     "classnames": "^2.2.6",
+    "clean-webpack-plugin": "^3.0.0",
     "connected-react-router": "^6.5.2",
     "core-js": "^3.3.4",
     "css-loader": "^3.2.0",
@@ -59,6 +60,7 @@
     "js-cookie": "^2.2.1",
     "mini-css-extract-plugin": "^0.8.0",
     "node-sass": "^4.13.0",
+    "progress-bar-webpack-plugin": "^1.12.1",
     "prop-types": "^15.7.2",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",

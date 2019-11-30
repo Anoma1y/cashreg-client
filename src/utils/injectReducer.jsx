@@ -1,18 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 import { ReactReduxContext } from 'react-redux';
 
 import getInjectors from './reducerInjectors';
 
-export default ({ key, reducer }) => WrappedComponent => {
-	class ReducerInjector extends React.Component {
+export default (key, reducer) => WrappedComponent => {
+	class ReducerInjector extends Component {
 		static WrappedComponent = WrappedComponent;
 
 		static contextType = ReactReduxContext;
 
-		static displayName = `withReducer(${WrappedComponent.displayName ||
-			WrappedComponent.name ||
-			'Component'})`;
+		static displayName = `withReducer(${WrappedComponent.displayName || WrappedComponent.name || 'Component'})`;
 
 		constructor(props, context) {
 			super(props, context);

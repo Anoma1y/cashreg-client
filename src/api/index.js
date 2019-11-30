@@ -31,7 +31,7 @@ api.getMe = () => http.get('/me');
 api.getCategories = (wsid) => http.get(`/workspace/${wsid}/category`); // todo add query
 api.getProjects = (wsid) => http.get(`/workspace/${wsid}/project`); // todo add query
 api.getContragents = (wsid) => http.get(`/workspace/${wsid}/contragent`); // todo add query
-api.getTransactions = (wsid, filter) => http.get(`/workspace/${wsid}/transaction${filter}`); // todo add query
+api.getTransactions = (wsid, query = '') => http.get(`/workspace/${wsid}/transaction${query}`); // todo add query
 
 const refreshAuthLogic = failedRequest => {
 	const refresh_token = Cookie.get('refresh_token');
