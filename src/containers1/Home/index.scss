@@ -1,0 +1,21 @@
+.main {
+  flex: 1;
+  background-color: #f7f8fc;
+
+  &-container {
+    padding: 1rem;
+    height: calc(100% - 60px);
+  }
+}
+
+.form-group {
+  label {
+
+  }
+
+  input {
+    &[type='checkbox'] {
+      display: none;
+    }
+  }
+}

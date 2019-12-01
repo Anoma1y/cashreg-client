@@ -45,13 +45,13 @@ const store = createStore(
 import contragentsSaga from 'containers/Contragent/store/saga';
 import categoriesSaga from 'containers/Category/store/saga';
 import projectsSaga from 'containers/Project/store/saga';
-// import homeSaga from 'containers/Home/store/saga';
+import homeSaga from 'layouts/Main/store/saga';
 import transactionsSaga from 'containers/Transaction/store/saga';
 
 sagaMiddleware.run(contragentsSaga);
 sagaMiddleware.run(categoriesSaga);
 sagaMiddleware.run(projectsSaga);
-// sagaMiddleware.run(homeSaga);
+sagaMiddleware.run(homeSaga);
 sagaMiddleware.run(transactionsSaga);
 
 store.runSaga = sagaMiddleware.run;

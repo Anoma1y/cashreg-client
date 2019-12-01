@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { INITIAL_STATE } from './reducer';
 
-export const selectCategories = state => state.categories || INITIAL_STATE;
+export const selectCategories = state => state.category || INITIAL_STATE;
 
 export const makeSelectReady = () =>
 	createSelector(
@@ -9,8 +9,8 @@ export const makeSelectReady = () =>
 		state => state.ready,
 	);
 
-export const makeSelectCategories = () =>
+export const makeSelectCategory = () =>
 	createSelector(
 		selectCategories,
-		state => state.categories,
+		state => state.category,
 	);

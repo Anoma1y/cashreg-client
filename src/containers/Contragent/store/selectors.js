@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import { INITIAL_STATE } from './reducer';
 import { format as formatDate } from 'date-fns';
 
-export const selectContragent = state => state.contragents || INITIAL_STATE;
+export const selectContragent = state => state.contragent || INITIAL_STATE;
 
 // export const makeSelectFilter = () =>
 // 	createSelector(

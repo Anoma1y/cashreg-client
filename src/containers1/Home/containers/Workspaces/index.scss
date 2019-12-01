@@ -1,0 +1,57 @@
+.workspaces {
+
+}
+
+.workspace-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-family: Lato, sans-serif;
+  text-align: left;
+
+  thead {
+    & tr {
+      border-bottom: 3px solid #e6e6e6;
+      color: #929292;
+    }
+
+    & th {
+      font-size: 15px;
+      font-weight: 600;
+      padding: 6px 12px 0 0;
+      vertical-align: middle;
+      height: 53px;
+    }
+  }
+
+  tbody {
+    & tr {
+      border-bottom: 1px solid #e6e
+    }
+
+    & td {
+      font-size: 14px;
+      padding: 4px 0;
+      white-space: nowrap;
+      border-bottom: 1px solid #e6e6e6;
+      height: 51px;
+    }
+  }
+}
+
+.workspace-create {
+  background-color: #e9e9e9;
+  box-shadow: inset 0 2px 6px 0 #d6d6d6;
+  width: 100%;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &_text {
+    font-family: Lato, sans-serif;
+    text-decoration: underline;
+    color: #0086e3;
+    font-size: 16px;
+  }
+}

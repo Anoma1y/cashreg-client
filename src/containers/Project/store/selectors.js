@@ -12,7 +12,7 @@ const getProjectStatus = project => {
 	return 'Active';
 };
 
-export const selectProject = state => state.projects || INITIAL_STATE;
+export const selectProject = state => state.project || INITIAL_STATE;
 
 export const makeSelectFilter = () =>
 	createSelector(
@@ -23,7 +23,7 @@ export const makeSelectFilter = () =>
 export const makeSelectProjectOrder = () =>
 	createSelector(
 		selectProject,
-		state => state.projects_order,
+		state => state.project_order,
 	);
 
 export const makeSelectReady = () =>
@@ -37,7 +37,7 @@ export const makeSelectProject = () =>
 		selectProject,
 		state => {
 			console.log('recomputed project')
-			return state.projects.map(project => ({
+			return state.project.map(project => ({
 				...project,
 				start_date_formatted: formatDate(project.start_date * 1000, 'dd.MM.yyyy'),
 				end_date_formatted: formatDate(project.end_date * 1000, 'dd.MM.yyyy'),
