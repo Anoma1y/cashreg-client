@@ -29,9 +29,13 @@ const getCurrentChildrenItem = (data, id) => {
 	return currentItem;
 };
 
+const getCurrentItem = (data, id) => data.find(item => item.id === id);
+
 const areItemEqual = (item, query) => item.toLowerCase().includes(query.toLowerCase());
 
-const findItems = (data, query, labelKey) => {
+const findItems = (data, query, labelKey) => data.filter((item) => areItemEqual(item[labelKey], query));
+
+const findChildrenItems = (data, query, labelKey) => {
 	const items = [];
 
 	data.forEach(dataItem => {
@@ -54,19 +58,13 @@ const findItems = (data, query, labelKey) => {
 
 const SelectComponent = props => {
 	const {
-		data,
-		selectItems,
-		changeFilter,
+		data = [],
 		input,
-		labelKey,
-		placeholder = null,
+		labelKey = 'name',
+		hasNested = false,
 	} = props;
 
 	const [items, setItems] = useState(data);
-
-	const getSelectedItemIndex = item => selectItems.indexOf(item);
-
-	const isItemSelected = item => getSelectedItemIndex(item) !== -1;
 
 	const renderItem = (item, { modifiers, handleClick }) => {
 		if (!modifiers.matchesPredicate) {
@@ -77,10 +75,9 @@ const SelectComponent = props => {
 			return (
 				<MenuItem
 					active={parseInt(input.value) === item.id}
-					// active={modifiers.active}
 					key={item.id}
 					onClick={() => handleClick(item.id)}
-					text={item.name}
+					text={item[labelKey]}
 				/>
 			);
 		}
@@ -88,13 +85,11 @@ const SelectComponent = props => {
 		return (
 			<div key={item.id}>
 				<MenuItem
-					// active={modifiers.active}
 					disabled
-					text={item.name}
+					text={item[labelKey]}
 				/>
 				{item.children.map(child => (
 					<MenuItem
-						// active={modifiers.active}
 						active={parseInt(input.value) === child.id}
 						key={child.id}
 						onClick={() => handleClick(child.id)}
@@ -103,7 +98,7 @@ const SelectComponent = props => {
 					/>
 				))}
 			</div>
-		)
+		);
 	};
 
 	const handleItemSelect = (item, id) => {
@@ -111,14 +106,14 @@ const SelectComponent = props => {
 	};
 
 	const id = parseInt(input.value);
-	const currentItem = getCurrentChildrenItem(data, id);
+	const currentItem = hasNested ? getCurrentChildrenItem(data, id) : getCurrentItem(data, id);
 
 	const handleQueryChange = query => {
 		if (query === '') {
 			return setItems(data);
 		}
 
-		return setItems(findItems(data, query, labelKey));
+		return setItems(hasNested ? findChildrenItems(data, query, labelKey) : findItems(data, query, labelKey));
 	};
 
 	return (
@@ -140,11 +135,9 @@ const SelectComponent = props => {
 
 SelectComponent.propTypes = {
 	data: PropTypes.array.isRequired,
-	// selectItems: PropTypes.array.isRequired,
-	// changeFilter: PropTypes.func.isRequired,
-	// filterKey: PropTypes.string.isRequired,
-	// labelKey: PropTypes.string.isRequired,
-	placeholder: PropTypes.string,
+	input: PropTypes.any.isRequired,
+	labelKey: PropTypes.string,
+	hasNested: PropTypes.bool,
 };
 
 export default memo(SelectComponent);

@@ -13,11 +13,11 @@ export const INITIAL_STATE = {
 		type: null,
 		search: '',
 	},
-	projects_order: [
+	project_order: [
 		['id', 'desc'],
 	],
 	ready: false,
-	projects: [],
+	project: [],
 };
 
 const HANDLERS = {
@@ -25,7 +25,7 @@ const HANDLERS = {
 		draft.filter[payload.key] = payload.value;
 	},
 	[SET_PROJECT_ORDER]: (draft, payload) => {
-		draft.projects_order = payload;
+		draft.project_order = payload;
 	},
 	[CHANGE_FILTER_DATE_RANGE]: (draft, payload) => {
 		draft.filter.date_from = payload.from;
@@ -35,7 +35,7 @@ const HANDLERS = {
 		draft.ready = payload;
 	},
 	[SET_PROJECT]: (draft, payload) => {
-		draft.projects = payload;
+		draft.project = payload;
 	},
 };
 

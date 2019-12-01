@@ -35,14 +35,17 @@ export const makeSelectReady = () =>
 export const makeSelectProject = () =>
 	createSelector(
 		selectProject,
-		state => {
-			console.log('recomputed project')
-			return state.project.map(project => ({
-				...project,
-				start_date_formatted: formatDate(project.start_date * 1000, 'dd.MM.yyyy'),
-				end_date_formatted: formatDate(project.end_date * 1000, 'dd.MM.yyyy'),
-				contragent_title: project.contragent ? project.contragent.title : '-',
-				status: getProjectStatus(project),
-			}))
-		},
+		state => state.project,
+	);
+
+export const makeSelectFormattedProject = () =>
+	createSelector(
+		selectProject,
+		state => state.project.map(project => ({
+			...project,
+			start_date_formatted: formatDate(project.start_date * 1000, 'dd.MM.yyyy'),
+			end_date_formatted: formatDate(project.end_date * 1000, 'dd.MM.yyyy'),
+			contragent_title: project.contragent ? project.contragent.title : '-',
+			status: getProjectStatus(project),
+		})),
 	);

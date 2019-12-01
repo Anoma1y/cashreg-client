@@ -13,11 +13,11 @@ export const INITIAL_STATE = {
 		type: null,
 		search: '',
 	},
-	contragents_order: [
+	contragent_order: [
 		['id', 'desc'],
 	],
 	ready: false,
-	contragents: [],
+	contragent: [],
 };
 
 const HANDLERS = {
@@ -25,7 +25,7 @@ const HANDLERS = {
 		draft.filter[payload.key] = payload.value;
 	},
 	[SET_CONTRAGENT_ORDER]: (draft, payload) => {
-		draft.contragents_order = payload;
+		draft.contragent_order = payload;
 	},
 	[CHANGE_FILTER_DATE_RANGE]: (draft, payload) => {
 		draft.filter.date_from = payload.from;
@@ -35,7 +35,7 @@ const HANDLERS = {
 		draft.ready = payload;
 	},
 	[SET_CONTRAGENT]: (draft, payload) => {
-		draft.contragents = payload;
+		draft.contragent = payload;
 	},
 };
 

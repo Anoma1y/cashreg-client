@@ -21,3 +21,9 @@ export const makeSelectReady = () =>
 		selectContragent,
 		state => state.ready,
 	);
+
+export const makeSelectContragent = () =>
+	createSelector(
+		selectContragent,
+		state => state.contragent,
+	);
