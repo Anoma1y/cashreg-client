@@ -17,17 +17,35 @@ import Select from './Select';
 import './index.scss';
 
 const CreateTransactionForm = (props) => {
+	const [transactionType, setTransactionType] = useState('2');
+
+	const changeTransactionType = e => {
+		setTransactionType(e.target.value)
+	};
+
 	return (
 		<>
 			<div className={Classes.DRAWER_HEADER}>
 				<div className="transaction-labels">
 					<div>
-						<input type="radio" name={'type'} value={'income'} id={'income'} />
+						<input
+							type="radio"
+							value={'2'}
+							checked={transactionType === '2'}
+							id={'income'}
+							onChange={changeTransactionType}
+						/>
 						<label className={'positive'} htmlFor={'income'}>Income</label>
 					</div>
 
 					<div>
-						<input type="radio" name={'type'} value={'outcome'} id={'outcome'} />
+						<input
+							type="radio"
+							value={'1'}
+							id={'outcome'}
+							checked={transactionType === '1'}
+							onChange={changeTransactionType}
+						/>
 						<label className={'negative'} htmlFor={'outcome'}>Outcome</label>
 					</div>
 				</div>
@@ -49,6 +67,7 @@ const CreateTransactionForm = (props) => {
 					<div className={'transaction-group_input'}>
 						<Field
 							name={'sum'}
+							placeholder={'0.00'}
 							component={NumberField}
 						/>
 					</div>
@@ -60,7 +79,7 @@ const CreateTransactionForm = (props) => {
 						<Field
 							name={'category'}
 							component={Select}
-							data={props.category}
+							data={props.category.filter(c => c.type === parseInt(transactionType))}
 							hasNested
 							labelKey={'name'}
 						/>
@@ -120,6 +139,7 @@ export default reduxForm({
 	form: 'transaction',
 	initialValues: {
 		registered_at: getUnixTime(new Date()),
+		sum: '0',
 	},
 	destroyOnUnmount: false,
 })(connect(mapStateToProps)(memo(CreateTransactionForm)));

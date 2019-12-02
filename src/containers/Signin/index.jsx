@@ -1,10 +1,7 @@
 import React, { memo, useContext } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Field, reduxForm } from 'redux-form';
 import { Button, Intent } from '@blueprintjs/core';
-import AuthInput from 'components/Auth/AuthInput';
-import AuthCheckbox from 'components/Auth/AuthCheckbox';
 import { AppToater } from 'components/Toaster';
 import { format, addSeconds } from 'date-fns';
 import { setAuthToken } from 'utils/auth';
@@ -13,29 +10,27 @@ import history from 'store/history';
 import Api from 'api';
 import useLoading from 'hooks/useLoading';
 import PropTypes from 'prop-types';
-import { validateSignin } from './validate';
-
-import { AuthContext } from 'components/WithAuth';
+import SigninForm from './Form';
 
 const Signin = ({ form }) => {
-	console.log('update Signin')
 	const [isLoading, setLoad] = useLoading();
-	const { setIsAuth } = useContext(AuthContext);
+	// const { setIsAuth } = useContext(AuthContext);
 
 	const handleSignin = async event => {
 		event.preventDefault();
 
-		if (form.signin.syncErrors) {
+		if (form.syncErrors) {
 			return;
 		}
 
-		const { email, password, rememberMe } = form.signin.values;
+		const { email, password, rememberMe } = form.values;
 
 		try {
 			const data = await setLoad(Api.signin({ email, password }));
 
 			setAuthToken(data.data.data, rememberMe);
-			setIsAuth(true);
+			// setIsAuth(true);
+			history.replace(url.index)
 		} catch (err) {
 			if (err.response.status === Api.codes.UNAUTHORIZED) {
 				AppToater.show({ message: 'Invalid email or password', intent: Intent.DANGER });
@@ -59,37 +54,10 @@ const Signin = ({ form }) => {
 		<div className={'auth auth-inner'}>
 			<h1 className={'auth_title'}>Sign In</h1>
 
-			<form className={'auth-form'} onSubmit={handleSignin}>
-				<Field
-					label={'E-Mail'}
-					name="email"
-					component={AuthInput}
-					type="email"
-					id={'email'}
-					placeholder={'test@example.com'}
-				/>
-
-				<Field
-					label={'Password'}
-					name="password"
-					component={AuthInput}
-					type="password"
-					id={'password'}
-				/>
-
-				<div className="auth-form_row">
-					<div className="auth-form_col">
-						<Field label={'Remember Me'} name="rememberMe" component={AuthCheckbox} id={'rememberMe'}	/>
-					</div>
-					<div className="auth-form_col">
-						<Button type={'submit'} loading={isLoading} className={'auth-form_btn'}>
-							Sign In
-						</Button>
-					</div>
-				</div>
-
-				<Link to={url.auth.restore.email} className={'auth-form_faggot'}>Forgot password?</Link>
-			</form>
+			<SigninForm
+				isLoading={isLoading}
+				handleSignin={handleSignin}
+			/>
 
 			<span>Don’t have an account? <Link to={url.auth.signup.index}>Sign Up!</Link></span>
 		</div>
@@ -101,10 +69,7 @@ Signin.propTypes = {
 };
 
 const mapStateToProps = ({ form }) => ({
-	form,
+	form: form[url.auth.signin.index],
 });
 
-export default reduxForm({
-	form: 'signin',
-	validate: validateSignin,
-})(memo(connect(mapStateToProps)(Signin)));
+export default connect(mapStateToProps)(Signin);

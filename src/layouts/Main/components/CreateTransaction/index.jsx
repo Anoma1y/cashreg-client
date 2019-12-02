@@ -24,7 +24,7 @@ const CreateTransaction = () => {
 				isOpen
 				// isOpen={transactionIsOpen}
 				position={Position.RIGHT}
-				size={undefined}
+				size={600}
 			>
 				<CreateTransactionForm />
 			</Drawer>

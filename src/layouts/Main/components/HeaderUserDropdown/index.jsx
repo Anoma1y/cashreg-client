@@ -9,7 +9,7 @@ import HeaderDropdown from '../HeaderDropdown';
 import PropTypes from 'prop-types';
 
 const HeaderUserDropdown = ({ isOpen, setIsOpen, user_info, workspace_name }) => {
-	const { setIsAuth } = useContext(AuthContext);
+	// const { setIsAuth } = useContext(AuthContext);
 
 	return (
 		<HeaderDropdown isOpen={isOpen} setIsOpen={setIsOpen}>
@@ -34,7 +34,7 @@ const HeaderUserDropdown = ({ isOpen, setIsOpen, user_info, workspace_name }) =>
 				<li onClick={() => {
 					logout()
 
-					setIsAuth(false);
+					// setIsAuth(false);
 				}}
 				>
 					<span className={'header-user-dropdown_link'}>Sign out</span>

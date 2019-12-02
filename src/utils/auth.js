@@ -27,5 +27,5 @@ export const logout = () => {
 	Storage.clearStorage();
 	Cookie.removeAll();
 	console.log('logout');
-	// history.replace('/auth/signin');
+	history.replace('/auth/signin');
 };

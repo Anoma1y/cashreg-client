@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { Select } from '@blueprintjs/select';
 import { MenuItem, Button } from '@blueprintjs/core';
 import PropTypes from 'prop-types';
@@ -66,6 +66,10 @@ const SelectComponent = props => {
 	} = props;
 
 	const [items, setItems] = useState(data);
+
+	useEffect(() => {
+		setItems(data);
+	}, [data]);
 
 	const renderItem = (item, { modifiers, handleClick }) => {
 		if (!modifiers.matchesPredicate) {

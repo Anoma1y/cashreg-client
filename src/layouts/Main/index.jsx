@@ -32,7 +32,6 @@ const useMain = () => {
 };
 
 const Home = props => {
-	console.log('mainlaylout update')
 	const { ready, children, readyProject, readyCategory, readyContragent } = props;
 
 	const sidebarState = useSidebar();
@@ -40,10 +39,15 @@ const Home = props => {
 
 	useEffect(() => {
 		props.pullHomeData();
-		props.pullCategoryData();
-		props.pullProjectData();
-		props.pullContragentData();
 	}, []);
+
+	useEffect(() => {
+		if (ready) {
+			props.pullCategoryData();
+			props.pullProjectData();
+			props.pullContragentData();
+		}
+	}, [ready]);
 
 	if (!ready || !readyProject || !readyCategory || !readyContragent) return <SiteLoader />;
 

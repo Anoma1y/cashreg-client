@@ -10,9 +10,7 @@ const SidebarHeader = ({ isOpen }) => {
 	return (
 		<div className={'sidebar-header'}>
 			<animated.img style={styleSidebar} className={'sidebar-header_logo'} src={LogoIcon} alt="L" />
-			<h1>
-				onix<strong>dev</strong>
-			</h1>
+			<h1>onix<strong>dev</strong></h1>
 		</div>
 	);
 };

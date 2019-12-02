@@ -6,14 +6,15 @@ import { setAuthToken, logout } from 'utils/auth';
 import Api from 'api';
 import { tokenInfo } from 'utils/constants';
 
-export const AuthContext = createContext(null);
-
 const isTokenExpired = expires_at => new Date(expires_at * 1000) < new Date();
 
-const getToken = () =>
-	(tokenInfo.auth_store === tokenInfo.auth_store_cookie
-		? Cookie.get(tokenInfo.access_token_key)
-		: Storage.getItem(tokenInfo.access_token_key));
+const getToken = () => {
+	if (tokenInfo.auth_store === tokenInfo.auth_store_cookie) {
+		return Cookie.get(tokenInfo.access_token_key);
+	}
+
+	return Storage.getItem(tokenInfo.access_token_key);
+};
 
 const checkToken = () => {
 	let token = getToken();
@@ -37,11 +38,12 @@ const checkToken = () => {
 };
 
 const setTokenApi = async token => {
+	console.log('before set token');
 	Api.http.defaults.headers['Authorization'] = `${tokenInfo.token_type}${token}`;
+	console.log('after set token');
 };
 
 const WithAuth = (props) => {
-	console.log('update WithAuth')
 	const [ready, setReady] = useState(false);
 	const [isAuth, setIsAuth] = useState(false);
 
@@ -55,22 +57,7 @@ const WithAuth = (props) => {
 				console.log('token valid');
 				return token;
 			} else {
-				throw new Error('')
-				// console.log('begin refresh token')
-				// const refreshToken = Cookie.get(REFRESH_TOKEN_KEY);
-				// const rememberMe = Cookie.get('remember_me');
-				//
-				// if (rememberMe && refreshToken) {
-				//   console.log('refresh token found')
-				//   const newToken = await Api.modules.auth.refreshToken(refreshToken);
-				//
-				//   setAuthToken(newToken.data.data, true);
-				//
-				//   return newToken.data.data[tokenInfo.access_token_key];
-				// } else {
-				//   console.log('refresh token not found')
-				//   throw 'Refresh auth token error'; // todo ??
-				// }
+				throw new Error('');
 			}
 		} catch (e) {
 			throw new Error(e);
@@ -78,18 +65,15 @@ const WithAuth = (props) => {
 	};
 
 	useEffect(() => {
+		console.log('init token check')
 		initAuth()
 			.then(setTokenApi)
 			.then(toggleAuth)
 			.catch(logout)
 			.finally(() => setReady(true))
 	}, []);
-
-	return (
-		<AuthContext.Provider value={{ ready, isAuth, setIsAuth }}>
-			{props.children}
-		</AuthContext.Provider>
-	);
+	console.log(ready, isAuth)
+	return (ready && isAuth) ? props.children : <h1>loading</h1>;
 };
 
 export default WithAuth;

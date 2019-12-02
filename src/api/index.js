@@ -5,6 +5,7 @@ import store from 'store/configureStore';
 import history from 'store/history';
 import { setAuthToken } from 'utils/auth';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
+import { changeError } from 'store/app/actions';
 import Modules from './Modules/_index';
 import config from './config';
 import codes from './codes';
@@ -46,5 +47,46 @@ const refreshAuthLogic = failedRequest => {
 createAuthRefreshInterceptor(http, refreshAuthLogic, {
 	statusCodes: [403],
 });
+
+const error_codes = [[429, 429], [500, 599]];
+
+const isServerError = err => {
+	if (err.response && err.response.status) {
+		let isInRange = false;
+
+		for (const [min, max] of error_codes) {
+			const { status } = err.response;
+
+			if (status >= min && status <= max) {
+				isInRange = true;
+				break;
+			}
+		}
+
+		return [isInRange, err.response.status];
+	}
+
+	return false;
+};
+
+const onResponseFulfilled = res => res;
+
+const onResponseError = err => {
+	const [isServerErr, status] = isServerError(err);
+
+	if (isServerErr) {
+		if (status === api.codes.TOO_MANY_REQUESTS) {
+			Cookie.setExpiresMinutes('error_codes', status.toString(), 10);
+		}
+
+		store.dispatch(changeError(status.toString()));
+	}
+
+	return Promise.reject(err);
+};
+
+// http.interceptors.request.use(config => config, error => Promise.reject(error));
+
+http.interceptors.response.use(onResponseFulfilled, onResponseError);
 
 export default api;
