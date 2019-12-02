@@ -7,6 +7,7 @@ export default ({ input, id, label, helperText, meta: { touched, error }, ...cus
 	const classes = cx(
 		'form-group',
 		active && 'active',
+		error && 'error',
 	);
 
 	const handlePaste = event => {
@@ -37,9 +38,9 @@ export default ({ input, id, label, helperText, meta: { touched, error }, ...cus
 		const { value } = values;
 		const len = value.length;
 
-		if (len > 0 && !active) {
+		if (label && len > 0 && !active) {
 			setActive(true);
-		} else if (len === 0 && active) {
+		} else if (label && len === 0 && active) {
 			setActive(false);
 		}
 
@@ -59,6 +60,7 @@ export default ({ input, id, label, helperText, meta: { touched, error }, ...cus
 				onValueChange={handleValueChange}
 			/>
 			{label && <label htmlFor={id || input.name}>{label}</label>}
+			{(error && touched) && <span className={'form-group_error'}>{error}</span>}
 		</div>
 	);
 };

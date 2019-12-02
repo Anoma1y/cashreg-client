@@ -147,10 +147,18 @@ button {
 
 .form {
   &-group {
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     position: relative;
     font-family: Lato, sans-serif;
-    padding-top: 16px;
+
+    &_error {
+      position: absolute;
+      top: calc(100% + 5px);
+      left: 10px;
+      font-size: 12px;
+      line-height: 14px;
+      color: #ed4f32;
+    }
 
     label {
       position: absolute;
@@ -163,7 +171,7 @@ button {
       pointer-events: none;
       color: #676767;
       visibility: hidden;
-      transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+      transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, color .2s ease-in-out;
       opacity: 0;
     }
 
@@ -171,6 +179,20 @@ button {
       label {
         opacity: 1;
         visibility: visible;
+      }
+
+      input {
+        padding: 12px 10px 0 !important;
+      }
+    }
+
+    &.error {
+      label {
+        color: #ed4f32;
+      }
+
+      input, textarea {
+        border-color: #ed4f32;
       }
     }
   }
@@ -184,15 +206,53 @@ button {
     line-height: 1.5;
     letter-spacing: 0.25px;
     color: #676767;
-    padding: 4px 10px;
+    padding: 12px 10px;
     background-color: transparent;
     background-clip: padding-box;
-    border: none;
-    border-bottom: 1px solid #dfdfdf;
+    border: 1px solid #dfdfdf;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out, padding .15s ease-in-out;
 
     &:focus {
       outline: none;
+    }
+
+    &:not(textarea) {
+      height: 44px;
+    }
+  }
+
+  &_datepicker {
+    width: 100%;
+
+    .bp3-popover-wrapper, .bp3-popover-target {
+      width: 100%;
+    }
+
+    input {
+      height: 44px;
+    }
+  }
+
+  &_extended-select {
+    width: 100%;
+
+    .bp3-popover-target, button {
+      width: 100%;
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      font-family: Lato, sans-serif;
+      justify-content: space-between;
+      cursor: pointer;
+      border: 1px solid #dfdfdf;
+      height: 44px;
+      padding: 0 10px;
+
+      & > span {
+
+      }
     }
   }
 }

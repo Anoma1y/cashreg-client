@@ -17,15 +17,16 @@ const TextAreaField = props => {
 	const classes = cx(
 		'form-group',
 		active && 'active',
+		error && 'error',
 	);
 
 	const handleChange = e => {
 		const { value } = e.target;
 		const len = value.length;
 
-		if (len > 0 && !active) {
+		if (label && len > 0 && !active) {
 			setActive(true);
-		} else if (len === 0 && active) {
+		} else if (label && len === 0 && active) {
 			setActive(false);
 		}
 
@@ -43,7 +44,7 @@ const TextAreaField = props => {
 				onChange={handleChange}
 				rows={4}
 			/>
-			{label && <label htmlFor={id || input.name}>{label}</label>}
+			{(error && touched) && <span className={'form-group_error'}>{error}</span>}
 		</div>
 	);
 };

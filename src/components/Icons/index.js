@@ -11,6 +11,7 @@ import Calendar from './Calendar';
 import TransactionType from './TransactionType';
 import Search from './Search';
 import Filter from './Filter';
+import Arrow from './Arrow';
 
 export {
 	Overview as OverviewIcon,
@@ -26,4 +27,5 @@ export {
 	TransactionType as TransactionTypeIcon,
 	Search as SearchIcon,
 	Filter as FilterIcon,
+	Arrow as ArrowIcon,
 };

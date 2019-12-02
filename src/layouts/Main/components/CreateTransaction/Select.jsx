@@ -2,6 +2,7 @@ import React, { useState, memo } from 'react';
 import { Select } from '@blueprintjs/select';
 import { MenuItem, Button } from '@blueprintjs/core';
 import PropTypes from 'prop-types';
+import { ArrowIcon } from 'components/Icons';
 
 const getCurrentChildrenItem = (data, id) => {
 	const dataLen = data.length;
@@ -117,19 +118,22 @@ const SelectComponent = props => {
 	};
 
 	return (
-		<Select
-			filterable
-			items={items}
-			itemRenderer={(item, rest) => renderItem(item, rest)}
-			onQueryChange={handleQueryChange}
-			noResults={<MenuItem disabled text="No results." />}
-			onItemSelect={handleItemSelect}
-		>
-			<Button
-				rightIcon="caret-down"
-				text={currentItem ? currentItem[labelKey] : '(No selection)'}
-			/>
-		</Select>
+		<div className={'form-group'}>
+			<Select
+				className={'form_extended-select'}
+				filterable
+				items={items}
+				itemRenderer={(item, rest) => renderItem(item, rest)}
+				onQueryChange={handleQueryChange}
+				noResults={<MenuItem disabled text="No results." />}
+				onItemSelect={handleItemSelect}
+			>
+				<button type={'button'}>
+					<span>{currentItem ? currentItem[labelKey] : '(No selection)'}</span>
+					<ArrowIcon />
+				</button>
+			</Select>
+		</div>
 	);
 };
 

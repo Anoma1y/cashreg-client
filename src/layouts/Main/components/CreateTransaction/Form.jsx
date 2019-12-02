@@ -2,13 +2,14 @@ import React, { memo, useState, useEffect } from 'react';
 import cx from 'classnames';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
-import { Button, Classes, MenuItem } from '@blueprintjs/core';
-import { DateInput } from '@blueprintjs/datetime';
+import { Button, Classes } from '@blueprintjs/core';
 import { createStructuredSelector } from 'reselect';
 import { makeSelectCategory } from 'containers/Category/store/selectors';
 import { makeSelectContragent } from 'containers/Contragent/store/selectors';
 import { makeSelectProject } from 'containers/Project/store/selectors';
+import { getUnixTime } from 'date-fns';
 
+import DateField from 'components/Fields/DateField';
 import NumberField from 'components/Fields/NumberField';
 import TextAreaField from 'components/Fields/TextAreaField';
 
@@ -33,83 +34,72 @@ const CreateTransactionForm = (props) => {
 			</div>
 
 			<div className={`${Classes.DRAWER_BODY} transaction-body`}>
-				{/*<div className="transaction-group">*/}
-				{/*	<label htmlFor="">The date of payment</label>*/}
-				{/*	<div className={'transaction-group_input'}>*/}
-				{/*		<DateInput*/}
-				{/*			formatDate={date => date.toLocaleString()}*/}
-				{/*			// onChange={this.handleDateChange}*/}
-				{/*			parseDate={str => new Date(str)}*/}
-				{/*			value={null}*/}
-				{/*		/>*/}
-				{/*	</div>*/}
-				{/*</div>*/}
+				<div className="transaction-group">
+					<label>The date of payment</label>
+					<div className={'transaction-group_input'}>
+						<Field
+							name={'registered_at'}
+							component={DateField}
+						/>
+					</div>
+				</div>
 
-				<Field
-					name={'sum'}
-					label={'Sum'}
-					placeholder={'Sum'}
-					component={NumberField}
-				/>
+				<div className="transaction-group">
+					<label>Sum</label>
+					<div className={'transaction-group_input'}>
+						<Field
+							name={'sum'}
+							component={NumberField}
+						/>
+					</div>
+				</div>
 
-				{/*<div className="transaction-group">*/}
-				{/*	<label htmlFor="">Sum</label>*/}
-				{/*	<div className={'transaction-group_input'}>*/}
-				{/*		<Field name={'sum'} component={NumberFormatCustom} />*/}
-				{/*	</div>*/}
-				{/*</div>*/}
+				<div className="transaction-group">
+					<label>Category</label>
+					<div className={'transaction-group_input'}>
+						<Field
+							name={'category'}
+							component={Select}
+							data={props.category}
+							hasNested
+							labelKey={'name'}
+						/>
+					</div>
+				</div>
 
-				{/*<div className="transaction-group">*/}
-				{/*	<label htmlFor="">Category</label>*/}
-				{/*	<div className={'transaction-group_input'}>*/}
-				{/*		<Field*/}
-				{/*			name={'category'}*/}
-				{/*			component={Select}*/}
-				{/*			data={props.category}*/}
-				{/*			hasNested*/}
-				{/*			labelKey={'name'}*/}
-				{/*		/>*/}
-				{/*	</div>*/}
-				{/*</div>*/}
+				<div className="transaction-group">
+					<label>Contragent</label>
+					<div className={'transaction-group_input'}>
+						<Field
+							name={'contragent'}
+							component={Select}
+							data={props.contragent}
+							labelKey={'title'}
+						/>
+					</div>
+				</div>
 
-				{/*<div className="transaction-group">*/}
-				{/*	<label htmlFor="">Contragent</label>*/}
-				{/*	<div className={'transaction-group_input'}>*/}
-				{/*		<Field*/}
-				{/*			name={'contragent'}*/}
-				{/*			component={Select}*/}
-				{/*			data={props.contragent}*/}
-				{/*			labelKey={'title'}*/}
-				{/*		/>*/}
-				{/*	</div>*/}
-				{/*</div>*/}
+				<div className="transaction-group">
+					<label>Project</label>
+					<div className={'transaction-group_input'}>
+						<Field
+							name={'project'}
+							component={Select}
+							data={props.project}
+							labelKey={'title'}
+						/>
+					</div>
+				</div>
 
-				{/*<div className="transaction-group">*/}
-				{/*	<label htmlFor="">Project</label>*/}
-				{/*	<div className={'transaction-group_input'}>*/}
-				{/*		<Field*/}
-				{/*			name={'project'}*/}
-				{/*			component={Select}*/}
-				{/*			data={props.project}*/}
-				{/*			labelKey={'title'}*/}
-				{/*		/>*/}
-				{/*	</div>*/}
-				{/*</div>*/}
-
-				<Field
-					name={'description'}
-					component={TextAreaField}
-					label={'Description'}
-					placeholder={'Description'}
-				/>
-
-
-				{/*<div className="transaction-group">*/}
-				{/*	<label htmlFor="">Description</label>*/}
-				{/*	<div className={'transaction-group_input'}>*/}
-				{/*		<Field name={'description'} component={'textarea'} placeholder={''} />*/}
-				{/*	</div>*/}
-				{/*</div>*/}
+				<div className="transaction-group">
+					<label>Description</label>
+					<div className={'transaction-group_input'}>
+						<Field
+							name={'description'}
+							component={TextAreaField}
+						/>
+					</div>
+				</div>
 
 			</div>
 			<div className={Classes.DRAWER_FOOTER}>
@@ -128,5 +118,8 @@ const mapStateToProps = createStructuredSelector({
 
 export default reduxForm({
 	form: 'transaction',
+	initialValues: {
+		registered_at: getUnixTime(new Date()),
+	},
 	destroyOnUnmount: false,
 })(connect(mapStateToProps)(memo(CreateTransactionForm)));
