@@ -54,18 +54,24 @@ const WithAuth = (props) => {
 			const { token, isTokenValid } = checkToken();
 
 			if (isTokenValid) {
-				console.log('token valid');
 				return token;
-			} else {
-				throw new Error('');
 			}
+
+			const refresh_token = Cookie.get('refresh_token');
+
+			const data = await Api.refreshToken(refresh_token);
+
+			setAuthToken(data.data.data);
+
+			console.log('refresh token');
+
+			return data.data.data.access_token;
 		} catch (e) {
 			throw new Error(e);
 		}
 	};
 
 	useEffect(() => {
-		console.log('init token check')
 		initAuth()
 			.then(setTokenApi)
 			.then(toggleAuth)

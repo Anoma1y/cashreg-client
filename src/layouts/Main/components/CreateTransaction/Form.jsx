@@ -1,12 +1,14 @@
 import React, { memo, useState, useEffect } from 'react';
 import cx from 'classnames';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm, Field, change as changeField } from 'redux-form';
 import { connect } from 'react-redux';
 import { Button, Classes } from '@blueprintjs/core';
 import { createStructuredSelector } from 'reselect';
 import { makeSelectCategory } from 'containers/Category/store/selectors';
 import { makeSelectContragent } from 'containers/Contragent/store/selectors';
 import { makeSelectProject } from 'containers/Project/store/selectors';
+import { makeSelectCurrency } from 'layouts/Main/store/selectors';
+import { createTransaction } from '../../store/actions';
 import { getUnixTime } from 'date-fns';
 
 import DateField from 'components/Fields/DateField';
@@ -16,18 +18,35 @@ import TextAreaField from 'components/Fields/TextAreaField';
 import Select from './Select';
 import './index.scss';
 
+import Validator from 'validator';
+
+const validate = values => {
+	const errors = {};
+
+	if (values.comment && !Validator.isLength(values.comment, { max: 1000 })) {
+		errors.comment = 'Max length is 1000 characters.';
+	}
+
+	return errors;
+};
+
 const CreateTransactionForm = (props) => {
 	const [transactionType, setTransactionType] = useState('2');
 
 	const changeTransactionType = e => {
-		setTransactionType(e.target.value)
+		setTransactionType(e.target.value);
+		props.changeField('transaction', 'category', null);
 	};
 
 	return (
 		<>
-			<div className={Classes.DRAWER_HEADER}>
+			<div className={'transaction-create-header'}>
+				<div className={'transaction-create_title'}>
+					<h1>Create transaction</h1>
+				</div>
+
 				<div className="transaction-labels">
-					<div>
+					<div className={'transaction-labels-group'}>
 						<input
 							type="radio"
 							value={'2'}
@@ -38,7 +57,7 @@ const CreateTransactionForm = (props) => {
 						<label className={'positive'} htmlFor={'income'}>Income</label>
 					</div>
 
-					<div>
+					<div className={'transaction-labels-group'}>
 						<input
 							type="radio"
 							value={'1'}
@@ -74,6 +93,18 @@ const CreateTransactionForm = (props) => {
 				</div>
 
 				<div className="transaction-group">
+					<label>Currency</label>
+					<div className={'transaction-group_input'}>
+						<Field
+							name={'currency'}
+							component={Select} // todo plain select
+							data={props.currency}
+							labelKey={'name'}
+						/>
+					</div>
+				</div>
+
+				<div className="transaction-group">
 					<label>Category</label>
 					<div className={'transaction-group_input'}>
 						<Field
@@ -82,6 +113,7 @@ const CreateTransactionForm = (props) => {
 							data={props.category.filter(c => c.type === parseInt(transactionType))}
 							hasNested
 							labelKey={'name'}
+							hasResetBtn
 						/>
 					</div>
 				</div>
@@ -94,6 +126,7 @@ const CreateTransactionForm = (props) => {
 							component={Select}
 							data={props.contragent}
 							labelKey={'title'}
+							hasResetBtn
 						/>
 					</div>
 				</div>
@@ -106,6 +139,7 @@ const CreateTransactionForm = (props) => {
 							component={Select}
 							data={props.project}
 							labelKey={'title'}
+							hasResetBtn
 						/>
 					</div>
 				</div>
@@ -114,7 +148,7 @@ const CreateTransactionForm = (props) => {
 					<label>Description</label>
 					<div className={'transaction-group_input'}>
 						<Field
-							name={'description'}
+							name={'comment'}
 							component={TextAreaField}
 						/>
 					</div>
@@ -122,8 +156,10 @@ const CreateTransactionForm = (props) => {
 
 			</div>
 			<div className={Classes.DRAWER_FOOTER}>
-				<Button>Cancel</Button>
-				<Button>Create</Button>
+				<div className={'transaction-create_actions'}>
+					<button type={'button'} className={'transaction-create_btn'} onClick={props.closeDrawer}>Cancel</button>
+					<button type={'button'} className={'transaction-create_btn transaction-create_btn__success'} onClick={() => props.createTransaction(transactionType)}>Create</button>
+				</div>
 			</div>
 		</>
 	);
@@ -133,13 +169,21 @@ const mapStateToProps = createStructuredSelector({
 	category: makeSelectCategory(),
 	contragent: makeSelectContragent(),
 	project: makeSelectProject(),
+	currency: makeSelectCurrency(),
 });
+
+const mapDispatchToProps = {
+	createTransaction,
+	changeField,
+};
 
 export default reduxForm({
 	form: 'transaction',
 	initialValues: {
 		registered_at: getUnixTime(new Date()),
 		sum: '0',
+		currency: 1,
 	},
+	validate,
 	destroyOnUnmount: false,
-})(connect(mapStateToProps)(memo(CreateTransactionForm)));
+})(connect(mapStateToProps, mapDispatchToProps)(memo(CreateTransactionForm)));

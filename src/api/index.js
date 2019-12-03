@@ -29,17 +29,22 @@ api.refreshToken = token => http.post('/session/refresh', { refreshToken: token 
 api.getWorkspaceList = () => http.get('/workspace');
 api.getCurrencyList = () => http.get('/currency');
 api.getMe = () => http.get('/me');
-api.getCategoryList = (wsid) => http.get(`/workspace/${wsid}/category`); // todo add query
-api.getProjectList = (wsid) => http.get(`/workspace/${wsid}/project`); // todo add query
-api.getContragentList = (wsid) => http.get(`/workspace/${wsid}/contragent`); // todo add query
-api.getTransactionList = (wsid, query = '') => http.get(`/workspace/${wsid}/transaction${query}`); // todo add query
+
+api.getCategoryList = (workspace_id) => http.get(`/workspace/${workspace_id}/category`); // todo add query
+api.getProjectList = (workspace_id) => http.get(`/workspace/${workspace_id}/project`); // todo add query
+api.getContragentList = (workspace_id) => http.get(`/workspace/${workspace_id}/contragent`); // todo add query
+api.getTransactionList = (workspace_id, query = '') => http.get(`/workspace/${workspace_id}/transaction${query}`); // todo add query
+
+api.createTransaction = (workspace_id, data) => http.post(`/workspace/${workspace_id}/transaction`, { ...data });
 
 const refreshAuthLogic = failedRequest => {
 	const refresh_token = Cookie.get('refresh_token');
 
 	return api.refreshToken(refresh_token).then(data => {
 		setAuthToken(data.data.data);
+
 		failedRequest.response.config.headers['Authorization'] = `Bearer ${data.data.data.access_token}`;
+
 		return Promise.resolve();
 	});
 };

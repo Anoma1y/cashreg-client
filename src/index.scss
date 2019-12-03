@@ -240,6 +240,20 @@ button {
       width: 100%;
     }
 
+    &_reset {
+      margin-right: 10px;
+
+      svg {
+        font-size: 0.7rem;
+      }
+    }
+
+    &-actions {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+
     button {
       display: flex;
       align-items: center;

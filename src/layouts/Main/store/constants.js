@@ -4,5 +4,6 @@ export const PULL_CURRENCY = 'Home/PULL_CURRENCY';
 export const SET_WORKSPACE = 'Home/SET_WORKSPACE';
 export const SET_READY = 'Home/SET_READY';
 export const PULL_DATA = 'Home/PULL_DATA';
+export const CREATE_TRANSACTION = 'Home/CREATE_TRANSACTION';
 export const SET_CURRENCY = 'Home/SET_CURRENCY';
 export const SET_ACTIVE_WORKSPACE = 'Home/SET_ACTIVE_WORKSPACE';

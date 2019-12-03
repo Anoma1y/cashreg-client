@@ -1,15 +1,81 @@
+.transaction-create {
+  &-header {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    position: relative;
+    border-bottom: 1px solid rgba(16, 22, 26, 0.15);
+    min-height: 55px;
+    padding: 10px 20px;
+  }
+
+  &_title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1rem;
+
+    h1 {
+      font-size: inherit;
+    }
+  }
+
+  &-actions {
+
+  }
+
+  &_btn {
+    font-family: Lato, sans-serif;
+    display: inline-block;
+    background-color: transparent;
+    font-size: 13px;
+    padding: 9px 15px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-left: 1rem;
+    transition: background-color .2s ease-in-out;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:hover {
+      background-color: #d4d4d4;
+    }
+
+    &__success {
+      background-color: #1ab394;
+      font-weight: 700;
+      color: #fff;
+      padding: 7px 30px;
+
+      &:hover {
+        background-color: #189c7d;
+      }
+    }
+  }
+}
+
 .transaction-labels {
   display: flex;
   align-items: center;
+
+  &-group {
+    margin-left: 1rem;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
 
   label {
     font-family: Lato, sans-serif;
     display: inline-block;
     background-color: transparent;
     font-size: 13px;
-    padding: 7px 10px;
+    padding: 7px 12px;
     border-radius: 3px;
-    margin: 0 15px;
+    cursor: pointer;
   }
 
   input[type='radio'] {

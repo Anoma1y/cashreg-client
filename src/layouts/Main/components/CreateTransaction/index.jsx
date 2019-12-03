@@ -18,15 +18,13 @@ const CreateTransaction = () => {
 				enforceFocus={false} // fix suggest select focus
 				hasBackdrop
 				usePortal
-				icon={'join-table'}
-				title={'Add transaction'}
 				onClose={closeDrawer}
-				isOpen
-				// isOpen={transactionIsOpen}
+				// isOpen
+				isOpen={transactionIsOpen}
 				position={Position.RIGHT}
 				size={600}
 			>
-				<CreateTransactionForm />
+				<CreateTransactionForm closeDrawer={closeDrawer} />
 			</Drawer>
 		),
 		[transactionIsOpen],

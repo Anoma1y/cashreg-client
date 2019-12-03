@@ -16,7 +16,9 @@ const Loader = () => <span>Loading...</span>;
 const SigninLoaded = loadable(() => import('containers/Signin'));
 const SignupLoaded = loadable(() => import('containers/Signup'));
 const RestorePasswordLoaded = loadable(() => import('containers/RestorePassword'));
+
 const ProjectLoaded = loadable(() => import('containers/Project'));
+const WorkspaceLoaded = loadable(() => import('containers/Workspace'));
 
 
 const App = () => {
@@ -39,6 +41,7 @@ const App = () => {
 							<Suspense fallback={<Loader />}>
 								<Switch>
 									<Route path={url.home.project.index} component={ProjectLoaded} />
+									<Route path={url.home.workspace.index} component={WorkspaceLoaded} />
 									<Redirect from={url.index} to={url.home.project.index} />
 								</Switch>
 							</Suspense>

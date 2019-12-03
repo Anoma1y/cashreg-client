@@ -2,7 +2,7 @@ import React, { useState, useEffect, memo } from 'react';
 import { Select } from '@blueprintjs/select';
 import { MenuItem, Button } from '@blueprintjs/core';
 import PropTypes from 'prop-types';
-import { ArrowIcon } from 'components/Icons';
+import { ArrowIcon, CloseIcon } from 'components/Icons';
 
 const getCurrentChildrenItem = (data, id) => {
 	const dataLen = data.length;
@@ -63,6 +63,7 @@ const SelectComponent = props => {
 		input,
 		labelKey = 'name',
 		hasNested = false,
+		hasResetBtn = false,
 	} = props;
 
 	const [items, setItems] = useState(data);
@@ -70,6 +71,26 @@ const SelectComponent = props => {
 	useEffect(() => {
 		setItems(data);
 	}, [data]);
+
+	const handleItemSelect = (item, id) => {
+		input.onChange(id);
+	};
+
+	const handleReset = (e) => {
+		e.stopPropagation();
+		input.onChange(null);
+	};
+
+	const id = parseInt(input.value);
+	const currentItem = hasNested ? getCurrentChildrenItem(data, id) : getCurrentItem(data, id);
+
+	const handleQueryChange = query => {
+		if (query === '') {
+			return setItems(data);
+		}
+
+		return setItems(hasNested ? findChildrenItems(data, query, labelKey) : findItems(data, query, labelKey));
+	};
 
 	const renderItem = (item, { modifiers, handleClick }) => {
 		if (!modifiers.matchesPredicate) {
@@ -106,20 +127,11 @@ const SelectComponent = props => {
 		);
 	};
 
-	const handleItemSelect = (item, id) => {
-		input.onChange(id);
-	};
-
-	const id = parseInt(input.value);
-	const currentItem = hasNested ? getCurrentChildrenItem(data, id) : getCurrentItem(data, id);
-
-	const handleQueryChange = query => {
-		if (query === '') {
-			return setItems(data);
-		}
-
-		return setItems(hasNested ? findChildrenItems(data, query, labelKey) : findItems(data, query, labelKey));
-	};
+	const renderReset = () => (
+		<div onClick={handleReset} className={'form_extended-select_reset'}>
+			<CloseIcon />
+		</div>
+	);
 
 	return (
 		<div className={'form-group'}>
@@ -134,7 +146,10 @@ const SelectComponent = props => {
 			>
 				<button type={'button'}>
 					<span>{currentItem ? currentItem[labelKey] : '(No selection)'}</span>
-					<ArrowIcon />
+					<div className={'form_extended-select-actions'}>
+						{hasResetBtn && renderReset()}
+						<ArrowIcon />
+					</div>
 				</button>
 			</Select>
 		</div>

@@ -1,8 +1,13 @@
-import { put, call, takeLatest } from 'redux-saga/effects';
+import { put, call, select, takeLatest } from 'redux-saga/effects';
 import Cookie from 'utils/cookie';
 import Api from 'api';
-import { PULL_DATA } from './constants';
+import { PULL_DATA, CREATE_TRANSACTION } from './constants';
 import { setUser, setCurrency, setWorkspace, setActiveWorkspace, setReady } from './actions';
+import { removeEmpty } from 'utils/helpers';
+import { amountToInteger, toInt } from 'utils/amount';
+import { getUnixTime, fromUnixTime } from 'date-fns';
+import { AppToater } from 'components/Toaster';
+import { Intent } from '@blueprintjs/core';
 
 export function* getUser() {
 	try {
@@ -52,6 +57,40 @@ export function* getWorkspace() {
 	}
 }
 
+export function* createTransaction({ transactionType }) {
+	const form = yield select(state => state.form.transaction);
+
+	const {
+		syncErrors,
+		values,
+	} = form;
+
+	try {
+		if (syncErrors || !values) {
+			AppToater.show({ message: 'Fill in all required fields', intent: Intent.WARNING });
+			return;
+		}
+		const active_workspace_id = Cookie.get('active_workspace');
+
+		const data = removeEmpty({
+			type: toInt(transactionType),
+			sum: amountToInteger(values.sum),
+			category_id: toInt(values.category),
+			currency_id: toInt(values.currency),
+			contragent_id: toInt(values.contragent),
+			project_id: toInt(values.project),
+			registered_at: values.registered_at,
+			comment: values.comment,
+		});
+
+		yield call(Api.createTransaction, active_workspace_id, data);
+		// AppToater.show({ message: 'Transaction has been created', intent: Intent.SUCCESS });
+
+	} catch (e) {
+		console.error(e)
+	}
+}
+
 export function* getData() {
 	try {
 		yield call(getCurrency);
@@ -66,4 +105,5 @@ export function* getData() {
 
 export default function* homeSaga() {
 	yield takeLatest(PULL_DATA, getData);
+	yield takeLatest(CREATE_TRANSACTION, createTransaction);
 }

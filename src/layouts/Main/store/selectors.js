@@ -42,7 +42,7 @@ export const makeSelectActiveWorkspace = () =>
 export const makeSelectActiveWorkspaceName = () =>
 	createSelector(
 		selectHome,
-		state => (state.active_workspace.is_personal ? 'Personal' : state.active_workspace.name),
+		state => (state.active_workspace.is_personal ? 'Personal Workspace' : state.active_workspace.name),
 	);
 
 export const makeSelectUserInfo = () =>

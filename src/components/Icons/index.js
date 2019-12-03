@@ -12,6 +12,7 @@ import TransactionType from './TransactionType';
 import Search from './Search';
 import Filter from './Filter';
 import Arrow from './Arrow';
+import Close from './Close';
 
 export {
 	Overview as OverviewIcon,
@@ -28,4 +29,5 @@ export {
 	Search as SearchIcon,
 	Filter as FilterIcon,
 	Arrow as ArrowIcon,
+	Close as CloseIcon,
 };
