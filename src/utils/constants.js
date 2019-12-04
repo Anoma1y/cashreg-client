@@ -26,6 +26,7 @@ export const url = {
 		},
 		project: {
 			index: '/project',
+			single: '/project/:project_id',
 		},
 		transaction: {
 			index: '/transaction',

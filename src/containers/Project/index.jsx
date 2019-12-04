@@ -1,20 +1,14 @@
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import List from './containers/List';
+import Single from './containers/Single';
+import { url } from 'utils/constants';
 
-const Project = () => {
-	const [count, increment] = React.useState(0)
-	React.useEffect(() => {
-		console.log('project mount')
-		return () => {
-			console.log('project unmount')
-		}
-	}, [])
-	console.log('project update')
-	return (
-		<div>
-			<h1>Project</h1>
-			<button onClick={() => increment(count + 1)}>{count}</button>
-		</div>
-	)
-}
+const Project = () => (
+	<Switch>
+		<Route exact path={url.home.project.index} component={List} />
+		<Route path={url.home.project.single} component={Single} />
+	</Switch>
+)
 
 export default Project;

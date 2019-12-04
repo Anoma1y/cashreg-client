@@ -20,6 +20,33 @@ export const makeSelectFilter = () =>
 		state => state.filter,
 	);
 
+export const makeSelectFilterStatus = () =>
+	createSelector(
+		selectProject,
+		state => state.filter.status,
+	);
+
+export const makeSelectFilterContragent = () =>
+	createSelector(
+		selectProject,
+		state => state.filter.contragent,
+	);
+
+export const makeSelectFilterSearch = () =>
+	createSelector(
+		selectProject,
+		state => state.filter.search,
+	);
+
+export const makeSelectFilterDate = () =>
+	createSelector(
+		selectProject,
+		state => ({
+			from: state.filter.date_from,
+			to: state.filter.date_to,
+		}),
+	);
+
 export const makeSelectProjectOrder = () =>
 	createSelector(
 		selectProject,

@@ -10,7 +10,7 @@ import {
 export const INITIAL_STATE = {
 	filter: {
 		status: null,
-		type: null,
+		contragent: [],
 		search: '',
 	},
 	project_order: [
