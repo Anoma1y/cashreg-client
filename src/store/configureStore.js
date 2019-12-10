@@ -1,15 +1,13 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import { routerMiddleware as createRouterMiddleware } from 'connected-react-router';
-import createSagaMiddleware from 'redux-saga';
+import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import history from './history';
 import createReducer from './reducers';
 
-const reduxSagaMonitorOptions = {};
-const sagaMiddleware = createSagaMiddleware(reduxSagaMonitorOptions);
 const routerMiddleware = createRouterMiddleware(history);
 
-let middlewares = [routerMiddleware, sagaMiddleware];
+let middlewares = [thunkMiddleware, routerMiddleware];
 let enchancers = [];
 const initialState = {};
 
@@ -41,22 +39,6 @@ const store = createStore(
 		...enchancers,
 	),
 );
-
-// import contragentsSaga from 'containers/Contragent/store/saga';
-// import categoriesSaga from 'containers/Category/store/saga';
-// import projectsSaga from 'containers/Project/store/saga';
-// import homeSaga from 'layouts/Main/store/saga';
-// import transactionsSaga from 'containers/Transaction/store/saga';
-//
-// sagaMiddleware.run(contragentsSaga);
-// sagaMiddleware.run(categoriesSaga);
-// sagaMiddleware.run(projectsSaga);
-// sagaMiddleware.run(homeSaga);
-// sagaMiddleware.run(transactionsSaga);
-
-// store.runSaga = sagaMiddleware.run;
-// store.injectedReducers = {};
-// store.injectedSagas = {};
 
 if (module.hot) {
 	module.hot.accept('./reducers', () => {
