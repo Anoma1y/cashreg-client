@@ -29,7 +29,7 @@ export const makeSelectFilterStatus = () =>
 export const makeSelectFilterContragent = () =>
 	createSelector(
 		selectProject,
-		state => state.filter.contragent,
+		state => state.filter.contragent_id,
 	);
 
 export const makeSelectFilterSearch = () =>
@@ -50,13 +50,19 @@ export const makeSelectFilterDate = () =>
 export const makeSelectProjectOrder = () =>
 	createSelector(
 		selectProject,
-		state => state.project_order,
+		state => state.order,
 	);
 
 export const makeSelectReady = () =>
 	createSelector(
 		selectProject,
 		state => state.ready,
+	);
+
+export const makeSelectLoading = () =>
+	createSelector(
+		selectProject,
+		state => state.loading,
 	);
 
 export const makeSelectProject = () =>
@@ -70,9 +76,14 @@ export const makeSelectFormattedProject = () =>
 		selectProject,
 		state => state.project.map(project => ({
 			...project,
-			start_date_formatted: formatDate(project.start_date * 1000, 'dd.MM.yyyy'),
-			end_date_formatted: formatDate(project.end_date * 1000, 'dd.MM.yyyy'),
-			contragent_title: project.contragent ? project.contragent.title : '-',
+			formated_date: {
+				start: project.start_date ? formatDate(project.start_date * 1000, 'dd.MM.yyyy') : '-',
+				end: project.end_date ? formatDate(project.end_date * 1000, 'dd.MM.yyyy') : '-',
+			},
+			contragent: {
+				title: project.contragent ? project.contragent.title : '-',
+				id: project.contragent.id,
+			},
 			status: getProjectStatus(project),
 		})),
 	);

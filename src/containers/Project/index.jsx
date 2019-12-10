@@ -7,8 +7,8 @@ import { url } from 'utils/constants';
 const Project = () => (
 	<Switch>
 		<Route exact path={url.home.project.index} component={List} />
-		<Route path={url.home.project.single} component={Single} />
+		<Route path={url.home.project.singleRoute} component={Single} />
 	</Switch>
-)
+);
 
 export default Project;

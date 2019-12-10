@@ -30,10 +30,21 @@ api.getWorkspaceList = () => http.get('/workspace');
 api.getCurrencyList = () => http.get('/currency');
 api.getMe = () => http.get('/me');
 
-api.getCategoryList = (workspace_id) => http.get(`/workspace/${workspace_id}/category`); // todo add query
-api.getProjectList = (workspace_id) => http.get(`/workspace/${workspace_id}/project`); // todo add query
-api.getContragentList = (workspace_id) => http.get(`/workspace/${workspace_id}/contragent`); // todo add query
-api.getTransactionList = (workspace_id, query = '') => http.get(`/workspace/${workspace_id}/transaction${query}`); // todo add query
+api.getCategoryList = function (workspace_id, query = '') {
+	return http.get(`/workspace/${workspace_id}/category${query}`);
+};
+
+api.getProjectList = function (workspace_id, query = '') {
+	return http.get(`/workspace/${workspace_id}/project${query}`);
+};
+
+api.getContragentList = function (workspace_id, query = '') {
+	return http.get(`/workspace/${workspace_id}/contragent${query}`);
+};
+
+api.getTransactionList = function (workspace_id, query = '') {
+	return http.get(`/workspace/${workspace_id}/transaction${query}`);
+};
 
 api.createTransaction = (workspace_id, data) => http.post(`/workspace/${workspace_id}/transaction`, { ...data });
 

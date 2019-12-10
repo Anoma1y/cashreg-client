@@ -4,19 +4,26 @@ import {
 	SET_READY,
 	SET_PROJECT,
 	CHANGE_FILTER_DATE_RANGE,
-	SET_PROJECT_ORDER,
+	SET_ORDER,
+	SET_LOADING,
 } from './constants';
+import { subMonths } from 'date-fns';
+
+const currentDate = new Date();
 
 export const INITIAL_STATE = {
 	filter: {
+		date_from: subMonths(currentDate, 12),
+		date_to: null,
 		status: null,
-		contragent: [],
+		contragent_id: [],
 		search: '',
 	},
-	project_order: [
+	order: [
 		['id', 'desc'],
 	],
 	ready: false,
+	loading: false,
 	project: [],
 };
 
@@ -24,8 +31,8 @@ const HANDLERS = {
 	[CHANGE_FILTER]: (draft, payload) => {
 		draft.filter[payload.key] = payload.value;
 	},
-	[SET_PROJECT_ORDER]: (draft, payload) => {
-		draft.project_order = payload;
+	[SET_ORDER]: (draft, payload) => {
+		draft.order = payload;
 	},
 	[CHANGE_FILTER_DATE_RANGE]: (draft, payload) => {
 		draft.filter.date_from = payload.from;
@@ -33,6 +40,9 @@ const HANDLERS = {
 	},
 	[SET_READY]: (draft, payload) => {
 		draft.ready = payload;
+	},
+	[SET_LOADING]: (draft, payload) => {
+		draft.loading = payload;
 	},
 	[SET_PROJECT]: (draft, payload) => {
 		draft.project = payload;

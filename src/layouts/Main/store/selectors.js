@@ -9,6 +9,12 @@ export const makeSelectReady = () =>
 		state => state.ready,
 	);
 
+export const makeSelectLoading = () =>
+	createSelector(
+		selectHome,
+		state => state.ready,
+	);
+
 export const makeSelectUser = () =>
 	createSelector(
 		selectHome,

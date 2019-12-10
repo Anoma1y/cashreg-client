@@ -7,7 +7,6 @@ import './index.scss';
 import { format as dateFormat } from 'date-fns';
 
 const HeaderFilterDate = props => {
-	console.log(props)
 	const {
 		date,
 		title = 'Date',

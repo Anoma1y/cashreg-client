@@ -3,15 +3,19 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
 import { makeSelectContragent } from 'containers/Contragent/store/selectors';
-import { makeSelectFilterContragent } from '../../store/selectors';
-import { changeFilter } from '../../store/actions';
 import MultiSelect from 'components/MultiSelect';
+import { makeSelectFilterContragent } from '../../store/selectors';
+import { changeFilter, applyAndSetProjectFilter } from '../../store/actions';
 
 const SidebarFilter = (props) => {
 	const {
 		contragent,
 		selectContragent,
 	} = props;
+
+	const handleChangeFilter = (key, val) => {
+		props.applyAndSetProjectFilter(key, val);
+	};
 
 	return (
 		<>
@@ -21,8 +25,8 @@ const SidebarFilter = (props) => {
 				<MultiSelect
 					selectItems={selectContragent}
 					data={contragent}
-					changeFilter={props.changeFilter}
-					filterKey={'contragent'}
+					changeFilter={handleChangeFilter}
+					filterKey={'contragent_id'}
 					labelKey={'title'}
 				/>
 			</div>
@@ -43,6 +47,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = {
 	changeFilter,
+	applyAndSetProjectFilter,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(memo(SidebarFilter));

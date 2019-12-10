@@ -2,6 +2,7 @@ import {
 	SET_USER,
 	PULL_DATA,
 	SET_READY,
+	SET_LOADING,
 	SET_CURRENCY,
 	PULL_CURRENCY,
 	CREATE_TRANSACTION,
@@ -19,6 +20,8 @@ export const setCurrency = value => ({ type: SET_CURRENCY, payload: value });
 export const setActiveWorkspace = value => ({ type: SET_ACTIVE_WORKSPACE, payload: value });
 
 export const setReady = value => ({ type: SET_READY, payload: value });
+
+export const setLoading = value => ({ type: SET_LOADING, payload: value });
 
 export const pullHomeData = () => ({ type: PULL_DATA });
 

@@ -3,6 +3,7 @@ export const PULL_USER = 'Home/PULL_USER';
 export const PULL_CURRENCY = 'Home/PULL_CURRENCY';
 export const SET_WORKSPACE = 'Home/SET_WORKSPACE';
 export const SET_READY = 'Home/SET_READY';
+export const SET_LOADING = 'Home/SET_LOADING';
 export const PULL_DATA = 'Home/PULL_DATA';
 export const CREATE_TRANSACTION = 'Home/CREATE_TRANSACTION';
 export const SET_CURRENCY = 'Home/SET_CURRENCY';

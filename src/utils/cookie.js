@@ -15,6 +15,8 @@ class CookieService {
 		});
 	};
 
+	static remove = key => Cookie.remove(key);
+
 	static removeAll = () => {
 		Object.keys(Cookie.get()).forEach(cookie => {
 			Cookie.remove(cookie);

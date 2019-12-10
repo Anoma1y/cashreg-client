@@ -1,13 +1,14 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
+import Cookie from 'utils/cookie';
 // import WithAuth from 'components/WithAuth';
 import { animated } from 'react-spring';
 import SiteLoader from 'components/SiteLoader';
 import PropTypes from 'prop-types';
 import Sidebar, { useSidebar } from './components/Sidebar';
 import Header from './components/Header';
-import { pullHomeData } from './store/actions';
+import { pullHomeData, setReady } from './store/actions';
 import { pullCategoryData } from 'containers/Category/store/actions';
 import { pullProjectData } from 'containers/Project/store/actions';
 import { pullContragentData } from 'containers/Contragent/store/actions';
@@ -38,14 +39,19 @@ const Home = props => {
 	const mainState = useMain();
 
 	useEffect(() => {
+		Cookie.set('init_page', window.location.pathname.replace(/\//g, ''));
 		props.pullHomeData();
+
+		return () => {
+			props.setReady(false); // todo чистить стейт полностью после логаута
+		}
 	}, []);
 
 	useEffect(() => {
 		if (ready) {
-			props.pullCategoryData();
-			props.pullProjectData();
-			props.pullContragentData();
+			props.pullCategoryData({ isInit: true });
+			props.pullProjectData({ isInit: true });
+			props.pullContragentData({ isInit: true });
 		}
 	}, [ready]);
 
@@ -88,6 +94,7 @@ const mapDispatchToProps = {
 	pullCategoryData,
 	pullProjectData,
 	pullContragentData,
+	setReady,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

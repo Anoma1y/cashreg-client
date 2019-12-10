@@ -3,6 +3,7 @@ import {
 	SET_USER,
 	SET_CURRENCY,
 	SET_READY,
+	SET_LOADING,
 	SET_WORKSPACE,
 	SET_ACTIVE_WORKSPACE,
 } from './constants';
@@ -14,11 +15,15 @@ export const INITIAL_STATE = {
 	active_workspace: null,
 	cash: [],
 	ready: false,
+	loading: true,
 };
 
 const HANDLERS = {
 	[SET_USER]: (draft, payload) => {
 		draft.user = payload;
+	},
+	[SET_LOADING]: (draft, payload) => {
+		draft.loading = payload;
 	},
 	[SET_CURRENCY]: (draft, payload) => {
 		draft.currency = payload;
