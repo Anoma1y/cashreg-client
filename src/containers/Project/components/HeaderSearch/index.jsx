@@ -3,16 +3,20 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SearchIcon } from 'components/Icons';
 import { createStructuredSelector } from 'reselect';
-import { useDebounce } from 'hooks';
+import { useDebounce, useLoading } from 'hooks';
 import { makeSelectFilterSearch } from '../../store/selectors';
-import { changeFilter } from '../../store/actions';
+import { changeFilter, pullProjectData } from '../../store/actions';
 
 const HeaderSearch = (props) => {
 	const {
 		search,
 	} = props;
 
-	const [, cancel] = useDebounce(() => {}, 500, [search]);
+	const [isLoading, load] = useLoading();
+
+	const [, cancel] = useDebounce(() => {
+		load(props.pullProjectData());
+	}, 1000, [search]);
 
 	React.useEffect(() => {
 		cancel();
@@ -29,7 +33,10 @@ const HeaderSearch = (props) => {
 	};
 
 	const handleChangeSearch = (e) => {
+		e.persist();
 		const { value } = e.target;
+
+		if (isLoading) return;
 
 		props.changeFilter('search', value);
 	};
@@ -41,6 +48,7 @@ const HeaderSearch = (props) => {
 				onFocus={handleInputFocus}
 				onBlur={handleInputBlur}
 				onChange={handleChangeSearch}
+				value={search}
 				placeholder={'Search...'}
 			/>
 			<SearchIcon />
@@ -50,6 +58,7 @@ const HeaderSearch = (props) => {
 
 HeaderSearch.propTypes = {
 	search: PropTypes.string.isRequired,
+	pullProjectData: PropTypes.func.isRequired,
 	changeFilter: PropTypes.func.isRequired,
 };
 
@@ -58,6 +67,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = {
+	pullProjectData,
 	changeFilter,
 };
 

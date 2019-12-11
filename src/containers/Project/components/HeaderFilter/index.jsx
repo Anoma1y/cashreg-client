@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -8,13 +8,15 @@ import {
 import { TransactionTypeIcon } from 'components/Icons';
 import { createStructuredSelector } from 'reselect';
 import HeaderFilterDate from 'components/HeaderFilterDate';
+import { useLoading, useDebounce } from 'hooks';
 import {
 	makeSelectFilterStatus,
 	makeSelectFilterDate,
 } from '../../store/selectors';
 import {
-	changeFilter,
 	changeFilterDateRange,
+	pullProjectData,
+	applyAndSetProjectFilter,
 } from '../../store/actions';
 
 const HeaderFilter = (props) => {
@@ -24,18 +26,34 @@ const HeaderFilter = (props) => {
 	} = props;
 
 	const [statusIsOpen, setStatusIsOpen] = React.useState(false);
+	const [isLoading, load] = useLoading();
+
+	const [, cancel] = useDebounce(() => {
+		load(props.pullProjectData());
+	}, 1000, [date.from, date.to]);
+
+	useEffect(() => {
+		cancel();
+	}, []);
+
+
 	const statusLabel = status === 1 ? 'Active' : status === 2 ? 'Archive' : 'All';
 
-	const activeChange = () => props.changeFilter('status', status === 1 ? null : 1);
+	const activeChange = () => props.applyAndSetProjectFilter('status', status === 1 ? null : 1);
 
-	const achiveChange = () => props.changeFilter('status', status === 2 ? null : 2);
+	const achiveChange = () => props.applyAndSetProjectFilter('status', status === 2 ? null : 2);
+
+	const handleChangeDate = (range) => {
+		props.changeFilterDateRange(range[0], range[1]);
+	};
 
 	return (
 		<>
 			<HeaderFilterDate
 				date={date}
+				disabled={isLoading}
 				title={'Activity date'}
-				changeFilterDateRange={props.changeFilterDateRange}
+				onChange={handleChangeDate}
 			/>
 			<div className={'hf-item'}>
 				<TransactionTypeIcon />
@@ -50,11 +68,13 @@ const HeaderFilter = (props) => {
 					<div className={'hf-popover'}>
 						<Checkbox
 							label={'Active'}
+							disabled={isLoading}
 							checked={status === 1}
 							onChange={activeChange}
 						/>
 						<Checkbox
 							label={'Archive'}
+							disabled={isLoading}
 							checked={status === 2}
 							onChange={achiveChange}
 						/>
@@ -72,7 +92,7 @@ HeaderFilter.propTypes = {
 		to: PropTypes.any,
 	}),
 	changeFilterDateRange: PropTypes.func.isRequired,
-	changeFilter: PropTypes.func.isRequired,
+	applyAndSetProjectFilter: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -81,7 +101,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = {
-	changeFilter,
+	applyAndSetProjectFilter,
+	pullProjectData,
 	changeFilterDateRange,
 };
 

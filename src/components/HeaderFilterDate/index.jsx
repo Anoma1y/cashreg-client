@@ -10,7 +10,8 @@ const HeaderFilterDate = props => {
 	const {
 		date,
 		title = 'Date',
-		changeFilterDateRange,
+		disabled,
+		onChange,
 	} = props;
 	const [label, setLabel] = useState('Last month');
 	const [isOpen, setIsOpen] = useState(false);
@@ -24,19 +25,22 @@ const HeaderFilterDate = props => {
 			setLabel(`Since ${dateFormat(date.from, 'dd.MM.yyyy')}`);
 		}
 	}, [date]);
-
-	const handleDateChange = range => changeFilterDateRange(range[0], range[1]);
-
+	
 	// const handleDateShortcatChange = shortcut => {
 	// 	setLabel(shortcut.label);
 	// };
+	const handleOpen = () => {
+		if (disabled) return;
+
+		setIsOpen(true);
+	}
 
 	return (
 		<>
 			<div className={'hf-item'}>
 				<CalendarIcon />
 				<b>{title}</b>
-				<button type={'button'} onClick={() => setIsOpen(true)}>{label}</button>
+				<button type={'button'} onClick={handleOpen}>{label}</button>
 			</div>
 			<Dialog
 				isOpen={isOpen}
@@ -48,7 +52,7 @@ const HeaderFilterDate = props => {
 					allowSingleDayRange
 					value={[date.from, date.to]}
 					// onShortcutChange={handleDateShortcatChange}
-					onChange={handleDateChange}
+					onChange={onChange}
 				/>
 			</Dialog>
 		</>

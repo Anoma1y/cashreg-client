@@ -28,8 +28,13 @@ export const INITIAL_STATE = {
 };
 
 const HANDLERS = {
-	[CHANGE_FILTER]: (draft, payload) => {
-		draft.filter[payload.key] = payload.value;
+	[CHANGE_FILTER]: (draft, payload, state) => {
+		console.log(payload, state)
+		if (typeof payload.key !== 'object') {
+			draft.filter[payload.key] = payload.value;
+		} else {
+			draft.filter = { ...state.filter, ...payload.key };
+		}
 	},
 	[SET_ORDER]: (draft, payload) => {
 		draft.order = payload;

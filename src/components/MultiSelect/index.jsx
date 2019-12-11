@@ -9,6 +9,7 @@ const MultiSelectComponent = props => {
 		selectItems,
 		changeFilter,
 		filterKey,
+		disabled,
 		labelKey,
 		placeholder = null,
 	} = props;
@@ -66,9 +67,11 @@ const MultiSelectComponent = props => {
 
 	return (
 		<MultiSelect
+			className={'multi-select'}
 			fill
 			resetOnSelect
 			items={items}
+			disabled={disabled}
 			itemRenderer={renderItem}
 			tagRenderer={renderTag}
 			onQueryChange={handleQueryChange}
@@ -87,6 +90,7 @@ MultiSelectComponent.propTypes = {
 	changeFilter: PropTypes.func.isRequired,
 	filterKey: PropTypes.string.isRequired,
 	labelKey: PropTypes.string.isRequired,
+	disabled: PropTypes.bool,
 	placeholder: PropTypes.string,
 };
 

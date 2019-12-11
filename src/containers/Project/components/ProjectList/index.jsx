@@ -16,9 +16,9 @@ const ProjectList = ({ project }) => {
 	const renderItem = item => (
 		<Table.Row key={item.id} onClick={() => goToSingle(item.id)}>
 			<Table.Cell>{item.title}</Table.Cell>
+			<Table.Cell>{item.contragent.title}</Table.Cell>
 			<Table.Cell>{item.formated_date.start}</Table.Cell>
 			<Table.Cell>{item.formated_date.end}</Table.Cell>
-			<Table.Cell>{item.contragent.title}</Table.Cell>
 			<Table.Cell>{item.status}</Table.Cell>
 		</Table.Row>
 	);
@@ -28,9 +28,9 @@ const ProjectList = ({ project }) => {
 			<Table.Header>
 				<Table.Row>
 					<Table.HeaderCell>Title</Table.HeaderCell>
+					<Table.HeaderCell>Contragent</Table.HeaderCell>
 					<Table.HeaderCell>Start Date</Table.HeaderCell>
 					<Table.HeaderCell>End Date</Table.HeaderCell>
-					<Table.HeaderCell>Contragent</Table.HeaderCell>
 					<Table.HeaderCell>Status</Table.HeaderCell>
 				</Table.Row>
 			</Table.Header>

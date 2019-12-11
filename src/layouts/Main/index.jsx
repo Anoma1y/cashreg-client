@@ -61,7 +61,7 @@ const Home = props => {
 				{children}
 			</animated.main>
 
-			{/*<CreateTransaction />*/}
+			<CreateTransaction />
 		</Context.Provider>
 	);
 };
