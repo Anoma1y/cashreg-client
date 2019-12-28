@@ -13,13 +13,17 @@ $positive-color: #16c46f;
   font-family: Lato, sans-serif;
   cursor: default;
 
-  & thead th {
-    font-size: 13px;
-    line-height: 16px;
-    letter-spacing: 0.2px;
-    color: #A4AFB7;
-    background-color: #FCFBFC;
-    padding: $th-pad;
+  & thead {
+    & th {
+      font-size: 13px;
+      line-height: 16px;
+      letter-spacing: 0.2px;
+      color: #A4AFB7;
+      background-color: #FCFBFC;
+      padding: $th-pad;
+      position: sticky;
+      top: 0;
+    }
   }
 
   & tbody tr {
@@ -43,4 +47,8 @@ $positive-color: #16c46f;
       color: $negative-color;
     }
   }
+}
+
+.pointer {
+  cursor: pointer;
 }

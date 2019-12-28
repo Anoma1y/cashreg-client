@@ -1,32 +1,32 @@
 import React, { useState, useEffect, memo } from 'react';
 import { useLocalStorage } from 'hooks';
 import HeaderFilter from './HeaderFilter';
-import SidebarFilter from './SidebarFilter';
+import SidebarFilterContainer from './SidebarFilter';
 import './index.scss';
 
 const TableWrapper = (props) => {
 	const {
-		lsKey,
-		headerLeftContent,
-		headerRightContent,
+		// lsKey,
+		HeaderLeftContent,
+		HeaderRightContent,
 		header,
-		sidebarFilter,
+		SidebarFilter,
 		children,
 	} = props;
 	const [filterIsOpen, setFilterIsOpen] = useState(false);
-	const [persistedState] = useLocalStorage(lsKey);
+	// const [persistedState] = useLocalStorage(lsKey);
 
-	useEffect(() => {
-		localStorage.setItem(lsKey, JSON.stringify({ isOpen: filterIsOpen }));
-	}, [filterIsOpen]);
+	// useEffect(() => {
+	// 	localStorage.setItem(lsKey, JSON.stringify({ isOpen: filterIsOpen }));
+	// }, [filterIsOpen]);
 
-	useEffect(() => {
-		setFilterIsOpen(persistedState ? persistedState.isOpen : false);
-	}, [setFilterIsOpen, persistedState]);
+	// useEffect(() => {
+	// 	setFilterIsOpen(persistedState ? persistedState.isOpen : false);
+	// }, [setFilterIsOpen, persistedState]);
 
 	const toggleFilterOpen = () => setFilterIsOpen(!filterIsOpen);
 	const contentWidth = filterIsOpen ? 'calc(100% - 232px - 1rem)' : '100%';
-	console.log('update table wrapper')
+
 	return (
 		<div className={'table-wrapper'}>
 			<div
@@ -35,22 +35,22 @@ const TableWrapper = (props) => {
 					width: contentWidth,
 				}}
 			>
-				{header && (
+				{(HeaderLeftContent || HeaderRightContent) && (
 					<HeaderFilter
 						toggleFilterOpen={toggleFilterOpen}
-						leftContent={headerLeftContent}
-						rightContent={headerRightContent}
+						leftContent={<HeaderLeftContent />}
+						rightContent={<HeaderRightContent />}
 					>
-						{header}
+						{/*{header}*/}
 					</HeaderFilter>
 				)}
 				{children}
 			</div>
 
-			{sidebarFilter && (
-				<SidebarFilter isOpen={filterIsOpen}>
-					{sidebarFilter}
-				</SidebarFilter>
+			{SidebarFilter && (
+				<SidebarFilterContainer isOpen={filterIsOpen}>
+					{<SidebarFilter />}
+				</SidebarFilterContainer>
 			)}
 		</div>
 	);

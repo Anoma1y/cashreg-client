@@ -25,7 +25,7 @@ const HeaderFilterDate = props => {
 			setLabel(`Since ${dateFormat(date.from, 'dd.MM.yyyy')}`);
 		}
 	}, [date]);
-	
+
 	// const handleDateShortcatChange = shortcut => {
 	// 	setLabel(shortcut.label);
 	// };

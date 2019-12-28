@@ -82,7 +82,7 @@ export const makeSelectFormattedProject = () =>
 			},
 			contragent: {
 				title: project.contragent ? project.contragent.title : '-',
-				id: project.contragent.id,
+				id: project.contragent && project.contragent.id,
 			},
 			status: getProjectStatus(project),
 		})),

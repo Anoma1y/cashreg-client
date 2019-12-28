@@ -19,9 +19,7 @@ export const INITIAL_STATE = {
 		contragent_id: [],
 		search: '',
 	},
-	order: [
-		['id', 'desc'],
-	],
+	order: {},
 	ready: false,
 	loading: false,
 	project: [],
@@ -29,7 +27,6 @@ export const INITIAL_STATE = {
 
 const HANDLERS = {
 	[CHANGE_FILTER]: (draft, payload, state) => {
-		console.log(payload, state)
 		if (typeof payload.key !== 'object') {
 			draft.filter[payload.key] = payload.value;
 		} else {

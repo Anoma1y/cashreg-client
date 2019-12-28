@@ -50,6 +50,7 @@
     "import/prefer-default-export": 0,
     "import/no-unresolved": "off",
     "import/no-cycle": "off",
+    "import/extensions": "off",
 
     // react
     "react/sort-comp": "off",

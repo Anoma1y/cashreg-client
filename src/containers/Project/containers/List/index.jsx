@@ -3,10 +3,10 @@ import { useLocalStorage } from 'hooks';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import Cookie from 'utils/cookie';
-import { pullProject, pullProjectData } from '../../store/actions';
 import { makeSelectReady } from 'layouts/Main/store/selectors';
 
 import TableWrapper from 'components/TableWrapper';
+import { pullProject, pullProjectData } from '../../store/actions';
 import ProjectList from '../../components/ProjectList';
 
 import HeaderSearch from '../../components/HeaderSearch';
@@ -24,10 +24,9 @@ const List = (props) => {
 	return (
 		<TableWrapper
 			lsKey={'project-filter'}
-			header
-			headerLeftContent={<HeaderFilter />}
-			headerRightContent={<HeaderSearch />}
-			sidebarFilter={<SidebarFilter />}
+			HeaderLeftContent={HeaderFilter}
+			HeaderRightContent={HeaderSearch}
+			SidebarFilter={SidebarFilter}
 		>
 			<ProjectList />
 		</TableWrapper>

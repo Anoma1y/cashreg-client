@@ -29,8 +29,7 @@ const Signin = ({ form }) => {
 			const data = await setLoad(Api.signin({ email, password }));
 
 			setAuthToken(data.data.data, rememberMe);
-			// setIsAuth(true);
-			history.replace(url.index)
+			history.replace(url.index);
 		} catch (err) {
 			if (err.response.status === Api.codes.UNAUTHORIZED) {
 				AppToater.show({ message: 'Invalid email or password', intent: Intent.DANGER });

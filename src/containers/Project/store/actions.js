@@ -54,11 +54,11 @@ export function pullProjectData(opt = {}) {
 		const pureFilter = removeEmpty(filter);
 
 		if (pureFilter.date_from) {
-			pureFilter.date_from = getUnixTime(pureFilter.date_from);
+			pureFilter.start_date = getUnixTime(pureFilter.date_from);
 		}
 
 		if (pureFilter.date_to) {
-			pureFilter.date_to = getUnixTime(pureFilter.date_to);
+			pureFilter.end_date = getUnixTime(pureFilter.date_to);
 		}
 
 		Object.keys(pureFilter).forEach((item) => {

@@ -1,21 +1,26 @@
 import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import { useValueAndKey, getUnhandledProps } from 'utils/ui';
+import { useValueAndKey, useKeyOnly, getUnhandledProps } from 'utils/ui';
 
 const TableHeaderCell = props => {
-	const { className, sorted } = props;
+	const { className, sorted, onClick } = props;
 
-	const classes = cx(useValueAndKey(sorted, 'sorted'), className);
+	const classes = cx(
+		useValueAndKey(sorted, 'sorted'),
+		useKeyOnly(onClick, 'pointer'),
+		className,
+	);
 
 	const restProps = getUnhandledProps(TableHeaderCell, props);
 
-	return <th {...restProps} className={classes} />;
+	return <th {...restProps} onClick={onClick} className={classes} />;
 };
 
 TableHeaderCell.propTypes = {
 	className: PropTypes.string,
-	sorted: PropTypes.oneOf(['asc', 'desc']),
+	onClick: PropTypes.func,
+	sorted: PropTypes.oneOf(['ascending', 'descending']),
 };
 
 export default TableHeaderCell;

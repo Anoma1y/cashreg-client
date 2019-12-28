@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext, memo } from 'react';
 import cx from 'classnames';
 import { useSpring, animated, to } from 'react-spring';
-import { useDrag } from 'react-use-gesture';
 import { useWindowSize, useLocalStorage } from 'hooks';
 import {
 	TransactionsIcon,
@@ -20,8 +19,6 @@ import SidebarFooter from './Footer';
 import './index.scss';
 
 const LS_KEY = 'sidebarState';
-const VELOCITY_THRESHOLD = 0.05; // how fast the swipe is
-const DIRECTION_THRESHOLD = 0.4; // how straight the swipe is
 const MOBILE_BREAKPOINT = 768;
 const SIDEBAR_WIDTH = 238;
 
@@ -56,15 +53,6 @@ export const useSidebar = () => {
 
 	const toggleSidebar = () => setIsOpen(!isOpen);
 
-	const dragSidebar = useDrag(({ direction, velocity, last }) => {
-		if (direction[0] < -DIRECTION_THRESHOLD && last && velocity > VELOCITY_THRESHOLD) {
-			setIsOpen(false);
-		}
-		if (direction[0] > DIRECTION_THRESHOLD && last && velocity > VELOCITY_THRESHOLD) {
-			setIsOpen(true);
-		}
-	});
-
 	const sidebarStyle = useSpring({
 		translate: [isOpen ? 0 : isMobile ? -sidebarWidth : -(sidebarWidth - 48)],
 	});
@@ -83,7 +71,6 @@ export const useSidebar = () => {
 		sidebarWidth,
 		style,
 		mainStyle,
-		dragSidebar,
 	};
 };
 
@@ -91,7 +78,6 @@ const Sidebar = () => {
 	const {
 		style,
 		toggleSidebar,
-		dragSidebar,
 		sidebarWidth,
 		isOpen,
 		setTransactionIsOpen,
@@ -100,7 +86,6 @@ const Sidebar = () => {
 
 	return (
 		<animated.div
-			{...dragSidebar()}
 			className={classes}
 			style={{
 				...style,

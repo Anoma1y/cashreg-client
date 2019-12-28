@@ -157,8 +157,18 @@ const CreateTransactionForm = (props) => {
 			</div>
 			<div className={Classes.DRAWER_FOOTER}>
 				<div className={'transaction-create_actions'}>
-					<button type={'button'} className={'transaction-create_btn'} onClick={props.closeDrawer}>Cancel</button>
-					<button type={'button'} className={'transaction-create_btn transaction-create_btn__success'} onClick={() => props.createTransaction(transactionType)}>Create</button>
+					<button
+						type={'button'}
+						className={'transaction-create_btn'}
+						onClick={props.closeDrawer}
+					>Cancel
+					</button>
+					<button
+						type={'button'}
+						className={'transaction-create_btn transaction-create_btn__success'}
+						onClick={() => props.createTransaction(transactionType)}
+					>Create
+					</button>
 				</div>
 			</div>
 		</>
