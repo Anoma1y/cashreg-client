@@ -41,7 +41,7 @@ export const url = {
 	},
 };
 
-export const tokenInfo = {
+export const TOKEN_CONSTANT = {
 	auth_store: 'cookie',
 	access_token_key: 'access_token',
 	refresh_token_key: 'refresh_token',
