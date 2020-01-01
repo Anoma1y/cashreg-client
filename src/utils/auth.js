@@ -32,15 +32,15 @@ export function logout() {
 	history.replace('/auth/signin');
 }
 
-const isTokenExpired = expires_at => new Date(expires_at * 1000) < new Date();
+export const isTokenExpired = expires_at => new Date(expires_at) < new Date();
 
-const getToken = () => {
+export function getToken() {
 	if (TOKEN_CONSTANT.auth_store === TOKEN_CONSTANT.auth_store_cookie) {
 		return Cookie.get(TOKEN_CONSTANT.access_token_key);
 	}
 
 	return Storage.getItem(TOKEN_CONSTANT.access_token_key);
-};
+}
 
 export function checkToken() {
 	let token = getToken();
@@ -50,7 +50,7 @@ export function checkToken() {
 	if (TOKEN_CONSTANT.auth_store === TOKEN_CONSTANT.auth_store_local) {
 		token = token[TOKEN_CONSTANT.access_token_key];
 		hasToken = !!token && !!token[TOKEN_CONSTANT.access_token_key];
-		isTokenExpires = isTokenExpired(token[TOKEN_CONSTANT.expires_token_key]);
+		isTokenExpires = isTokenExpired(token[TOKEN_CONSTANT.expires_token_key] * 1000);
 	} else if (TOKEN_CONSTANT.auth_store === TOKEN_CONSTANT.auth_store_cookie) {
 		hasToken = !!token;
 	}

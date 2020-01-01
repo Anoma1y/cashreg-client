@@ -2,11 +2,7 @@ module.exports = {
 	presets: [
 		[
 			'@babel/preset-env', {
-				targets: '> 0.25%, not dead',
 				modules: false,
-				loose: true,
-				useBuiltIns: 'usage',
-				corejs: 3,
 			},
 		],
 		'@babel/preset-react',
@@ -24,6 +20,11 @@ module.exports = {
 				'@babel/plugin-transform-react-constant-elements',
 			],
 		},
-		test: {},
+		test: {
+			plugins: [
+				'@babel/plugin-transform-modules-commonjs',
+				'dynamic-import-node'
+			]
+		},
 	},
 };

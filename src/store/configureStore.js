@@ -2,48 +2,46 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import { routerMiddleware as createRouterMiddleware } from 'connected-react-router';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-import history from './history';
 import createReducer from './reducers';
 
-const routerMiddleware = createRouterMiddleware(history);
+export default (initialState = {}, history) => {
+	const routerMiddleware = createRouterMiddleware(history);
+	let middlewares = [thunkMiddleware, routerMiddleware];
 
-let middlewares = [thunkMiddleware, routerMiddleware];
-let enchancers = [];
-const initialState = {};
+	let composeEnhancers = compose;
 
-if (process.env.NODE_ENV !== 'production') {
-	const logger = createLogger({
-		collapsed: true,
-		duration: true,
-		diff: true,
-		colors: {
-			title: () => '#fff',
-		},
-	});
+	if (process.env.NODE_ENV !== 'production' && typeof window === 'object') {
+		const logger = createLogger({
+			collapsed: true,
+			duration: true,
+			diff: true,
+			colors: {
+				title: () => '#fff',
+			},
+		});
 
-	if (typeof window === 'object') {
-		enchancers = [
-			...enchancers,
-			window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-		];
+		middlewares = [...middlewares, logger];
+
+		if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
+			composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+				shouldHotReload: false,
+			});
+		}
 	}
 
-	middlewares = [...middlewares, logger];
-}
+	const enchancers = [applyMiddleware(...middlewares)];
 
-const store = createStore(
-	createReducer(),
-	initialState,
-	compose(
-		applyMiddleware(...middlewares),
-		...enchancers,
-	),
-);
+	const store = createStore(
+		createReducer(),
+		initialState,
+		composeEnhancers(...enchancers),
+	);
 
-if (module.hot) {
-	module.hot.accept('./reducers', () => {
-		store.replaceReducer(createReducer(store.injectedReducers));
-	});
-}
+	if (module.hot) {
+		module.hot.accept('./reducers', () => {
+			store.replaceReducer(createReducer(store.injectedReducers));
+		});
+	}
 
-export default store;
+	return store;
+};
